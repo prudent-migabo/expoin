@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "961229436757",
+    "project_id": "expoin-94ae4",
+    "storage_bucket": "expoin-94ae4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961229436757:android:4d77ad822097a12fbca1dc",
+        "android_client_info": {
+          "package_name": "com.example.expoin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "961229436757-sm92t25sd3vjvhmfebiirhb85mg6el5f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxCDdCYJGGem-ZV5tnPdb7AqAY0y8SXBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "961229436757-sm92t25sd3vjvhmfebiirhb85mg6el5f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
