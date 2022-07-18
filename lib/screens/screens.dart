@@ -1,0 +1,1 @@
+export 'package:expoin/screens/splash_screen/splash_screen.dart';
