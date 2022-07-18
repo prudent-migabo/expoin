@@ -1,0 +1,1 @@
+export 'package:expoin/screens/register_screen/components/register_components.dart';

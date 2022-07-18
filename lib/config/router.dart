@@ -9,6 +9,8 @@ class AppRouter {
         return SplashScreen.route();
       case LoginScreen.routeName :
         return LoginScreen.route();
+      case RegisterScreen.routeName :
+        return RegisterScreen.route();
       default:
         return _errorRoute();
     }

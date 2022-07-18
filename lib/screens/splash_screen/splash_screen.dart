@@ -1,4 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:expoin/screens/screens.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -13,12 +14,12 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: Center(
-        child: Text("Expoin", style: TextStyle(color: Color(0xff00264d), fontSize: 25),),
+        child: Text("Expoin", style: TextStyle(color: Colors.white, fontSize: 30),),
       ),
-      nextScreen: Container(),
+      nextScreen: LoginScreen(),
       splashTransition: SplashTransition.scaleTransition,
       duration: 3000,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
     );
   }
 }
