@@ -2,11 +2,13 @@ import 'package:expoin/screens/screens.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
-  static Route onGeneratedRoute(RouteSettings settings){
+  static Route onGenerateRoute(RouteSettings settings){
     print(settings.name);
     switch(settings.name){
       case SplashScreen.routeName :
         return SplashScreen.route();
+      case LoginScreen.routeName :
+        return LoginScreen.route();
       default:
         return _errorRoute();
     }

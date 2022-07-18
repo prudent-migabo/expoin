@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: Center(
-        child: Text("Expoin", style: TextStyle(color: Color(0xfff001a33), fontSize: 25),),
+        child: Text("Expoin", style: TextStyle(color: Color(0xff00264d), fontSize: 25),),
       ),
       nextScreen: Container(),
       splashTransition: SplashTransition.scaleTransition,
