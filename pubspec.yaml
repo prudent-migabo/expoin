@@ -36,6 +36,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core:
   animated_splash_screen:
+  firebase_auth:
+  cloud_firestore:
+  provider:
 
 dev_dependencies:
   flutter_test:

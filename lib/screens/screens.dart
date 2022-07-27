@@ -1,3 +1,14 @@
 export 'package:expoin/screens/splash_screen/splash_screen.dart';
 export 'package:expoin/screens/login_screen/login_screen.dart';
 export 'package:expoin/screens/register_screen/register_screen.dart';
+export 'package:expoin/screens/forgotPassword_screen/forgotPassword_screen.dart';
+export 'package:expoin/screens/verifyEmail_screen/verifyEmail_screen.dart';
+export 'package:expoin/screens/home_screen/home_screen.dart';
+export 'package:expoin/screens/crypto_to_mobile_screen/transaction/crypto_to_mobile_screen.dart';
+export 'package:expoin/screens/bottom_navigation_screen/bottom_navigation_screen.dart';
+export 'package:expoin/screens/crypto_to_mobile_screen/transaction/crypto_to_mobile_screen.dart';
+export 'package:expoin/screens/mobile_to_crypto_screen/transaction/mobile_to_crypto_screen.dart';
+export 'package:expoin/screens/crypto_to_crypto_screen/transaction/crypto_to_crypto_screen.dart';
+export 'package:expoin/screens/crypto_to_mobile_screen/validation/validation1_screen.dart';
+export 'package:expoin/screens/mobile_to_crypto_screen/validation/validation2_screen.dart';
+export 'package:expoin/screens/crypto_to_crypto_screen/validation/validation3_screen.dart';

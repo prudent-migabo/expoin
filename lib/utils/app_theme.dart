@@ -12,10 +12,10 @@ ThemeData lightTheme= ThemeData(
       focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: BorderSide(
-              color: Color(0xff00264d),
-              width: 1,
+              color: Color(0xff004d99),
+              width: 1.5,
               style: BorderStyle.solid,
-          )
+          ),
       ),
       labelStyle: TextStyle(color: Colors.black,
           fontSize: 14.0),
@@ -24,12 +24,12 @@ ThemeData lightTheme= ThemeData(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
         borderSide: BorderSide(
-            color: Color(0xff00264d),
-            width: 1,
+            color: Color(0xff004d99),
+            width: 1.5,
             style: BorderStyle.solid
         ),
       ),
-      contentPadding: EdgeInsets.only(top: 7, bottom: 7, left: 10),
+      contentPadding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
       hintStyle: TextStyle(color: Colors.black26),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(

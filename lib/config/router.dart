@@ -11,6 +11,18 @@ class AppRouter {
         return LoginScreen.route();
       case RegisterScreen.routeName :
         return RegisterScreen.route();
+      case ForgotPasswordScreen.routeName :
+        return ForgotPasswordScreen.route();
+      case VerifyEmailScreen.routeName :
+        return VerifyEmailScreen.route();
+      case BottomNavigationScreen.routeName :
+        return BottomNavigationScreen.route();
+      case Validation1Screen.routeName :
+        return Validation1Screen.route();
+      case Validation2Screen.routeName :
+        return Validation2Screen.route();
+      case Validation3Screen.routeName :
+        return Validation3Screen.route();
       default:
         return _errorRoute();
     }
