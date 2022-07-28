@@ -1,3 +1,4 @@
+import 'package:expoin/screens/crypto_to_mobile_screen/transaction/crypto.dart';
 import 'package:expoin/screens/screens.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-  int currentIndex = 0;
+  int currentIndex = 1;
   final screens = <Widget>[
     CryptoToMobileScreen(),
     MobileToCryptoScreen(),

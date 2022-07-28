@@ -1,55 +1,77 @@
 import 'package:expoin/models/models.dart';
 import 'package:expoin/providers/crypto_to_crypto_provider/crypto_to_crypto_state.dart';
 import 'package:expoin/providers/providers.dart';
+import 'package:expoin/screens/screens.dart';
 import 'package:expoin/utils/constant.dart';
 import 'package:expoin/utils/utils.dart';
 import 'package:expoin/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
-class Validation3Screen extends StatelessWidget {
+class Validation3Screen extends StatefulWidget {
   Validation3Screen({Key? key, this.cryptoType1, this.cryptoType2, this.cryptoAmount, this.amountToReceive}) : super(key: key);
   static const String routeName = "/Validation1Screen";
   static Route route(){
     return MaterialPageRoute(builder: (context)=> Validation3Screen());
   }
-  final _formKey = GlobalKey<FormState>();
   String? cryptoType1;
   String? cryptoType2;
   String? cryptoAmount;
   String? amountToReceive;
+
+  @override
+  State<Validation3Screen> createState() => _Validation3ScreenState();
+}
+
+class _Validation3ScreenState extends State<Validation3Screen> {
+  final _formKey = GlobalKey<FormState>();
+
   TextEditingController _cryptoNumberController = TextEditingController();
   TextEditingController _transactionIDController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var state = context.read<CryptoToCryptoProvider>().state;
+    var state = context.watch<CryptoToCryptoProvider>().state;
     if(state.cryptoToCryptoStatus == CryptoToCryptoStatus.isLoaded){
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+        print("Success");
+        Fluttertoast.showToast(msg: "Message envoyé à l'administration");
       //  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Success')));
       });
     }
     return Scaffold(
       backgroundColor: kMainColor,
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Container(
-                child: Column(
-                  children: [
-                   // SizedBox(height: 45,),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 45.0),
-                      child: Text("Validation", style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),),
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 45.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(onPressed: (){
+                          Navigator.pop(context);
+                        }, icon: Icon(Icons.arrow_back_rounded, color: Colors.white,)),
+                        Text("Validation", style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),),
+                        IconButton(onPressed: (){
+                          Navigator.pushNamed(context, BottomNavigationScreen.routeName);
+                        }, icon: Icon(Icons.home, color: Colors.white,)),
+                      ],
                     ),
-                    // SizedBox(height: 40,),
-                  ],
-                ),
+                  ),
+                  // SizedBox(height: 40,),
+                ],
               ),
-              Container(
+            ),
+            Expanded(
+              child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 height: 650,
                 width: width,
@@ -68,7 +90,7 @@ class Validation3Screen extends StatelessWidget {
                       controller: _cryptoNumberController,
                       decoration: textFieldDecoration(hintText: ""),
                       validator: (value)=> value!.isEmpty? "Ce champ ne peut être vide": null,
-                      onChanged: (value)=>_cryptoNumberController.text,
+                      onChanged: (value)=> _cryptoNumberController.text,
                     ),
                     Padding(
                       padding: padding1,
@@ -89,21 +111,24 @@ class Validation3Screen extends StatelessWidget {
                           await context.read<CryptoToCryptoProvider>().addCryptoToCrypto(
                             cryptoNumber: _cryptoNumberController.text,
                             transactionID: _transactionIDController.text,
-                            amountToReceive: amountToReceive,
-                            cryptoAmount: cryptoAmount,
-                            cryptoType1: cryptoType1,
-                            cryptoType2: cryptoType2,
+                            amountToReceive: widget.amountToReceive,
+                            cryptoAmount: widget.cryptoAmount,
+                            cryptoType1: widget.cryptoType1,
+                            cryptoType2: widget.cryptoType2,
                           );
-                        }on CustomError catch(e){
+                          _cryptoNumberController.clear();
+                          _transactionIDController.clear();
+                        }
+                        on CustomError catch(e){
                           return errorDialog(context, e);
                         }
                       },
-                    )
+                    ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

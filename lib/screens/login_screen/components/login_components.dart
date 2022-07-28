@@ -29,7 +29,7 @@ class _LoginComponentsState extends State<LoginComponents> {
     var loginState = context.watch<LoginProvider>().state;
     if(loginState.loginStatus == LoginStatus.isLoaded){
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-        Navigator.pushNamedAndRemoveUntil(context, HomeScreen.routeName, (route) => false);
+        Navigator.pushNamedAndRemoveUntil(context, BottomNavigationScreen.routeName, (route) => false);
       });
     }
     return Form(

@@ -1,7 +1,9 @@
+import 'package:expoin/providers/providers.dart';
 import 'package:expoin/screens/screens.dart';
 import 'package:expoin/utils/utils.dart';
 import 'package:expoin/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CryptoToCryptoComponents extends StatefulWidget {
    CryptoToCryptoComponents({Key? key}) : super(key: key);
@@ -21,6 +23,8 @@ class _CryptoToCryptoComponentsState extends State<CryptoToCryptoComponents> {
         ));
   }
   final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormFieldState> _key1 = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _key2 = GlobalKey<FormFieldState>();
   String? cryptoType1;
   String? cryptoType2;
   TextEditingController _cryptoAmountController = TextEditingController();
@@ -30,23 +34,23 @@ class _CryptoToCryptoComponentsState extends State<CryptoToCryptoComponents> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            Container(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 45.0),
-                    child: Text("Crypto - Crypto", style: headerTitle),
-                  ),
-                ],
-              ),
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          Container(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 45.0),
+                  child: Text("Crypto - Crypto", style: headerTitle),
+                ),
+              ],
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               height: 540,
               width: width,
               decoration: containerBodyDecoration(
@@ -61,6 +65,7 @@ class _CryptoToCryptoComponentsState extends State<CryptoToCryptoComponents> {
                     child: Text("Type de crypto 1", style: style1,),
                   ),
                   DropdownButtonFormField(
+                    key: _key1,
                     value: cryptoType1,
                     decoration: textFieldDecoration(hintText: ListHelper().listCryptoCategory[0]),
                     items: ListHelper().listCryptoCategory.map(buildMenuItem).toList(),
@@ -75,6 +80,7 @@ class _CryptoToCryptoComponentsState extends State<CryptoToCryptoComponents> {
                     child: Text("Montant en crypto", style: style1,),
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.number,
                     controller: _cryptoAmountController,
                     decoration: textFieldDecoration(hintText: ""),
                     validator: (value)=> value!.isEmpty? "Ce champ ne peut être vide": null,
@@ -85,6 +91,7 @@ class _CryptoToCryptoComponentsState extends State<CryptoToCryptoComponents> {
                     child: Text("Type de crypto 2", style: style1,),
                   ),
                   DropdownButtonFormField(
+                    key: _key2,
                     value: cryptoType2,
                     decoration: textFieldDecoration(hintText: ListHelper().listCryptoCategory[0]),
                     items: ListHelper().listCryptoCategory.map(buildMenuItem).toList(),
@@ -99,6 +106,7 @@ class _CryptoToCryptoComponentsState extends State<CryptoToCryptoComponents> {
                     child: Text("Montant à recevoir", style: style1,),
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.number,
                     controller: _amountToReceiveController,
                     decoration: textFieldDecoration(hintText: ""),
                     validator: (value)=> value!.isEmpty? "Ce champ ne peut être vide": null,
@@ -108,19 +116,25 @@ class _CryptoToCryptoComponentsState extends State<CryptoToCryptoComponents> {
                   CustomButton(
                     text: "PROCEDER",
                     onPressed: (){
+                      if(!_formKey.currentState!.validate()) return;
+                      context.read<CryptoToCryptoProvider>().initialState();
                       Navigator.push(context, MaterialPageRoute(builder: (context)=> Validation3Screen(
                         cryptoType1: cryptoType1,
                         cryptoType2: cryptoType2,
                         cryptoAmount: _cryptoAmountController.text.toString(),
                         amountToReceive: _amountToReceiveController.text.toString(),
                       )));
+                      _key1.currentState!.reset();
+                      _key2.currentState!.reset();
+                      _cryptoAmountController.clear();
+                      _amountToReceiveController.clear();
                     },
                   ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

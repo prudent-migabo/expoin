@@ -19,7 +19,7 @@ class MobileToCryptoRepository {
       String mobileOperator,
   ) async {
     try {
-      await mobileToCryptoRef.doc(auth!.currentUser!.uid).set({
+      await mobileToCryptoRef.add({
         "transactionID": transactionID,
         "cryptoNumber": cryptoNumber,
         "cryptoType": cryptoType,

@@ -9,7 +9,7 @@ class CryptoToMobileRepository{
   FirebaseAuth? auth;
   Future<void> addCryptoToMobile(String transactionID, String phone, String cryptoType, String cryptoAmount, String amountToReceive) async{
     try{
-      await cryptoToMobileRef.doc(auth!.currentUser!.uid).set({
+      await cryptoToMobileRef.add({
         "transactionID": transactionID,
         "phone": phone,
         "cryptoType": cryptoType,

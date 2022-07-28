@@ -1,10 +1,12 @@
 import 'package:expoin/models/models.dart';
 import 'package:expoin/providers/mobile_to_crypto_provider/mobile_to_crypto_state.dart';
 import 'package:expoin/providers/providers.dart';
+import 'package:expoin/screens/screens.dart';
 import 'package:expoin/utils/constant.dart';
 import 'package:expoin/utils/utils.dart';
 import 'package:expoin/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class Validation2Screen extends StatelessWidget {
@@ -28,27 +30,40 @@ class Validation2Screen extends StatelessWidget {
     var state = context.watch<MobileToCryptoProvider>().state;
     if(state.mobileToCryptoStatus == MobileToCryptoStatus.isLoaded){
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Success')));
+        print("Success");
+        Fluttertoast.showToast(msg: "Message envoyé à l'administration");
+     //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Success')));
       });
     }
     return Scaffold(
       backgroundColor: kMainColor,
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Container(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 40.0),
-                      child: Text("Validation", style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),),
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Container(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 45.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(onPressed: (){
+                          Navigator.pop(context);
+                        }, icon: Icon(Icons.arrow_back_rounded, color: Colors.white,)),
+                        Text("Validation", style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),),
+                        IconButton(onPressed: (){
+                          Navigator.pushNamed(context, BottomNavigationScreen.routeName);
+                        }, icon: Icon(Icons.home, color: Colors.white,)),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Container(
+            ),
+            Expanded(
+              child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 height: 650,
                 width: width,
@@ -94,6 +109,8 @@ class Validation2Screen extends StatelessWidget {
                             mobileAmount: mobileAmount,
                             mobileOperator: mobileOperator,
                           );
+                          _transactionIDController.clear();
+                          _agentNumberController.clear();
                         }on CustomError catch(e){
                           return errorDialog(context, e);
                         }
@@ -102,8 +119,8 @@ class Validation2Screen extends StatelessWidget {
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

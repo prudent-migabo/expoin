@@ -1,11 +1,13 @@
 import 'package:expoin/models/models.dart';
 import 'package:expoin/providers/crypto_to_mobile_provider/crypto_to_mobile_state.dart';
 import 'package:expoin/providers/providers.dart';
+import 'package:expoin/screens/screens.dart';
 import 'package:expoin/utils/constant.dart';
 import 'package:expoin/utils/utils.dart';
 import 'package:expoin/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class Validation1Screen extends StatelessWidget {
@@ -27,26 +29,40 @@ class Validation1Screen extends StatelessWidget {
     var state = context.watch<CryptoToMobileProvider>().state;
     if(state.cryptoToMobileStatus == CryptoToMobileStatus.isLoaded){
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Success')));
+        print("Success");
+         Fluttertoast.showToast(msg: "Message envoyé à l'administration");
+       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Success')));
       });
     }
     return Scaffold(
       backgroundColor: kMainColor,
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Container(
-                child: Column(
-                  children: [
-                    SizedBox(height: 40,),
-                    Text("Validation", style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),),
-                    SizedBox(height: 20,),
-                  ],
-                ),
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Container(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 45.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(onPressed: (){
+                          Navigator.pop(context);
+                        }, icon: Icon(Icons.arrow_back_rounded, color: Colors.white,)),
+                        Text("Validation", style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),),
+                        IconButton(onPressed: (){
+                          Navigator.pushNamed(context, BottomNavigationScreen.routeName);
+                        }, icon: Icon(Icons.home, color: Colors.white,)),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Container(
+            ),
+            Expanded(
+              child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 height: 650,
                 width: width,
@@ -80,7 +96,6 @@ class Validation1Screen extends StatelessWidget {
                       text: state.cryptoToMobileStatus == CryptoToMobileStatus.isLoading? "PATIENTEZ..." : "EFFECTUER",
                       onPressed: state.cryptoToMobileStatus == CryptoToMobileStatus.isLoading? (){}:() async{
                         if(!_formKey.currentState!.validate()) return;
-                        _formKey.currentState!.reset();
                         try{
                           await context.read<CryptoToMobileProvider>().addCryptoToMobile(
                             transactionID: _transactionIDController.text,
@@ -89,6 +104,7 @@ class Validation1Screen extends StatelessWidget {
                             cryptoAmount: cryptoAmount,
                             cryptoType: cryptoType,
                           );
+                          _transactionIDController.clear();
                         } on CustomError catch(e){
                           return errorDialog(context, e);
                         }
@@ -97,8 +113,8 @@ class Validation1Screen extends StatelessWidget {
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:expoin/providers/mobile_to_crypto_provider/mobile_to_crypto_state.dart';
 import 'package:expoin/providers/providers.dart';
+import 'package:expoin/repository/repositories.dart';
 import 'package:expoin/screens/screens.dart';
 import 'package:expoin/utils/utils.dart';
 import 'package:expoin/widgets/widgets.dart';
@@ -23,6 +24,8 @@ class _MobileToCryptoComponentsState extends State<MobileToCryptoComponents> {
         ));
   }
   final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormFieldState> _key1 = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _key2 = GlobalKey<FormFieldState>();
   String? cryptoType;
   String? mobileOperator;
   TextEditingController _mobileAmountController = TextEditingController();
@@ -34,22 +37,34 @@ class _MobileToCryptoComponentsState extends State<MobileToCryptoComponents> {
     var width = MediaQuery.of(context).size.width;
     return Form(
       key: _formKey,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 45.0),
-                    child: Text("Mobile - Crypto", style: headerTitle,),
+      child: Column(
+        children: [
+          Container(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 45.0, horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(Icons.add_to_home_screen, color: Colors.transparent,),
+                      Text("Mobile - Crypto", style: headerTitle,),
+                      GestureDetector(
+                        onTap: (){
+                          logout();
+                        },
+                          child: Icon(Icons.add_to_home_screen, color: Colors.white,)),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              height: 540,
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              height: double.infinity,
+              //height: 540,
               width: width,
               decoration: containerBodyDecoration(
                 color: Color(0xfff7f7f7),
@@ -63,6 +78,7 @@ class _MobileToCryptoComponentsState extends State<MobileToCryptoComponents> {
                     child: Text("Opérateur mobile", style: style1,),
                   ),
                   DropdownButtonFormField(
+                    key: _key1,
                     value: mobileOperator,
                     decoration: textFieldDecoration(hintText: ListHelper().listMobileOperator[0]),
                     items: ListHelper().listMobileOperator.map(buildMenuItem).toList(),
@@ -77,6 +93,7 @@ class _MobileToCryptoComponentsState extends State<MobileToCryptoComponents> {
                     child: Text("Montant en mobile", style: style1,),
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.number,
                     controller: _mobileAmountController,
                     decoration: textFieldDecoration(hintText: ""),
                     validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
@@ -87,6 +104,7 @@ class _MobileToCryptoComponentsState extends State<MobileToCryptoComponents> {
                     child: Text("Type de crypto", style: style1,),
                   ),
                   DropdownButtonFormField(
+                    key: _key2,
                     value: cryptoType,
                     decoration: textFieldDecoration(hintText: ListHelper().listCryptoCategory[0]),
                     items: ListHelper().listCryptoCategory.map(buildMenuItem).toList(),
@@ -101,6 +119,7 @@ class _MobileToCryptoComponentsState extends State<MobileToCryptoComponents> {
                     child: Text("Montant à recevoir", style: style1,),
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.number,
                     controller: _amountToReceiveController,
                     decoration: textFieldDecoration(hintText: ""),
                     validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
@@ -122,6 +141,7 @@ class _MobileToCryptoComponentsState extends State<MobileToCryptoComponents> {
                     text: "PROCEDER",
                     onPressed: (){
                       if(!_formKey.currentState!.validate()) return;
+                      context.read<MobileToCryptoProvider>().initialState();
                       Navigator.push(context, MaterialPageRoute(builder: (context)=> Validation2Screen(
                         cryptoType: cryptoType,
                         mobileOperator: mobileOperator,
@@ -129,14 +149,23 @@ class _MobileToCryptoComponentsState extends State<MobileToCryptoComponents> {
                         amountToReceive: _amountToReceiveController.text.toString(),
                         cryptoNumber: _cryptoNumberController.text.toString(),
                       )));
+                      _key1.currentState!.reset();
+                      _key2.currentState!.reset();
+                      _mobileAmountController.clear();
+                      _amountToReceiveController.clear();
+                      _cryptoNumberController.clear();
                     },
                   )
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
+  }
+  Future logout() async{
+    await context.read<AuthRepository>().signOutUSer();
+    Navigator.pushNamed(context, LoginScreen.routeName);
   }
 }

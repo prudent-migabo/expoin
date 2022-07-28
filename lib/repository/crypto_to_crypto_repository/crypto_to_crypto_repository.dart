@@ -9,7 +9,7 @@ class CryptoToCryptoRepository{
   FirebaseAuth? auth;
   Future<void> addCryptoToCrypto(String transactionID, String cryptoType1, String cryptoType2, String cryptoAmount, String amountToReceive, String cryptoNumber) async{
     try{
-      await cryptoToCryptoRef.doc(auth!.currentUser!.uid).set({
+      await cryptoToCryptoRef.add({
         "transactionID": transactionID,
         "cryptoType1": cryptoType1,
         "cryptoType2": cryptoType2,
