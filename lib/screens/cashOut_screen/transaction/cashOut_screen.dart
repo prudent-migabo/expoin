@@ -11,7 +11,7 @@ class CashOutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: kMainColor,
+      backgroundColor: kMainWhiteColor,
       body: CashOutComponents(),
     );
   }

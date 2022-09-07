@@ -55,20 +55,21 @@ class TransactionComponents extends StatelessWidget {
                   ],
                   centerTitle: true,
                   expandedHeight: 120,
-                  bottom: const TabBar(
+                  bottom:  TabBar(
                     // labelColor: Colors.white,
                     indicatorColor: Colors.white,
                     indicatorWeight: 2,
 
                     tabs: [
                       Tab(
-                        text: 'CASH IN',
+                        child: Text("CASH IN", style: kTextBold.copyWith(fontSize: 13),
+                  ),
                       ),
                       Tab(
-                        text: 'CASH OUT',
+                        child: Text("CASH OUT", style: kTextBold.copyWith(fontSize: 13),),
                       ),
                       Tab(
-                        text: 'CHANGE',
+                        child: Text("CHANGE", style: kTextBold.copyWith(fontSize: 13),),
                       ),
                     ],
                   ),

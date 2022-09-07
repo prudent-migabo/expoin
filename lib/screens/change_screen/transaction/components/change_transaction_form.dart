@@ -106,7 +106,7 @@ class _ChangeTransactionFormState extends State<ChangeTransactionForm> {
           validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
           onChanged: (value) => _hashNumberController.text,
         ),
-        SizedBox(height: 10,),
+        SizedBox(height: 20,),
       ],
     );
   }

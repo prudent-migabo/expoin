@@ -90,19 +90,6 @@ class _CashInTransactionFormState extends State<CashInTransactionForm> {
           onChanged: (value) => _hashNumberController.text,
         ),
         SizedBox(height: 10,),
-        // CustomButton(
-        //   text: "PROCEDER",
-        //   onPressed: (){
-        //     if(!_formKey.currentState!.validate()) return;
-        //     Navigator.push(context, MaterialPageRoute(builder: (context)=> CashInValidationScreen(
-        //       cryptoType: cryptoType,
-        //       mobileOperator: mobileOperator,
-        //       mobileAmount: _cryptoTypeController.text.toString(),
-        //       amountToReceive: _amountToSendController.text.toString(),
-        //       cryptoNumber: _hashNumberController.text.toString(),
-        //     )));
-        //   },
-        // ),
       ],
     );
   }

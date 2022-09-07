@@ -72,7 +72,7 @@ class _ChangeValidationScreenState extends State<ChangeValidationScreen> {
                   },
                 ),
                 SizedBox(height: 20,),
-                Text("Veuillez copier le message de la transaction ici bas et effacer votre solde"),
+                Text("Hash Number MES PIECES"),
                 SizedBox(height: 15,),
                 Row(
                   children: [
@@ -82,7 +82,7 @@ class _ChangeValidationScreenState extends State<ChangeValidationScreen> {
                   ],
                 ),
                 SizedBox(height: 20,),
-                Text("Hash Number MES PIECES"),
+                Text("Veuillez copier le message de confirmation ici dessous"),
                 SizedBox(height: 20,),
                 Padding(
                   padding: padding1.copyWith(top: 0, bottom: 10),

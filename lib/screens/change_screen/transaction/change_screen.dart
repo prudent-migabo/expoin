@@ -18,7 +18,7 @@ class ChangeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kMainColor,
+      backgroundColor: kMainWhiteColor,
       body: ChangeComponents(),
     );
   }
