@@ -12,11 +12,11 @@ class CryptoToMobileProvider extends ChangeNotifier{
     required this.cryptoToMobileRepository,
   });
 
-  Future<void> addCryptoToMobile({String? transactionID, String? phone, String? cryptoType, String? cryptoAmount, String? amountToReceive}) async{
+  Future<void> addCryptoToMobile(CryptoToMobileModel cryptoToMobileModel) async{
     _state = _state.copyWith(cryptoToMobileStatus: CryptoToMobileStatus.isLoading);
     notifyListeners();
     try{
-      await cryptoToMobileRepository.addCryptoToMobile(transactionID!, phone!, cryptoType!, cryptoAmount!, amountToReceive!);
+      await cryptoToMobileRepository.addCryptoToMobile(cryptoToMobileModel);
       _state = _state.copyWith(cryptoToMobileStatus: CryptoToMobileStatus.isLoaded);
       notifyListeners();
     } on CustomError catch(e){

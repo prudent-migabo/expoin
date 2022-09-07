@@ -23,7 +23,7 @@ class _ForgotPasswordComponentsState extends State<ForgotPasswordComponents> {
   Widget build(BuildContext context) {
     var forgotState = context.watch<ForgotPasswordProvider>().state;
     if(forgotState.forgotPasswordStatus == ForgotPasswordStatus.isLoaded){
-      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
       });
     }

@@ -25,6 +25,12 @@ class _RegisterComponentsState extends State<RegisterComponents> {
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _firstNameController = TextEditingController();
+  TextEditingController _phoneNumberController = TextEditingController();
+  TextEditingController _countryController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
+  TextEditingController _referenceCodeController = TextEditingController();
+  bool isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +49,7 @@ class _RegisterComponentsState extends State<RegisterComponents> {
           Text("Créer votre compte d'utilisation...", style: TextStyle(color: Colors.black54, fontSize: 13, fontWeight: FontWeight.bold),),
           SizedBox(height: 30,),
           TextFormField(
+            keyboardType: TextInputType.emailAddress,
            controller: _emailController,
             decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.mail_rounded, color: Color(0xff004d99), size: 20,), hintText: "Email"),
             validator:  (value){
@@ -57,7 +64,19 @@ class _RegisterComponentsState extends State<RegisterComponents> {
           SizedBox(height: 15,),
           TextFormField(
            controller: _passwordController,
-           decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.vpn_key_rounded,color: Color(0xff004d99), size: 20,), suffixIcon: Icon(Icons.remove_red_eye_rounded, color: Color(0xff004d99), size: 20,), hintText: "Mot de passe"),
+           obscureText: isVisible ? false : true,
+           decoration: textFieldLoginDecoration(
+               prefixIcon: Icon(Icons.vpn_key_rounded,color: Color(0xff004d99), size: 20,),
+             suffixIcon: IconButton(
+               onPressed: (){
+                 setState(() {
+                   isVisible = !isVisible;
+                 });
+               },
+               icon: isVisible? Icon(Icons.visibility_off_rounded, color: Color(0xff004d99), size: 20,) : Icon(Icons.remove_red_eye_rounded, color: Color(0xff004d99), size: 20,),
+             ),
+             //  suffixIcon: Icon(Icons.remove_red_eye_rounded, color: Color(0xff004d99), size: 20,),
+               hintText: "Mot de passe"),
             validator: (value){
               if(value!.isEmpty){
                 return "Ce champ ne peut être vide";
@@ -67,6 +86,47 @@ class _RegisterComponentsState extends State<RegisterComponents> {
             },
            onChanged: (val)=> _passwordController.text,
           ),
+          SizedBox(height: 15,),
+          TextFormField(
+            controller: _firstNameController,
+            decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.person, color: Color(0xff004d99), size: 20,), hintText: "Prénom"),
+            validator:  (value) => value!.isEmpty? "Ce champ ne peut pas être vide" : null,
+            onChanged: (value) => _firstNameController.text,
+        ),
+          SizedBox(height: 15,),
+          TextFormField(
+            controller: _phoneNumberController,
+            decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.phone, color: Color(0xff004d99), size: 20,), hintText: "Téléphone"),
+            validator:  (value) => value!.isEmpty? "Ce champ ne peut pas être vide" : null,
+            onChanged: (value) => _phoneNumberController.text,
+          ),
+          SizedBox(height: 15,),
+          TextFormField(
+            controller: _countryController,
+            decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.home_sharp, color: Color(0xff004d99), size: 20,), hintText: "Pays"),
+            validator:  (value) => value!.isEmpty? "Ce champ ne peut pas être vide" : null,
+            onChanged: (value) => _countryController.text,
+          ),
+          SizedBox(height: 15,),
+          TextFormField(
+            controller: _confirmPasswordController,
+            decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.person, color: Color(0xff004d99), size: 20,), hintText: "Confirmez votre mot de passe"),
+            validator:  (value) {
+              if(value!.isEmpty){
+                return "Ce champ ne peut pas être vide";
+              } else if (_passwordController.text != _confirmPasswordController.text){
+                return "Les deux mots de passe ne sont pas identiques";
+              }
+            },
+            onChanged: (value) => _confirmPasswordController.text,
+          ),
+          SizedBox(height: 15,),
+          TextFormField(
+            controller: _referenceCodeController,
+            decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.vpn_key_rounded, color: Color(0xff004d99), size: 20,), hintText: "Code de reférence"),
+            // validator:  (value) => value!.isEmpty? "Ce champ ne peut pas être vide" : null,
+            // onChanged: (value) => _referenceCodeController.text,
+          ),
           SizedBox(height: 30,),
           CustomButton(
             text: registerState.registerStatus == RegisterStatus.isLoading? "PATIENTEZ...":"S'INSCRIRE",
@@ -75,7 +135,13 @@ class _RegisterComponentsState extends State<RegisterComponents> {
               try{
                 print("========================");
               //FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text.toString(), password: _passwordController.text.toString());
-               await context.read<RegisterProvider>().createUser(email: _emailController.text.toString(),password: _passwordController.text.toString());
+               await context.read<RegisterProvider>().createUser(email: _emailController.text,password: _passwordController.text, userModel: UserModel(
+                 email: _emailController.text,
+                 confirmPassword: _confirmPasswordController.text,
+                 country: _countryController.text,
+                 firstName: _firstNameController.text,
+                 phoneNumber: _phoneNumberController.text,
+               ));
                 print("${_emailController.text}, ${_passwordController.text}");
               } on CustomError catch (e){
                 return errorDialog(context, e);

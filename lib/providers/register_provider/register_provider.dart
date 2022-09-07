@@ -1,4 +1,5 @@
 import 'package:expoin/models/customError.dart';
+import 'package:expoin/models/models.dart';
 import 'package:expoin/providers/login_provider/login_state.dart';
 import 'package:expoin/providers/register_provider/register_state.dart';
 import 'package:expoin/repository/repositories.dart';
@@ -10,11 +11,11 @@ class RegisterProvider extends ChangeNotifier{
   RegisterState _state = RegisterState.init();
   RegisterState get state => _state;
 
-  Future<void> createUser({String? email, String? password}) async{
+  Future<void> createUser({String? email, String? password, UserModel? userModel}) async{
     _state = _state.copyWith(registerStatus: RegisterStatus.isLoading);
     notifyListeners();
     try{
-      await authRepository.createUser(email!, password!);
+      await authRepository.createUser(email!, password!, userModel!);
       _state = _state.copyWith(registerStatus: RegisterStatus.isLoaded);
       notifyListeners();
     } on CustomError catch(e){

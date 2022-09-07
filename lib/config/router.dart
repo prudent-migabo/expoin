@@ -17,12 +17,12 @@ class AppRouter {
         return VerifyEmailScreen.route();
       case BottomNavigationScreen.routeName :
         return BottomNavigationScreen.route();
-      case Validation1Screen.routeName :
-        return Validation1Screen.route();
-      case Validation2Screen.routeName :
-        return Validation2Screen.route();
-      case Validation3Screen.routeName :
-        return Validation3Screen.route();
+      case CashOutValidationScreen.routeName :
+        return CashOutValidationScreen.route();
+      case CashInValidationScreen.routeName :
+        return CashInValidationScreen.route();
+      case ChangeValidationScreen.routeName :
+        return ChangeValidationScreen.route();
       default:
         return _errorRoute();
     }

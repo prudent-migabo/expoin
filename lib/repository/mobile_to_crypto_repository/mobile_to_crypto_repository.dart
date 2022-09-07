@@ -9,26 +9,9 @@ class MobileToCryptoRepository {
 
   FirebaseAuth? auth;
 
-  Future<void> addMobileToCrypto(
-    String transactionID,
-    String cryptoNumber,
-    String cryptoType,
-    String mobileAmount,
-    String amountToReceive,
-    String agentNumber,
-      String mobileOperator,
-  ) async {
+  Future<void> addMobileToCrypto(MobileToCryptoModel mobileToCryptoModel) async {
     try {
-      await mobileToCryptoRef.add({
-        "transactionID": transactionID,
-        "cryptoNumber": cryptoNumber,
-        "cryptoType": cryptoType,
-        "mobileAmount": mobileAmount,
-        "amountToReceive": amountToReceive,
-        "agentNumber": agentNumber,
-        "mobileOperator": mobileOperator,
-        "uid": auth!.currentUser!.uid,
-      });
+      await mobileToCryptoRef.add(mobileToCryptoModel.toMap());
     } on FirebaseException catch (e) {
       throw CustomError(code: e.code, message: e.message!, plugin: e.plugin);
     } catch (e) {

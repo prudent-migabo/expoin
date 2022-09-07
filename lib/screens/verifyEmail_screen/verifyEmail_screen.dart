@@ -13,6 +13,7 @@ class VerifyEmailScreen extends StatefulWidget {
 
   static Route route (){
     return MaterialPageRoute(
+      settings: RouteSettings(name: routeName),
       builder: (context) => VerifyEmailScreen(),
     );
   }
@@ -29,11 +30,11 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async{
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
       await context.read<User?>()!.sendEmailVerification();
     });
-    timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      checkEmailVerified();
+    timer = Timer.periodic(Duration(seconds: 3), (timer) async{
+     await checkEmailVerified();
     });
   }
 

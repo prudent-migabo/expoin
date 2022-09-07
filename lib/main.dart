@@ -1,14 +1,15 @@
 import 'package:expoin/config/router.dart';
 import 'package:expoin/firebase_options.dart';
+import 'package:expoin/models/models.dart';
 import 'package:expoin/providers/providers.dart';
 import 'package:expoin/repository/repositories.dart';
 import 'package:expoin/screens/screens.dart';
 import 'package:expoin/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'screens/splash_screen/splash_screen.dart';
 
 void main() async{
@@ -41,7 +42,18 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<MobileToCryptoProvider>(create: (context)=> MobileToCryptoProvider(mobileToCryptoRepository: context.read<MobileToCryptoRepository>()),),
         Provider<CryptoToCryptoRepository>(create: (context)=> CryptoToCryptoRepository(auth: FirebaseAuth.instance)),
         ChangeNotifierProvider<CryptoToCryptoProvider>(create: (context)=> CryptoToCryptoProvider(cryptoToCryptoRepository: context.read<CryptoToCryptoRepository>()),),
-
+        Provider<CashOutRepository>(create: (context)=> CashOutRepository()),
+        ChangeNotifierProvider<CashOutProvider>(create: (context)=> CashOutProvider(cashOutRepository: context.read<CashOutRepository>()),),
+        Provider<RateRepository>(create: (context)=> RateRepository()),
+        ChangeNotifierProvider<RetreiveCashOutDetails>(create: (context)=> RetreiveCashOutDetails(cashOutRepository: context.read<CashOutRepository>(), rateRepository: context.read<RateRepository>())),
+        ChangeNotifierProvider<RateProvider>(create: (context)=> RateProvider(rateRepository: context.read<RateRepository>())),
+        StreamProvider<RateModel>(create: (context) {
+          print("======================main ${context.read<RateRepository>().getRateValueDetail()} =====================");
+          return context.read<RateRepository>().getRateValueDetail();
+    }, initialData: RateModel(rate: "")),
+        // StreamProvider<RateModel>(create: (context) => context.read<RateRepository>().getRateValueDetail("BNB"), initialData: RateModel(rate: "")),
+        StreamProvider<CashOutModel>(create: (context) => context.read<CashOutRepository>().getCashOutDetail(context.read<User>().uid), initialData: CashOutModel(cryptoAmount: '', mobileType: '', cryptoType: '')),
+        ChangeNotifierProvider<CashOutCalculationResult>(create: (context)=>CashOutCalculationResult()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

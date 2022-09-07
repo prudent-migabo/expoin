@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
   InputDecoration textFieldLoginDecoration ({
     Icon? prefixIcon,
-    Icon? suffixIcon,
+    IconButton? suffixIcon,
     String? hintText,
     Color? fillColor,
     bool? filled,

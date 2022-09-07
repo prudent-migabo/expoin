@@ -1,4 +1,6 @@
 import 'package:expoin/models/customError.dart';
+import 'package:expoin/models/models.dart';
+import 'package:expoin/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepository{
@@ -8,10 +10,12 @@ class AuthRepository{
   FirebaseAuth auth;
 
 Stream<User?> get userState => auth.userChanges();
+String get uid => auth.currentUser!.uid;
 
-  Future<void> createUser(String email, String password) async{
+  Future<void> createUser(String email, String password, UserModel userModel) async{
    try{
      await auth.createUserWithEmailAndPassword(email: email, password: password);
+     await userRef.doc(uid).set(userModel.toMap());
    } on FirebaseAuthException catch(e){
       throw CustomError(code: e.code, message: e.message!, plugin: e.plugin);
    }

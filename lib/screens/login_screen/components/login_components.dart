@@ -23,12 +23,13 @@ class _LoginComponentsState extends State<LoginComponents> {
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  bool isVisible = false;
 
   @override
   Widget build(BuildContext context) {
     var loginState = context.watch<LoginProvider>().state;
     if(loginState.loginStatus == LoginStatus.isLoaded){
-      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         Navigator.pushNamedAndRemoveUntil(context, BottomNavigationScreen.routeName, (route) => false);
       });
     }
@@ -64,7 +65,18 @@ class _LoginComponentsState extends State<LoginComponents> {
                 SizedBox(height: 15,),
                 TextFormField(
                   controller: _passwordController,
-                  decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.vpn_key_rounded,color: Color(0xff004d99), size: 20,), suffixIcon: Icon(Icons.remove_red_eye_rounded, color: Color(0xff004d99), size: 20,), hintText: "Mot de passe"),
+                  obscureText: isVisible? false : true,
+                  decoration: textFieldLoginDecoration(
+                      prefixIcon: Icon(Icons.vpn_key_rounded,color: Color(0xff004d99), size: 20,),
+                      suffixIcon: IconButton(
+                        onPressed: (){
+                          setState(() {
+                            isVisible = !isVisible;
+                          });
+                        },
+                        icon: isVisible? Icon(Icons.visibility_off_rounded, color: Color(0xff004d99), size: 20,) : Icon(Icons.remove_red_eye_rounded, color: Color(0xff004d99), size: 20,),
+                      ),
+                      hintText: "Mot de passe"),
                   validator: (val){
                     if(val!.isEmpty){
                       return "Ce champ ne peut être vide";

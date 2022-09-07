@@ -26,7 +26,7 @@ class RegisterScreen extends StatelessWidget {
     var width =  MediaQuery.of(context).size.width;
     var registerState = context.watch<RegisterProvider>().state;
     if(registerState.registerStatus == RegisterStatus.isLoaded){
-      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         // print("--------USER CREATED--------");
        // Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyEmailScreen()));
          Navigator.pushNamed(context, VerifyEmailScreen.routeName);

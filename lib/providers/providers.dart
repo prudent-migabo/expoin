@@ -5,3 +5,7 @@ export 'package:expoin/providers/forgot_password_provider/forgot_password_provid
 export 'package:expoin/providers/crypto_to_mobile_provider/crypto_to_mobile_provider.dart';
 export 'package:expoin/providers/mobile_to_crypto_provider/mobile_to_crypto_provider.dart';
 export 'package:expoin/providers/crypto_to_crypto_provider/crypto_to_crypto_provider.dart';
+export 'package:expoin/providers/cashOut_provider/cashOut_provider.dart';
+export 'package:expoin/providers/cashOut_provider/retreive_cashout_details.dart';
+export 'package:expoin/providers/rate_provider/rate_provider.dart';
+export 'package:expoin/providers/cashOut_provider/cashout_calculation_result.dart';

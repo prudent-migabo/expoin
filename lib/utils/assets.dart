@@ -1,0 +1,1 @@
+const String btc = "assets/images/btc.png";

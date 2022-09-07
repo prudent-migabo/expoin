@@ -1,4 +1,4 @@
-import 'package:expoin/screens/crypto_to_mobile_screen/transaction/crypto.dart';
+import 'package:expoin/screens/cashOut_screen/transaction/crypto.dart';
 import 'package:expoin/screens/screens.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +8,9 @@ class BottomNavigationScreen extends StatefulWidget {
   BottomNavigationScreen({Key? key}) : super(key: key);
   static const String routeName = "/BottomNavigationScreen";
   static Route route (){
-    return MaterialPageRoute(builder: (context)=> BottomNavigationScreen());
+    return MaterialPageRoute(
+      settings: RouteSettings(name: routeName),
+        builder: (context)=> BottomNavigationScreen());
   }
 
   @override
@@ -18,45 +20,52 @@ class BottomNavigationScreen extends StatefulWidget {
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   int currentIndex = 1;
   final screens = <Widget>[
-    CryptoToMobileScreen(),
-    MobileToCryptoScreen(),
-    CryptoToCryptoScreen(),
+    TransactionScreen(),
+    HomeScreen(),
+    CalculatorScreen(),
+    HistoryScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedLabelStyle: TextStyle(color: Colors.white),
-        unselectedLabelStyle: TextStyle(color: Colors.black),
-        backgroundColor: kMainColor,
-        currentIndex: currentIndex,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.black,
-        iconSize: 28,
-        //selectedFontSize: 15,
-        showUnselectedLabels: false,
-        showSelectedLabels: false,
-        onTap: (index){
-          setState(() {
-            currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.airline_stops_sharp,),
-              label: 'Transaction 1'
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarThemeData(
+        //  backgroundColor: Colors.grey,
+          indicatorColor: Colors.white,
+          labelTextStyle: MaterialStateProperty.all(
+            TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
           ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.airline_stops_sharp,),
-              label: 'Transaction 2'
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.airline_stops_sharp,),
-              label: "Transaction 3"
-          ),
-        ],
+        ),
+        child: NavigationBar(
+          height: 60,
+          backgroundColor: kMainColor,
+          selectedIndex: currentIndex,
+          animationDuration: Duration(seconds: 1),
+          onDestinationSelected: (index){
+            setState(() {
+              currentIndex = index;
+            });
+          },
+          destinations: [
+            NavigationDestination(
+                icon: Icon(Icons.airline_stops_sharp,),
+                label: "Transactions"
+            ),
+            NavigationDestination(
+                icon: Icon(Icons.home),
+                label: "Acceuil"
+            ),
+            NavigationDestination(
+                icon: Icon(Icons.calculate_outlined),
+                label: "Calculatrice",
+            ),
+            NavigationDestination(
+                icon: Icon(Icons.history),
+                label: "Historique"
+            ),
+          ],
+        ),
       ),
       body: IndexedStack(
         index: currentIndex,

@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var userState = context.watch<AuthProvider>().state;
     if(userState.authStatus == AuthStatus.authenticated){
-      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         Navigator.pushNamedAndRemoveUntil(context, BottomNavigationScreen.routeName, (route) => false);
       });
     }

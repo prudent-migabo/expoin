@@ -5,3 +5,5 @@ export 'package:expoin/utils/error_dialog.dart';
 export 'package:expoin/utils/container_body_decoration.dart';
 export 'package:expoin/utils/lists_helper.dart';
 export 'package:expoin/utils/textField_decoration.dart';
+export 'package:expoin/utils/alert_dialog.dart';
+export 'package:expoin/utils/assets.dart';

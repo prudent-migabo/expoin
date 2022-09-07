@@ -8,7 +8,9 @@ class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
   static const String routeName = "/ForgotPasswordScreen";
   static Route route(){
-    return MaterialPageRoute(builder: (context)=>ForgotPasswordScreen());
+    return MaterialPageRoute(
+      settings: RouteSettings(name: routeName),
+        builder: (context)=>ForgotPasswordScreen());
   }
 
   @override

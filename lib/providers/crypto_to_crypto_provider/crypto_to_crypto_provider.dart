@@ -12,11 +12,11 @@ class CryptoToCryptoProvider extends ChangeNotifier{
     required this.cryptoToCryptoRepository,
   });
 
-  Future<void> addCryptoToCrypto({String? transactionID, String? cryptoType1, String? cryptoType2, String? cryptoAmount, String? amountToReceive, String? cryptoNumber}) async{
+  Future<void> addCryptoToCrypto(CryptoToCryptoModel cryptoToCryptoModel) async{
     _state = _state.copyWith(cryptoToCryptoStatus: CryptoToCryptoStatus.isLoading);
     notifyListeners();
     try{
-      await cryptoToCryptoRepository.addCryptoToCrypto(transactionID!, cryptoType1!, cryptoType2!, cryptoAmount!, amountToReceive!, cryptoNumber!);
+      await cryptoToCryptoRepository.addCryptoToCrypto(cryptoToCryptoModel);
       _state = _state.copyWith(cryptoToCryptoStatus: CryptoToCryptoStatus.isLoaded);
       notifyListeners();
     } on CustomError catch(e){
