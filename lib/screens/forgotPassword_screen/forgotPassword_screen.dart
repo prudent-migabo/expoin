@@ -1,4 +1,3 @@
-
 import 'package:expoin/screens/forgotPassword_screen/components/components.dart';
 import 'package:expoin/screens/screens.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,10 @@ class ForgotPasswordScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xfff7f7f7),
         elevation: 0,
-        leading: Icon(Icons.arrow_back_outlined, size: 25, color: Colors.black,),
+        leading: IconButton(icon: Icon(Icons.arrow_back_outlined, size: 25, color: Colors.black), onPressed: (){
+          Navigator.pop(context);
+        },)
+        //Icon(Icons.arrow_back_outlined, size: 25, color: Colors.black,),
       ),
       body: ForgotPasswordComponents(),
     );

@@ -6,6 +6,7 @@ import 'package:expoin/utils/utils.dart';
 import 'package:expoin/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -21,12 +22,14 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userState = context.watch<AuthProvider>().state;
-    if(userState.authStatus == AuthStatus.authenticated){
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        Navigator.pushNamedAndRemoveUntil(context, BottomNavigationScreen.routeName, (route) => false);
-      });
-    }
+    // var userState = context.watch<AuthProvider>().state;
+    // if(userState.authStatus == AuthStatus.authenticated){
+    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //     Fluttertoast.showToast(msg: "Bienvenue");
+    //     // Navigator.pushNamedAndRemoveUntil(context, VerifyEmailScreen.routeName, (route) => false);
+    //     Navigator.pushNamedAndRemoveUntil(context, BottomNavigationScreen.routeName, (route) => false);
+    //   });
+    // }
     return Scaffold(
       body: LoginComponents(),
     );

@@ -7,6 +7,7 @@ import 'package:expoin/utils/utils.dart';
 import 'package:expoin/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -27,9 +28,9 @@ class RegisterScreen extends StatelessWidget {
     var registerState = context.watch<RegisterProvider>().state;
     if(registerState.registerStatus == RegisterStatus.isLoaded){
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        // print("--------USER CREATED--------");
-       // Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyEmailScreen()));
-         Navigator.pushNamed(context, VerifyEmailScreen.routeName);
+        Fluttertoast.showToast(msg: 'Bienvenue');
+      //   Navigator.pushNamed(context, VerifyEmailScreen.routeName);
+        Navigator.pushNamedAndRemoveUntil(context, BottomNavigationScreen.routeName, (route) => false);
       });
     }
     return Scaffold(

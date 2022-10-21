@@ -40,6 +40,8 @@ dependencies:
   cloud_firestore:
   provider:
   fluttertoast:
+  carousel_slider:
+  cached_network_image:
 
 dev_dependencies:
   flutter_test:

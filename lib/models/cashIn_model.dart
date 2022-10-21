@@ -1,0 +1,69 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class CashInModel{
+  String? userName;
+  String cryptoType;
+  String amountToSend;
+  String hashNumber;
+  String mobileType;
+  String transactionID;
+  String? date;
+  String? docID;
+  bool? isPending;
+
+//<editor-fold desc="Data Methods">
+
+  CashInModel({
+    this.userName,
+    required this.cryptoType,
+    required this.amountToSend,
+    required this.hashNumber,
+    required this.mobileType,
+    required this.transactionID,
+     this.date,
+    this.docID,
+    this.isPending,
+  });
+
+
+  Map<String, dynamic> toMap() {
+    return {
+      'userName': this.userName,
+      'cryptoType': this.cryptoType,
+      'amountToSend': this.amountToSend,
+      'hashNumber': this.hashNumber,
+      'mobileType': this.mobileType,
+      'transactionID': this.transactionID,
+      'date': DateTime.now(),
+      'isPending' : this.isPending,
+    };
+  }
+    factory CashInModel.initial() {
+      return CashInModel(
+        userName: '',
+        cryptoType: '',
+        amountToSend: '',
+        hashNumber: '',
+        mobileType: '',
+        transactionID: '',
+        isPending: true,
+      );
+    }
+
+    factory CashInModel.fromMap(DocumentSnapshot documentSnapshot){
+    var data = documentSnapshot.data()! as Map;
+    return CashInModel(
+        cryptoType: data['cryptoType'] ?? '',
+        amountToSend: data['amountToSend'] ?? '',
+        hashNumber: data['hashNumber'] ?? '',
+        mobileType: data['mobileType'] ?? '',
+        transactionID: data['transactionID'] ?? '',
+        userName: data['userName']  ?? '',
+      isPending: data['isPending'],
+      docID: documentSnapshot.id,
+      );
+    }
+
+//</editor-fold>
+}

@@ -39,4 +39,9 @@ String get uid => auth.currentUser!.uid;
     await auth.signOut();
   }
 
+  Stream<UserModel> getUserName (){
+    return userRef.doc(auth.currentUser!.uid).snapshots().map((doc) => UserModel.fromMap(doc));
+  }
+
+
 }

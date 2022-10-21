@@ -30,12 +30,13 @@ class TransactionComponents extends StatelessWidget {
                   pinned: true,
                   snap: true,
                   backgroundColor: kMainColor,
+                  leading: Container(),
                   title: Padding(
                     padding: const EdgeInsets.only(top: 15.0),
                     child: Column(
                       children: [
                         const Text(
-                          'Expoin',
+                          'MES Pièces',
                           style: headerTitle,
                         ),
                       ],

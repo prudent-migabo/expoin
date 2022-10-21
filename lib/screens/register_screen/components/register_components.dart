@@ -19,10 +19,20 @@ class RegisterComponents extends StatefulWidget {
 }
 
 class _RegisterComponentsState extends State<RegisterComponents> {
+
+  DropdownMenuItem<String> buildMenuItem(String item) {
+    return DropdownMenuItem(
+        value: item,
+        child: Text(
+          item,
+          style: const TextStyle(fontSize: 14),
+        ));
+  }
+
   double? width;
   double? height;
   final _formKey = GlobalKey<FormState>();
-
+  final GlobalKey<FormFieldState> _key1 = GlobalKey<FormFieldState>();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _firstNameController = TextEditingController();
@@ -31,6 +41,8 @@ class _RegisterComponentsState extends State<RegisterComponents> {
   TextEditingController _confirmPasswordController = TextEditingController();
   TextEditingController _referenceCodeController = TextEditingController();
   bool isVisible = false;
+  bool isConfirmVisible = false;
+  String? _countryValue;
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +61,24 @@ class _RegisterComponentsState extends State<RegisterComponents> {
           Text("Créer votre compte d'utilisation...", style: TextStyle(color: Colors.black54, fontSize: 13, fontWeight: FontWeight.bold),),
           SizedBox(height: 30,),
           TextFormField(
+            controller: _firstNameController,
+            decoration: textFieldLoginDecoration(
+                prefixIcon: Icons.person,
+                hintText: "Prénom",
+              labelText: "Prénom",
+            ),
+            validator:  (value) => value!.isEmpty? "Ce champ ne peut pas être vide" : null,
+            onChanged: (value) => _firstNameController.text,
+          ),
+          SizedBox(height: 20,),
+          TextFormField(
             keyboardType: TextInputType.emailAddress,
            controller: _emailController,
-            decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.mail_rounded, color: Color(0xff004d99), size: 20,), hintText: "Email"),
+            decoration: textFieldLoginDecoration(
+                prefixIcon: Icons.mail_rounded,
+                hintText: "Email",
+              labelText: "Email",
+            ),
             validator:  (value){
               if(value!.isEmpty){
                 return "Ce champ ne peut être vide";
@@ -61,12 +88,12 @@ class _RegisterComponentsState extends State<RegisterComponents> {
             },
            onChanged: (val) => _emailController.text,
           ),
-          SizedBox(height: 15,),
+          SizedBox(height: 20,),
           TextFormField(
            controller: _passwordController,
            obscureText: isVisible ? false : true,
            decoration: textFieldLoginDecoration(
-               prefixIcon: Icon(Icons.vpn_key_rounded,color: Color(0xff004d99), size: 20,),
+               prefixIcon: Icons.vpn_key_rounded,
              suffixIcon: IconButton(
                onPressed: (){
                  setState(() {
@@ -75,7 +102,7 @@ class _RegisterComponentsState extends State<RegisterComponents> {
                },
                icon: isVisible? Icon(Icons.visibility_off_rounded, color: Color(0xff004d99), size: 20,) : Icon(Icons.remove_red_eye_rounded, color: Color(0xff004d99), size: 20,),
              ),
-             //  suffixIcon: Icon(Icons.remove_red_eye_rounded, color: Color(0xff004d99), size: 20,),
+               labelText: "Mot de passe",
                hintText: "Mot de passe"),
             validator: (value){
               if(value!.isEmpty){
@@ -86,31 +113,23 @@ class _RegisterComponentsState extends State<RegisterComponents> {
             },
            onChanged: (val)=> _passwordController.text,
           ),
-          SizedBox(height: 15,),
-          TextFormField(
-            controller: _firstNameController,
-            decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.person, color: Color(0xff004d99), size: 20,), hintText: "Prénom"),
-            validator:  (value) => value!.isEmpty? "Ce champ ne peut pas être vide" : null,
-            onChanged: (value) => _firstNameController.text,
-        ),
-          SizedBox(height: 15,),
-          TextFormField(
-            controller: _phoneNumberController,
-            decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.phone, color: Color(0xff004d99), size: 20,), hintText: "Téléphone"),
-            validator:  (value) => value!.isEmpty? "Ce champ ne peut pas être vide" : null,
-            onChanged: (value) => _phoneNumberController.text,
-          ),
-          SizedBox(height: 15,),
-          TextFormField(
-            controller: _countryController,
-            decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.home_sharp, color: Color(0xff004d99), size: 20,), hintText: "Pays"),
-            validator:  (value) => value!.isEmpty? "Ce champ ne peut pas être vide" : null,
-            onChanged: (value) => _countryController.text,
-          ),
-          SizedBox(height: 15,),
+          SizedBox(height: 20,),
           TextFormField(
             controller: _confirmPasswordController,
-            decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.person, color: Color(0xff004d99), size: 20,), hintText: "Confirmez votre mot de passe"),
+            obscureText: isConfirmVisible ? false : true,
+            decoration: textFieldLoginDecoration(
+              prefixIcon: Icons.vpn_key_rounded,
+              hintText: "Confirmez le mot de passe",
+              labelText: "Confirmez le mot de passe",
+              suffixIcon: IconButton(
+                onPressed: (){
+                  setState(() {
+                    isConfirmVisible = !isConfirmVisible;
+                  });
+                },
+                icon: isConfirmVisible? Icon(Icons.visibility_off_rounded, color: Color(0xff004d99), size: 20,) : Icon(Icons.remove_red_eye_rounded, color: Color(0xff004d99), size: 20,),
+              ),
+            ),
             validator:  (value) {
               if(value!.isEmpty){
                 return "Ce champ ne peut pas être vide";
@@ -120,10 +139,37 @@ class _RegisterComponentsState extends State<RegisterComponents> {
             },
             onChanged: (value) => _confirmPasswordController.text,
           ),
-          SizedBox(height: 15,),
+          SizedBox(height: 20,),
+          TextFormField(
+            keyboardType: TextInputType.phone,
+            controller: _phoneNumberController,
+            decoration: textFieldLoginDecoration(prefixIcon:Icons.phone, hintText: "Téléphone", labelText: "Téléphone"),
+            validator:  (value) => value!.isEmpty? "Ce champ ne peut pas être vide" : null,
+            onChanged: (value) => _phoneNumberController.text,
+          ),
+          SizedBox(height: 20,),
+          DropdownButtonFormField(
+            key: _key1,
+            value: _countryValue,
+            decoration: textFieldLoginDecoration(
+              prefixIcon: Icons.location_city,
+              hintText: 'Pays',
+            ),
+            items: ListHelper().listOfCountries.map(buildMenuItem).toList(),
+            onChanged: (value) {
+              setState(() {
+                _countryValue = value.toString();
+              });
+            },
+          ),
+          SizedBox(height: 20,),
           TextFormField(
             controller: _referenceCodeController,
-            decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.vpn_key_rounded, color: Color(0xff004d99), size: 20,), hintText: "Code de reférence"),
+            decoration: textFieldLoginDecoration(
+                prefixIcon: Icons.keyboard_alt_outlined,
+                hintText: "Code de reférence",
+              labelText: "Code de reférence"
+            ),
             // validator:  (value) => value!.isEmpty? "Ce champ ne peut pas être vide" : null,
             // onChanged: (value) => _referenceCodeController.text,
           ),
@@ -133,39 +179,32 @@ class _RegisterComponentsState extends State<RegisterComponents> {
             onPressed: registerState.registerStatus == RegisterStatus.isLoading?(){}:() async{
               if(!_formKey.currentState!.validate()) return;
               try{
-                print("========================");
-              //FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text.toString(), password: _passwordController.text.toString());
-               await context.read<RegisterProvider>().createUser(email: _emailController.text,password: _passwordController.text, userModel: UserModel(
-                 email: _emailController.text,
+                await context.read<RegisterProvider>().createUser(email: _emailController.text,password: _passwordController.text,
+                    userModel: UserModel(
                  confirmPassword: _confirmPasswordController.text,
-                 country: _countryController.text,
+                 country: _countryValue,
                  firstName: _firstNameController.text,
                  phoneNumber: _phoneNumberController.text,
                ));
-                print("${_emailController.text}, ${_passwordController.text}");
               } on CustomError catch (e){
                 return errorDialog(context, e);
               }
             },
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 20,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Text("Avez-vous deja un compte?", style: TextStyle(color: Colors.black, fontSize: 13),),
                   ),
-                  GestureDetector(
-                    onTap: (){
-                      context.read<LoginProvider>().initialState();
-                      Navigator.pushNamed(context, LoginScreen.routeName);
-                    },
-                    child: Text("Se connecter", style: TextStyle(color: kMainColor),),
-                  ),
+                  TextButton(onPressed: (){
+                    context.read<LoginProvider>().initialState();
+                    Navigator.pushNamed(context, LoginScreen.routeName);
+                  }, child: Text("Se connecter", style: TextStyle(color: kMainColor),)),
                 ],
               ),
             ],

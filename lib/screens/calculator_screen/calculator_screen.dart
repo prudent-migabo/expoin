@@ -13,6 +13,7 @@ class CalculatorScreen extends StatelessWidget {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(120),
           child: AppBar(
+            leading: Container(),
             title: Padding(
               padding: const EdgeInsets.only(top: 25.0),
               child: Text("Calculatrice", style: headerTitle,),

@@ -1,4 +1,4 @@
-import 'package:expoin/providers/mobile_to_crypto_provider/mobile_to_crypto_state.dart';
+import 'package:expoin/models/models.dart';
 import 'package:expoin/providers/providers.dart';
 import 'package:expoin/repository/repositories.dart';
 import 'package:expoin/screens/cashIn_screen/transaction/components/components.dart';
@@ -8,6 +8,7 @@ import 'package:expoin/screens/screens.dart';
 import 'package:expoin/utils/utils.dart';
 import 'package:expoin/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class ChangeComponents extends StatefulWidget {
@@ -20,71 +21,98 @@ class ChangeComponents extends StatefulWidget {
 class _ChangeComponentsState extends State<ChangeComponents> {
 
   int currentStep = 0;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var state = context.watch<MobileToCryptoProvider>().state;
-    return  Column(
-      children: [
-        Expanded(
-          child: Stepper(
-            currentStep: currentStep,
-            onStepTapped: (step) => tapped(step),
-            controlsBuilder: (context, _){
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  currentStep == 0 ?
-                  ElevatedButton(
-                    onPressed: (){
-                      continued();
-                    },
-                    child: const Text('PROCEDER'),
-                  ) :  Row(
-                    children: [
-                      ElevatedButton(
-                        onPressed: (){
-                          continued();
-                        },
-                        child: const Text('CONFIRMER'),
-                      ),
-                      SizedBox(width: 40,),
-                      ElevatedButton(
-                        onPressed: (){
-                          cancel();
-                        },
-                        child: const Text('ANNULER'),
-                      ),
-                    ],
-                  )
+    final state = context.watch<ChangeProvider>().state;
+    final changeModelState = context.watch<SaveChangeDetailsController>().changeModel;
+    var userName = context.watch<UserModel>().firstName;
+
+    if(state.changeStatus == ChangeStatus.isLoaded){
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        Fluttertoast.showToast(msg: "Votre requete est soumise a l'administration avec succes");
+        context.read<ChangeProvider>().initialState();
+      });
+    }
+
+    return  Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          Expanded(
+            child: Stepper(
+              currentStep: currentStep,
+              onStepTapped: (step) => tapped(step),
+              controlsBuilder: (context, _){
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    currentStep == 0 ?
+                    ElevatedButton(
+                      onPressed: (){
+                        continued();
+                      },
+                      child: const Text('PROCEDER'),
+                    ) :  Row(
+                      children: [
+                        ElevatedButton(
+                          onPressed: state.changeStatus == ChangeStatus.isLoading? (){} : () async{
+                            if(!_formKey.currentState!.validate()) return;
+                            try{
+                              await context.read<ChangeProvider>().addChange(
+                                  ChangeModel(
+                                    cryptoTypeToSend: changeModelState.cryptoTypeToSend,
+                                    cryptoTypeToReceive: changeModelState.cryptoTypeToReceive,
+                                    cryptoAmountToSend: changeModelState.cryptoAmountToSend,
+                                    hashNumber: changeModelState.hashNumber,
+                                    transactionMessage: changeModelState.transactionMessage,
+                                    userName: userName,
+                                  )
+                              );
+                            }on CustomError catch(e){
+                              errorDialog(context, e);
+                            }
+                          },
+                          child: Text(state.changeStatus == ChangeStatus.isLoading? 'PATIENTEZ...' : 'CONFIRMER'),
+                        ),
+                        SizedBox(width: 40,),
+                        ElevatedButton(
+                          onPressed: (){
+                            cancel();
+                          },
+                          child: const Text('ANNULER'),
+                        ),
+                      ],
+                    )
 
 
-                ],
-              );
-            },
-            steps: [
-              Step(
-                  title: Text("Demarrez la transaction en toute securité :", style: kTextBold,),
-                  content: Column(
-                    children: [
-                      ChangeTransactionForm(),
-                    ],
-                  ),
-                  isActive: currentStep>=0
-              ),
-              Step(title: Text("Confirmez la transaction :", style: kTextBold,), content: Column(
-                children: [
-                  ChangeValidationScreen(),
-                ],
-              ),
-                  isActive: currentStep>=1
-              ),
-            ],),
+                  ],
+                );
+              },
+              steps: [
+                Step(
+                    title: Text("Demarrez la transaction en toute securité :", style: kTextBold,),
+                    content: Column(
+                      children: [
+                        ChangeTransactionForm(),
+                      ],
+                    ),
+                    isActive: currentStep>=0
+                ),
+                Step(title: Text("Confirmez la transaction :", style: kTextBold,), content: Column(
+                  children: [
+                    ChangeValidationScreen(),
+                  ],
+                ),
+                    isActive: currentStep>=1
+                ),
+              ],),
 
-        ),
+          ),
 
-      ],
+        ],
+      ),
     );
 
   }
@@ -102,107 +130,4 @@ class _ChangeComponentsState extends State<ChangeComponents> {
     setState(() => currentStep -= 1) : null;
   }
 
-  Future logout() async{
-    await context.read<AuthRepository>().signOutUSer();
-    Navigator.pushNamed(context, LoginScreen.routeName);
-  }
 }
-
-// Form(
-//       key: _formKey,
-//       child: Column(
-//         children: [
-//           Expanded(
-//             child: Container(
-//               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-//               height: double.infinity,
-//               // height: 540,
-//               width: width,
-//               color: Color(0xfff7f7f7),
-//
-//               child: ListView(
-//                 children: [
-//                   Stepper(
-//                     currentStep: currentStep,
-//                     steps: [
-//                     Step(title: Text("Premiere"), content: Column(
-//                       children: [
-//                         Padding(
-//                           padding: padding1,
-//                           child: Text("Type de crypto", style: style1,),
-//                         ),
-//                         DropdownButtonFormField(
-//                           key: _key1,
-//                           value: cryptoType,
-//                           decoration: textFieldDecoration(hintText: ListHelper().listCryptoCategory[0]),
-//                           items: ListHelper().listCryptoCategory.map(buildMenuItem).toList(),
-//                           onChanged: (value) {
-//                             setState(() {
-//                               cryptoType = value.toString();
-//                             });
-//                           },
-//                         ),
-//
-//                         Padding(
-//                           padding: padding1,
-//                           child: Text("\$ à envoyer", style: style1,),
-//                         ),
-//                         Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                           children: [
-//                             TextFormField(
-//                               keyboardType: TextInputType.number,
-//                               controller: _cryptoTypeController,
-//                               decoration: textFieldDecoration(hintText: ""),
-//                               validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
-//                               onChanged: (value) => _amountToSendController.text,
-//                             ),
-//                             Column(
-//                               children: [
-//                                 Text('A recevoir'),
-//                                 SizedBox(height: 10,),
-//                                 Text("00003"),
-//                               ],
-//                             )
-//                           ],
-//                         ),
-//
-//                         Padding(
-//                           padding: padding1,
-//                           child: Text("Numéro Hash", style: style1,),
-//                         ),
-//
-//                         TextFormField(
-//                           keyboardType: TextInputType.number,
-//                           controller: _hashNumberController,
-//                           decoration: textFieldDecoration(hintText: ""),
-//                           validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
-//                           onChanged: (value) => _hashNumberController.text,
-//                         ),
-//                         SizedBox(height: 30,),
-//                         CustomButton(
-//                           text: "PROCEDER",
-//                           onPressed: (){
-//                             if(!_formKey.currentState!.validate()) return;
-//                             context.read<MobileToCryptoProvider>().initialState();
-//                             Navigator.push(context, MaterialPageRoute(builder: (context)=> CashInValidationScreen(
-//                               cryptoType: cryptoType,
-//                               mobileOperator: mobileOperator,
-//                               mobileAmount: _cryptoTypeController.text.toString(),
-//                               amountToReceive: _amountToSendController.text.toString(),
-//                               cryptoNumber: _hashNumberController.text.toString(),
-//                             )));
-//                           },
-//                         ),
-//                       ],
-//                     )),
-//                       Step(title: Text('Deuxieme'), content: CashInValidationScreen()),
-//                   ],),
-//
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );

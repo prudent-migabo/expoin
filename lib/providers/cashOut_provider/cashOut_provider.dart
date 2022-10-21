@@ -1,33 +1,32 @@
 import 'package:expoin/models/models.dart';
-import 'package:expoin/providers/cashOut_provider/cashOut_state.dart';
+import 'package:expoin/providers/providers.dart';
 import 'package:expoin/repository/repositories.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-class CashOutProvider with ChangeNotifier{
-  CashOutRepository cashOutRepository;
+class CashOutProvider extends ChangeNotifier{
   CashOutState _state = CashOutState.init();
   CashOutState get state => _state;
-  CashOutModel cashOutModel = CashOutModel();
+  CashOutRepository cashOutRepository;
 
-  CashOutProvider({required this.cashOutRepository});
+  CashOutProvider({
+    required this.cashOutRepository,
+  });
 
-  Future<void> addCashOut(String uid, CashOutModel cashOutModel) async{
-    _state = _state.copyWith(cashOutStatus: CashOutStatus.isSubmitting);
+  Future<void> addCashOut(CashOutModel cashOutModel) async{
+    _state = _state.copyWith(cashOutStatus: CashOutStatus.isLoading);
     notifyListeners();
-
     try{
-      await cashOutRepository.addCashOut(uid, cashOutModel);
-      _state = _state.copyWith(cashOutStatus: CashOutStatus.success);
+      await cashOutRepository.addCashOut(cashOutModel);
+      _state = _state.copyWith(cashOutStatus: CashOutStatus.isLoaded);
       notifyListeners();
-    }
-    on CustomError catch(e){
+    } on CustomError catch(e){
       _state = _state.copyWith(cashOutStatus: CashOutStatus.error, error: e);
       notifyListeners();
       rethrow;
     }
   }
 
-  void initial(){
+  Future<void> initialState () async{
     _state = _state.copyWith(cashOutStatus: CashOutStatus.initial);
     notifyListeners();
   }

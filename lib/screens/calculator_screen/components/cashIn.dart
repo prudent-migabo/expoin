@@ -1,4 +1,5 @@
 import 'package:expoin/models/models.dart';
+import 'package:expoin/providers/providers.dart';
 import 'package:expoin/utils/constant.dart';
 import 'package:expoin/utils/utils.dart';
 import 'package:expoin/widgets/widgets.dart';
@@ -14,7 +15,6 @@ class CashIn extends StatefulWidget {
 
 class _CashInState extends State<CashIn> {
    String? cryptoType;
-   double displayResult = 0.0;
    TextEditingController _mobileAmountController = TextEditingController();
 
   DropdownMenuItem<String> buildMenuItem(String item) {
@@ -26,24 +26,24 @@ class _CashInState extends State<CashIn> {
         ));
   }
 
+   @override
+   void initState() {
+     super.initState();
+     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+       context.read<CashInCalculationProvider>().initializer();
+     });
+   }
+
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var rate = context.watch<RateModel>().rate;
+    var rate1 = context.watch<CashInRateModel>().rate1;
+    var rate2 = context.watch<CashInRateModel>().rate2;
+    var rate3 = context.watch<CashInRateModel>().rate3;
+    var rate4 = context.watch<CashInRateModel>().rate4;
 
-    Future<double> calculation() async{
-      if(_mobileAmountController.text != ''){
-        double result =  double.parse(_mobileAmountController.text) * double.parse(rate!);
-        setState(() {
-          displayResult = result;
-        });
-        print("ooooooooooooooooooooooooooooooooooooooooooooooo ${result}");
-        print("lllllllllllllllllllllllllllllllllllllllllllllllll ${displayResult}");
-        return result;
-      } else{
-        return 0.0;
-      }
-    }
+
     return Column(
       children: [
         Expanded(
@@ -73,19 +73,26 @@ class _CashInState extends State<CashIn> {
                   child: Text("Montant en cash", style: style1,),
                 ),
                 TextFormField(
-                  keyboardType: TextInputType.number,
                   controller: _mobileAmountController,
                   decoration: textFieldDecoration(hintText: ""),
-                  onChanged: (value){
-                    if(value.isEmpty){
-                      setState(() {
-                        displayResult = 0.0;
-                      });
+                  onChanged: (value) async{
+                    if(value.isNotEmpty){
+                      await context.read<CashInCalculationProvider>().cashInCalculation(
+                          context : context,
+                          value: _mobileAmountController.text,
+                        rate1: rate1,
+                        rate2: rate2,
+                        rate3: rate3,
+                        rate4: rate4,
+                      );
+                    } else{
+                      context.read<CashInCalculationProvider>().initializer();
                     }
-                    calculation();
                 },
                 ),
-                ContainerForCalculator(content: displayResult.toString(), title: "Montant à recevoir en crypto",),
+                ContainerForCalculator(
+                  content: "${context.watch<CashInCalculationProvider>().result.toString()}\$",
+                  title: "Montant à recevoir en",),
               ],
             ),
           ),

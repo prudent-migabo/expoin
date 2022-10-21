@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:expoin/repository/repositories.dart';
 import 'package:expoin/screens/screens.dart';
 import 'package:expoin/screens/verifyEmail_screen/components/components.dart';
 import 'package:expoin/widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../../utils/utils.dart';
 
@@ -24,17 +26,21 @@ class VerifyEmailScreen extends StatefulWidget {
 
 class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
   bool isEmailVerified = false;
-  User? user;
+  User? user = FirebaseAuth.instance.currentUser;
   Timer? timer;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
-      await context.read<User?>()!.sendEmailVerification();
-    });
-    timer = Timer.periodic(Duration(seconds: 3), (timer) async{
-     await checkEmailVerified();
+    Future(() async{
+      setState(() {
+        isEmailVerified = user!.emailVerified;
+      });
+      if(!isEmailVerified){
+         sendEmailVerification();
+      }
+
+      timer = Timer.periodic(Duration(seconds: 3), (_) => checkEmailVerified());
     });
   }
 
@@ -44,53 +50,69 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     super.dispose();
   }
 
-  Future<void> checkEmailVerified() async{
-    await context.read<User?>()!.reload();
-    if (context.read<User?>()!.emailVerified) {
-      timer!.cancel();
-      Navigator.pushNamedAndRemoveUntil(context, BottomNavigationScreen.routeName, (route) => false);
+  Future checkEmailVerified() async{
+     await user!.reload();
+     // setState(() {
+     //   user;
+     // });
+    var u = FirebaseAuth.instance.currentUser!;
+    setState(() {
+      isEmailVerified = u.emailVerified;
+    });
+    if(isEmailVerified) timer!.cancel();
+  }
+
+  Future sendEmailVerification () async{
+    try{
+      await user!.sendEmailVerification();
+    } catch (e){
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 
+
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+  Widget build(BuildContext context) => isEmailVerified
+      ? BottomNavigationScreen()
+      : Scaffold(
+  body: SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 150,),
+          Icon(Icons.mail_rounded, size: 100,),
+          SizedBox(height: 10,),
+          Text("Vérification de l'email", textAlign: TextAlign.center, style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),),
+          SizedBox(height: 10,),
+          Text("Un mail de verification a été envoyé, veuillez verifier dans votre boite mail", textAlign: TextAlign.center,),
+          SizedBox(height: 30,),
+          Row(
             children: [
-              SizedBox(height: 150,),
-              Icon(Icons.mail_rounded, size: 100,),
-              SizedBox(height: 10,),
-              Text("Vérification de l'email", textAlign: TextAlign.center, style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),),
-              Text("Un mail de verification a été envoyé à :", textAlign: TextAlign.center,),
-              SizedBox(height: 10,),
-              Text("${context.read<User?>()!.email}", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
-              SizedBox(height: 30,),
-              Row(
-                children: [
-                  Text("Je n'ai pas reçu l'email"),
-                  SizedBox(width: 5,),
-                  GestureDetector(
-                      onTap: () async{
-                        await context.read<User?>()!.sendEmailVerification();
-                      },
-                      child: Text("Renvoyer", style: TextStyle(color: kMainColor),)),
-                ],
-              ),
-              SizedBox(height: 20,),
-              CustomButton(
-                text: "Annuler la vérification",
-                onPressed: (){
-                  Navigator.pop(context);
-                },
-              ),
+              Text("Je n'ai pas reçu l'email"),
+              SizedBox(width: 5,),
+              GestureDetector(
+                  onTap: () {
+                    sendEmailVerification();
+                  },
+                  child: Text("Renvoyer", style: TextStyle(color: kMainColor),)),
             ],
           ),
-        ),
+          SizedBox(height: 20,),
+          CustomButton(
+            text: "Annuler la vérification",
+            onPressed: () async{
+              await context.read<AuthRepository>().signOutUSer();
+              Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
+            },
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  ),
+);
 }
+
+

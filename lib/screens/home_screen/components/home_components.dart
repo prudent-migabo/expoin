@@ -15,90 +15,73 @@ class HomeComponents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+    final primary = Theme.of(context).colorScheme.primary;
     return CustomScrollView(
       slivers: [
-        SliverAppBar(
-          snap: true,
-            floating: true,
-            bottom: PreferredSize(
-              child: Container(),
-              preferredSize: Size.fromHeight(35),
+        SliverToBoxAdapter(child: SizedBox(height: 30,),),
+        SliverToBoxAdapter(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Card(
+              elevation: 0,
+              color: Colors.blue[50],
+              child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                //  padding: EdgeInsets.only(left: 20, top: 10, bottom: 30),
+                  child: Text("Nouvelles", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: primary), textAlign: TextAlign.center,),),
             ),
-          title: Padding(
-            padding: const EdgeInsets.only(top: 18.0),
-            child: Text("Porte-feuille", style: TextStyle(fontSize: 30)),
           ),
-          centerTitle: true,
         ),
         SliverToBoxAdapter(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: BalanceContainer(),
-              ),
               SizedBox(height: 20,),
+              AdvertisingContainer(),
+              SizedBox(height: 40,),
             ],
           ),
         ),
         SliverToBoxAdapter(
-          child: Text("Transactions effectuées", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16), textAlign: TextAlign.center,),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                    elevation: 0,
+                    color: Colors.blue[50],
+                    child: Container(
+                      width: width,
+                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        child: Text("Crypto disponibles", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: primary), textAlign: TextAlign.center,))),
+              ),
+              SizedBox(height: 15,),
+              CryptoAvailableListView(),
+            ],
+          ),
         ),
-        StreamBuilder<List<CryptoToMobileModel>>(
-            stream: context.watch<CryptoToMobileRepository>().getListCryptoToMobile(),
-            builder: (context, snapshot){
-              List<CryptoToMobileModel>? listCryptoToMobile = snapshot.data;
-              if(!snapshot.hasData) {
-                return SliverToBoxAdapter(
-                  child: Container(
-                    child: Center(child: Text("Chargement..."),),
-                  ),
-                );
-              }else if(snapshot.connectionState == ConnectionState.waiting){
-                return SliverToBoxAdapter(
-                  child: Container(
-                    child: Center(child: Text("Chargement..."),),
-                  ),
-                );
-              } else if (snapshot.hasError){
-                return SliverToBoxAdapter(
-                  child: Container(
-                    child: Center(child: Text("Chargement..."),),
-                  ),
-                );
-              }
-          return SliverList(delegate: SliverChildBuilderDelegate((context, index){
-            var data = listCryptoToMobile![index];
+        SliverToBoxAdapter(child: SizedBox(height: 35,),),
+        SliverToBoxAdapter(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Card(
+              elevation: 0,
+              color: Colors.blue[50],
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Text("Taux de change", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: primary), textAlign: TextAlign.center,)),
+            ),
+          ),
+        ),
+        SliverList(delegate: SliverChildBuilderDelegate((context, index){
             return ListTransactions(
-              initialMoneyType: data.cryptoType,
-              finalMoneyType: data.transactionID,
-              amount: data.cryptoAmount,
+              initialMoneyType: 'ETH',
+              finalMoneyType: 'BTC',
+              amount: '38\$',
             );
-          }, childCount: listCryptoToMobile!.length));
-        }),
-
+          }, childCount: 5),
+          ),
       ],
     );
-    // return Padding(
-    //   padding: const EdgeInsets.all(10.0),
-    //   child:
-    //   Column(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //    // mainAxisAlignment: MainAxisAlignment.start,
-    //     children: [
-    //       SizedBox(height: 45,),
-    //       Text("Expoin", style: headerTitle.copyWith(color: Colors.black, fontSize: 40),),
-    //       Container(
-    //         padding: EdgeInsets.symmetric(horizontal: 0),
-    //           child: Divider(color: Colors.black12, thickness: 1.0,)),
-    //       BalanceContainer(),
-    //       SizedBox(height: 20,),
-    //       Expanded(
-    //           child: Container(
-    //             width: width,
-    //               child: ListTransactions())),
-    //     ],
-    //   ),
-    // );
   }
 }

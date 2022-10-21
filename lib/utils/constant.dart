@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 const kMainColor = Color(0xff004d99);
 
@@ -27,17 +28,18 @@ const fontSizeTile = TextStyle(
   fontSize: 12
 );
 
-const calculatorStyle = TextStyle(fontSize: 12, color: Colors.blueGrey, fontWeight: FontWeight.bold);
-
-const kTextBold = TextStyle(fontWeight: FontWeight.bold);
-
 CollectionReference userRef = FirebaseFirestore.instance.collection("users");
-CollectionReference cryptoToMobileRef = FirebaseFirestore.instance.collection("cryptoToMobile");
-CollectionReference mobileToCryptoRef = FirebaseFirestore.instance.collection("mobileToCrypto");
-CollectionReference cryptoToCryptoRef = FirebaseFirestore.instance.collection("cryptoToCrypto");
-
 CollectionReference cashOutRef = FirebaseFirestore.instance.collection("cashOut");
 CollectionReference cashInRef = FirebaseFirestore.instance.collection("cashIn");
 CollectionReference changeRef = FirebaseFirestore.instance.collection("change");
+CollectionReference ratesRef = FirebaseFirestore.instance.collection('rates-commissions');
+CollectionReference imageRef = FirebaseFirestore.instance.collection('imagesUrl');
+CollectionReference configurationRef = FirebaseFirestore.instance.collection('configurations');
 
-CollectionReference rateRef = FirebaseFirestore.instance.collection("exchange");
+
+const calculatorStyle = TextStyle(fontSize: 12, color: Colors.blueGrey, fontWeight: FontWeight.bold);
+const kTextBold = TextStyle(fontWeight: FontWeight.bold);
+const kSizedBox10 = SizedBox(height: 10,);
+const kFontStyleDetailsTrans = TextStyle(fontWeight: FontWeight.bold, fontSize: 17,);
+
+

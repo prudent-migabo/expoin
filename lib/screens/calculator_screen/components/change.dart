@@ -1,4 +1,5 @@
 import 'package:expoin/models/models.dart';
+import 'package:expoin/providers/providers.dart';
 import 'package:expoin/utils/constant.dart';
 import 'package:expoin/utils/utils.dart';
 import 'package:expoin/widgets/widgets.dart';
@@ -27,23 +28,21 @@ class _ChangeState extends State<Change> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<ChangeCalculationProvider>().initializer();
+    });
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var rate = context.watch<RateModel>().rate;
-
-    Future<double> calculation() async{
-      if(_cryptoAmountController.text != ''){
-        double result =  double.parse(_cryptoAmountController.text) * double.parse(rate!);
-        setState(() {
-          displayResult = result;
-        });
-        print("ooooooooooooooooooooooooooooooooooooooooooooooo ${result}");
-        print("lllllllllllllllllllllllllllllllllllllllllllllllll ${displayResult}");
-        return result;
-      } else{
-        return 0.0;
-      }
-    }
+    var rate1 = context.watch<ChangeRateModel>().rate1;
+    var rate2 = context.watch<ChangeRateModel>().rate2;
+    var rate3 = context.watch<ChangeRateModel>().rate3;
+    var rate4 = context.watch<ChangeRateModel>().rate4;
 
     return Column(
       children: [
@@ -74,16 +73,21 @@ class _ChangeState extends State<Change> {
                   child: Text("Montant en crypto", style: style1,),
                 ),
                 TextFormField(
-                  keyboardType: TextInputType.number,
                   controller: _cryptoAmountController,
                   decoration: textFieldDecoration(hintText: ""),
                   onChanged: (value) {
-                    if(value.isEmpty){
-                      setState(() {
-                        displayResult = 0.0;
-                      });
+                    if(value.isNotEmpty){
+                      context.read<ChangeCalculationProvider>().changeCalculation(
+                        context: context,
+                        value: _cryptoAmountController.text,
+                        rate1: rate1,
+                        rate2: rate2,
+                        rate3: rate3,
+                        rate4: rate4,
+                      );
+                    } else{
+                     context.read<ChangeCalculationProvider>().initializer();
                     }
-                    calculation();
                   },
                 ),
                 Padding(
@@ -100,7 +104,8 @@ class _ChangeState extends State<Change> {
                     });
                   },
                 ),
-                ContainerForCalculator(content: displayResult.toString(), title: "Montant à recevoir en crypto",),
+                ContainerForCalculator(content : "${context.watch<ChangeCalculationProvider>().result.toString()}\$",
+                  title: "Montant à recevoir en crypto",),
               ],
             ),
           ),

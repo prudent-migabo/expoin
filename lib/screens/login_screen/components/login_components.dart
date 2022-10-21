@@ -59,15 +59,19 @@ class _LoginComponentsState extends State<LoginComponents> {
                       return "Email mal composé";
                     }
                   },
-                  decoration: textFieldLoginDecoration(prefixIcon: Icon(Icons.mail_rounded, color: Color(0xff004d99), size: 20,), hintText: "Email"),
+                  decoration: textFieldLoginDecoration(
+                      prefixIcon: Icons.mail_rounded,
+                      hintText: "Email",
+                    labelText: "Email"
+                  ),
                   onChanged: (val) => _emailController.text,
                 ),
-                SizedBox(height: 15,),
+                SizedBox(height: 20,),
                 TextFormField(
                   controller: _passwordController,
                   obscureText: isVisible? false : true,
                   decoration: textFieldLoginDecoration(
-                      prefixIcon: Icon(Icons.vpn_key_rounded,color: Color(0xff004d99), size: 20,),
+                      prefixIcon: Icons.vpn_key_rounded,
                       suffixIcon: IconButton(
                         onPressed: (){
                           setState(() {
@@ -76,6 +80,7 @@ class _LoginComponentsState extends State<LoginComponents> {
                         },
                         icon: isVisible? Icon(Icons.visibility_off_rounded, color: Color(0xff004d99), size: 20,) : Icon(Icons.remove_red_eye_rounded, color: Color(0xff004d99), size: 20,),
                       ),
+                      labelText: "Mot de passe",
                       hintText: "Mot de passe"),
                   validator: (val){
                     if(val!.isEmpty){
@@ -100,33 +105,23 @@ class _LoginComponentsState extends State<LoginComponents> {
                 ),
                 SizedBox(height: 10,),
                 Padding(
-                  padding: EdgeInsets.only(left: 170),
-                  child: GestureDetector(
-                    onTap: () async{
-                      await context.read<ForgotPasswordProvider>().initial();
-                      Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
-                    },
-                    child: Text("Mot de passe oublié?", style: TextStyle(color: kMainColor, fontSize: 13),),
-                  ),
+                  padding: EdgeInsets.only(left: 150),
+                  child: TextButton(onPressed: () async{
+                    await context.read<ForgotPasswordProvider>().initial();
+                    Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
+                  }, child: Text("Mot de passe oublié?", style: TextStyle(color: kMainColor, fontSize: 13),)),
                 ),
-                SizedBox(height: 30,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Text("Vous n'avez pas encore de compte?", style: TextStyle(color: Colors.black, fontSize: 13),),
-                        ),
-                        GestureDetector(
-                          onTap: (){
-                            context.read<RegisterProvider>().initialState();
-                            Navigator.pushNamed(context, RegisterScreen.routeName);
-                          },
-                          child: Text("S'inscrire", style: TextStyle(color: kMainColor),),
-                        ),
+                        Text("Vous n'avez pas encore de compte?", style: TextStyle(color: Colors.black, fontSize: 13),),
+                        TextButton(
+                            onPressed: () async{
+                              await context.read<RegisterProvider>().initialState();
+                              Navigator.pushNamed(context, RegisterScreen.routeName);
+                            }, child: Text("S'inscrire", style: TextStyle(color: kMainColor),)),
                       ],
                     ),
                   ],

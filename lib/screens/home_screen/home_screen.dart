@@ -14,12 +14,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: PreferredSize(
-      //   preferredSize: Size.fromHeight(100),
-      //   child: AppBar(
-      //     title: Text("Porte-feuille", style: headerTitle),
-      //   ),
-      // ),
       body: HomeComponents(),
     );
   }

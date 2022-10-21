@@ -19,6 +19,7 @@ class LoginProvider extends ChangeNotifier{
     } on CustomError catch(e){
       _state = _state.copyWith(loginStatus: LoginStatus.error, error: e);
       notifyListeners();
+      rethrow;
     }
   }
 

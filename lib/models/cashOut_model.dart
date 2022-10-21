@@ -1,36 +1,64 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CashOutModel{
-  String? cryptoType;
-  String? mobileType;
-  String? cryptoAmount;
+  String? userName;
+  String cryptoType;
+  String amountToSend;
+  String phoneMobileNumber;
+  String transactionID;
+  String? date;
+  String? docID;
+  bool? isPending;
 
 //<editor-fold desc="Data Methods">
 
   CashOutModel({
-     this.cryptoType,
-     this.mobileType,
-     this.cryptoAmount,
+    this.userName,
+    required this.cryptoType,
+    required this.amountToSend,
+    required this.phoneMobileNumber,
+    required this.transactionID,
+    this.date,
+    this.docID,
+    this.isPending,
   });
 
 
   Map<String, dynamic> toMap() {
     return {
+      'userName' : this.userName,
       'cryptoType': this.cryptoType,
-      'mobileType': this.mobileType,
-      'cryptoAmount': this.cryptoAmount,
+      'amountToSend': this.amountToSend,
+      'phoneMobileNumber': this.phoneMobileNumber,
+      'transactionID': this.transactionID,
+      'date' : DateTime.now(),
+      'isPending' : this.isPending,
     };
   }
 
-  factory CashOutModel.fromMap(DocumentSnapshot doc) {
-    var data = doc.data() as Map;
+  factory CashOutModel.initial() {
     return CashOutModel(
-      cryptoType: data['cryptoType'] ?? "",
-      mobileType: data['mobileType'] ?? "",
-      cryptoAmount: data['cryptoAmount'] ?? "",
+       userName: '',
+      cryptoType: '',
+      amountToSend: '',
+      phoneMobileNumber: '',
+      transactionID: '',
+      isPending: true,
     );
   }
 
-//</editor-fold>
+  factory CashOutModel.fromMap(DocumentSnapshot documentSnapshot){
+    var data = documentSnapshot.data()! as Map;
+    return CashOutModel(
+        cryptoType: data['cryptoType'] ?? '',
+        amountToSend: data['amountToSend'] ?? '',
+        phoneMobileNumber: data['phoneMobileNumber'] ?? '',
+        transactionID: data['transactionID'] ?? '',
+        userName: data['userName'] ?? '',
+      isPending: data['isPending'],
+      docID: documentSnapshot.id,
+    );
+  }
+
 }

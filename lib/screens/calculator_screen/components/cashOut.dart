@@ -1,6 +1,4 @@
 import 'package:expoin/models/models.dart';
-import 'package:expoin/providers/cashOut_provider/cashOut_state.dart';
-import 'package:expoin/providers/cashOut_provider/retreive_cashout_state.dart';
 import 'package:expoin/providers/providers.dart';
 import 'package:expoin/utils/constant.dart';
 import 'package:expoin/utils/utils.dart';
@@ -19,16 +17,9 @@ class CashOut extends StatefulWidget {
 
 class _CashOutState extends State<CashOut> {
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-  final _formKey = GlobalKey<FormState>();
+
   String? cryptoType;
   String? mobileType;
-  double displayResult = 0.0;
-  double? resultRate;
   final GlobalKey<FormFieldState> _key1 = GlobalKey<FormFieldState>();
   final GlobalKey<FormFieldState> _key2 = GlobalKey<FormFieldState>();
   TextEditingController _cryptoAmountController = TextEditingController();
@@ -43,93 +34,93 @@ class _CashOutState extends State<CashOut> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<CashOutCalculationProvider>().initializer();
+    });
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var rate = context.watch<RateModel>().rate;
+    var rate1 = context.watch<CashOutRateModel>().rate1;
+    var rate2 = context.watch<CashOutRateModel>().rate2;
+    var rate3 = context.watch<CashOutRateModel>().rate3;
+    var rate4 = context.watch<CashOutRateModel>().rate4;
 
-    Future<double> calculation() async{
-      if(_cryptoAmountController.text != ''){
-        double result =  double.parse(_cryptoAmountController.text) * double.parse(rate!);
-        setState(() {
-          displayResult = result;
-        });
-        print("ooooooooooooooooooooooooooooooooooooooooooooooo ${result}");
-        print("lllllllllllllllllllllllllllllllllllllllllllllllll ${displayResult}");
-        return result;
-      } else{
-        return 0.0;
-      }
-    }
 
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-             // height: 600,
-              width: width,
-              color: Color(0xfff7f7f7),
-              child: ListView(
-                children: [
-                  Padding(
-                    padding: padding1,
-                    child: Text("Type de crypto", style: style1,),
-                  ),
-                  DropdownButtonFormField(
-                    key: _key1,
-                    value: cryptoType,
-                    decoration: textFieldDecoration(),
-                    items: ListHelper().listCryptoCategory.map(buildMenuItem).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        cryptoType = value.toString();
-                      });
-                    },
-                  ),
-                  Padding(
-                    padding: padding1,
-                    child: Text("Type de Mobile", style: style1,),
-                  ),
-                  DropdownButtonFormField(
-                    key: _key2,
-                    value: mobileType,
-                    decoration: textFieldDecoration(),
-                    items: ListHelper().listMobileOperator.map(buildMenuItem).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        mobileType = value.toString();
-                      });
-                    },
-                  ),
-                  Padding(
-                    padding: padding1,
-                    child: Text("Montant en crypto", style: style1,),
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    controller: _cryptoAmountController,
-                    decoration: textFieldDecoration(),
-                    validator: (value) => value!.isEmpty? "Rien à calculer": null,
-                    onChanged: (value) {
-                      if(value.isEmpty){
-                        setState(() {
-                          displayResult = 0.0;
-                        });
-                      }
-                      calculation();
-                    },
-                  ),
-                    ContainerForCalculator(
-                        content: displayResult.toString(),
-                        title: "Montant à recevoir en \$",),
-                ],
-              ),
+    return Column(
+      children: [
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+           // height: 600,
+            width: width,
+            color: Color(0xfff7f7f7),
+            child: ListView(
+              children: [
+                Padding(
+                  padding: padding1,
+                  child: Text("Type de crypto", style: style1,),
+                ),
+                DropdownButtonFormField(
+                  key: _key1,
+                  value: cryptoType,
+                  decoration: textFieldDecoration(),
+                  items: ListHelper().listCryptoCategory.map(buildMenuItem).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      cryptoType = value.toString();
+                    });
+                  },
+                ),
+                Padding(
+                  padding: padding1,
+                  child: Text("Type de Mobile", style: style1,),
+                ),
+                DropdownButtonFormField(
+                  key: _key2,
+                  value: mobileType,
+                  decoration: textFieldDecoration(),
+                  items: ListHelper().listMobileOperator.map(buildMenuItem).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      mobileType = value.toString();
+                    });
+                  },
+                ),
+                Padding(
+                  padding: padding1,
+                  child: Text("Montant en crypto", style: style1,),
+                ),
+                TextFormField(
+                  controller: _cryptoAmountController,
+                  decoration: textFieldDecoration(),
+                  onChanged: (value) {
+                    if(value.isNotEmpty){
+                      context.read<CashOutCalculationProvider>().cashOutCalculation(
+                        context: context,
+                        value: _cryptoAmountController.text,
+                        rate1: rate1,
+                        rate2: rate2,
+                        rate3: rate3,
+                        rate4: rate4,
+                      );
+                    } else{
+                      context.read<CashOutCalculationProvider>().initializer();
+                    }
+                  },
+                ),
+                  ContainerForCalculator(
+                      content: "${context.watch<CashOutCalculationProvider>().result.toString()}\$",
+                      title: "Montant à recevoir en \$",),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
