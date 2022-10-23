@@ -51,6 +51,7 @@ class _LoginComponentsState extends State<LoginComponents> {
                 Text("Connectez-vous pour gérer votre compte...", style: TextStyle(color: Colors.black54, fontSize: 13, fontWeight: FontWeight.bold),),
                 SizedBox(height: 30,),
                 TextFormField(
+                  keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
                   validator:  (value){
                     if(value!.isEmpty){
