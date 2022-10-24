@@ -35,7 +35,14 @@ class _HistoricComponentsState extends State<HistoricComponents> {
                   pinned: true,
                   snap: true,
                   backgroundColor: kMainColor,
-                  leading: Container(),
+                  leading: Container(
+                    margin: EdgeInsets.only(top: 20),
+                    child: GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamedAndRemoveUntil(context, HomeScreen.routeName, (route) => false);
+                        },
+                        child: Icon(Icons.arrow_back_rounded)),
+                  ),
                   title: Padding(
                     padding: const EdgeInsets.only(top: 15.0),
                     child: Column(

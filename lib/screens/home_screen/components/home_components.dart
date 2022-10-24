@@ -6,6 +6,7 @@ import 'package:expoin/screens/screens.dart';
 import 'package:expoin/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/utils.dart';
 
@@ -19,68 +20,56 @@ class HomeComponents extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(child: SizedBox(height: 30,),),
-        SliverToBoxAdapter(
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            child: Card(
-              elevation: 0,
-              color: Colors.blue[50],
-              child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                //  padding: EdgeInsets.only(left: 20, top: 10, bottom: 30),
-                  child: Text("Nouvelles", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: primary), textAlign: TextAlign.center,),),
+        SliverToBoxAdapter( child:  AdvertisingContainer(),),
+        SliverToBoxAdapter( child: SizedBox(height: 25,),),
+        SliverToBoxAdapter( child: CryptoAvailableListView(),),
+        SliverToBoxAdapter(child: SizedBox(height: 10,),),
+        SliverGrid.count(
+          crossAxisCount: 2,
+          mainAxisSpacing: 5.0,
+          crossAxisSpacing: 0.0,
+          childAspectRatio: 1.5,
+          children: [
+            HomeMenu(color: Color(0xfffff0b4), icon: Icon(FontAwesomeIcons.rightLeft), text: 'Transactions',
+              onPressed: (){
+              Navigator.pushNamed(context, TransactionScreen.routeName);
+              },
             ),
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: Column(
-            children: [
-              SizedBox(height: 20,),
-              AdvertisingContainer(),
-              SizedBox(height: 40,),
-            ],
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                child: Card(
-                    elevation: 0,
-                    color: Colors.blue[50],
-                    child: Container(
-                      width: width,
-                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        child: Text("Crypto disponibles", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: primary), textAlign: TextAlign.center,))),
-              ),
-              SizedBox(height: 15,),
-              CryptoAvailableListView(),
-            ],
-          ),
-        ),
-        SliverToBoxAdapter(child: SizedBox(height: 35,),),
-        SliverToBoxAdapter(
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            child: Card(
-              elevation: 0,
-              color: Colors.blue[50],
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text("Taux de change", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: primary), textAlign: TextAlign.center,)),
+            HomeMenu(color: Color(0xffdffdb3), icon: Icon(FontAwesomeIcons.bagShopping), text: 'Services',
+              onPressed: (){},
             ),
-          ),
+            HomeMenu(color: Color(0xffb6e2ff), icon: Icon(FontAwesomeIcons.calculator), text: 'Calculatrice',
+              onPressed: (){
+              Navigator.pushNamed(context, CalculatorScreen.routeName);
+              },
+            ),
+            HomeMenu(color: Color(0xfffdbbbc), icon: Icon(FontAwesomeIcons.clockRotateLeft), text: 'Historiques',
+              onPressed: (){
+              Navigator.pushNamed(context, HistoricScreen.routeName);
+              },
+            ),
+            HomeMenu(color: Color(0xfffec67c), icon: Icon(FontAwesomeIcons.circleInfo), text: 'Informations',
+              onPressed: (){},
+            ),
+            HomeMenu(color: Color(0xffc1ffd8), icon: Icon(FontAwesomeIcons.spinner), text: 'A venir',
+              onPressed: (){},
+            ),
+          ],
         ),
-        SliverList(delegate: SliverChildBuilderDelegate((context, index){
-            return ListTransactions(
-              initialMoneyType: 'ETH',
-              finalMoneyType: 'BTC',
-              amount: '38\$',
-            );
-          }, childCount: 5),
-          ),
+        SliverToBoxAdapter(child: SizedBox(height: 25,),),
+        SliverToBoxAdapter(child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(image: AssetImage(Assets.facebookLogo), width: 35, height: 35),
+            SizedBox(width: 10,),
+            Image(image: AssetImage(Assets.twitterLogo), width: 35, height: 30),
+            SizedBox(width: 10,),
+            Image(image: AssetImage(Assets.youtubeLogo), width: 35, height: 35),
+            SizedBox(width: 10,),
+            Image(image: AssetImage(Assets.whatsappLogo), width: 35, height: 35),
+          ],
+        )),
+        SliverToBoxAdapter(child: SizedBox(height: 10,),),
       ],
     );
   }

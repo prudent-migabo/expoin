@@ -23,6 +23,14 @@ class AppRouter {
         return CashInValidationScreen.route();
       case ChangeValidationScreen.routeName :
         return ChangeValidationScreen.route();
+      case TransactionScreen.routeName :
+        return TransactionScreen.route();
+      case CalculatorScreen.routeName :
+        return CalculatorScreen.route();
+      case HistoricScreen.routeName :
+        return HistoricScreen.route();
+      case HomeScreen.routeName :
+        return HomeScreen.route();
       default:
         return _errorRoute();
     }

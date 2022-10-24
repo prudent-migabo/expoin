@@ -42,6 +42,7 @@ dependencies:
   fluttertoast:
   carousel_slider:
   cached_network_image:
+  font_awesome_flutter:
 
 dev_dependencies:
   flutter_test:

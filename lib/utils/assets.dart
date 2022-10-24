@@ -8,4 +8,8 @@ class Assets {
   static const String eth = 'assets/images/eth.jpg';
   static const String usdt = 'assets/images/usdt.png';
   static const String xrp = 'assets/images/xrp.jpg';
+  static const String facebookLogo = 'assets/images/facebook logo.png';
+  static const String twitterLogo = 'assets/images/twitter-logo.png';
+  static const String youtubeLogo = 'assets/images/youtube logo.png';
+  static const String whatsappLogo = 'assets/images/whatsapp logo.png';
 }
