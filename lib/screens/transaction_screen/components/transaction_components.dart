@@ -81,7 +81,7 @@ class TransactionComponents extends StatelessWidget {
                         child: Text("CASH OUT", style: kTextBold.copyWith(fontSize: 13),),
                       ),
                       Tab(
-                        child: Text("CHANGE", style: kTextBold.copyWith(fontSize: 13),),
+                        child: Text("SWAP", style: kTextBold.copyWith(fontSize: 13),),
                       ),
                     ],
                   ),

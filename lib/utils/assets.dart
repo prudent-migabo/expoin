@@ -13,4 +13,8 @@ class Assets {
   static const String youtubeLogo = 'assets/images/youtube logo.png';
   static const String whatsappLogo = 'assets/images/whatsapp logo.png';
   static const String telegramLogo = 'assets/images/telegram_logo.png';
+  static const String airtelMoney = 'assets/images/airtel money.png';
+  static const String orangeMoney = 'assets/images/orange money.png';
+  static const String mpesa = 'assets/images/m-pesa.png';
+
 }

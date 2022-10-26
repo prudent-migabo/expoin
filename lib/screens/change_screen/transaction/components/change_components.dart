@@ -31,7 +31,7 @@ class _ChangeComponentsState extends State<ChangeComponents> {
 
     if(state.changeStatus == ChangeStatus.isLoaded){
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        Fluttertoast.showToast(msg: "Votre requete est soumise a l'administration avec succes");
+        Fluttertoast.showToast(msg: "Votre requete est soumise a l'administration avec succes, vous recevrez la suite dans une heure");
         context.read<ChangeProvider>().initialState();
       });
     }

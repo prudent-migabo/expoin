@@ -30,7 +30,7 @@ class _CashInComponentsState extends State<CashInComponents> {
 
     if(state.cashInStatus == CashInStatus.isLoaded){
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        Fluttertoast.showToast(msg: "Votre requete est soumise a l'administration avec succes");
+        Fluttertoast.showToast(msg: "Votre requete est soumise a l'administration avec succes, vous recevrez la suite dans une heure");
         context.read<CashInProvider>().initialState();
       });
     }

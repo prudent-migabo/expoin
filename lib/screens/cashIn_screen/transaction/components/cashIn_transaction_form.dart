@@ -83,6 +83,7 @@ class _CashInTransactionFormState extends State<CashInTransactionForm> {
           children: [
             Expanded(
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 controller: _amountToSendController,
                 decoration: textFieldDecoration(hintText: "Saisissez ici"),
                 validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
@@ -117,7 +118,7 @@ class _CashInTransactionFormState extends State<CashInTransactionForm> {
 
         Padding(
           padding: padding1,
-          child: Text("HASH :", style: style1,),
+          child: Text("Wallet :", style: style1,),
         ),
 
         TextFormField(

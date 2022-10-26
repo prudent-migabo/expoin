@@ -31,7 +31,7 @@ class _CashOutComponentsState extends State<CashOutComponents> {
 
     if(state.cashOutStatus == CashOutStatus.isLoaded){
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        Fluttertoast.showToast(msg: "Vos données ont été envoyées à l'administration avec succes");
+        Fluttertoast.showToast(msg: "Vos données ont été envoyées à l'administration avec succes, vous recevrez la suite dans une heure");
         context.read<CashOutProvider>().initialState();
       });
     }

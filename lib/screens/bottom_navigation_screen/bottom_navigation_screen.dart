@@ -1,5 +1,6 @@
 import 'package:expoin/screens/screens.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../utils/utils.dart';
 
@@ -54,7 +55,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               label: 'Accueil',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.airline_stops_sharp),
+              icon: Icon(FontAwesomeIcons.rightLeft),
               label: 'Transactions',
             ),
             BottomNavigationBarItem(

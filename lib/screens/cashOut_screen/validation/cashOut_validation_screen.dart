@@ -71,7 +71,7 @@ class _CashOutValidationScreenState extends State<CashOutValidationScreen> {
                 },
               ),
               SizedBox(height: 20,),
-              Text("HASH MES PIECES"),
+              Text("WALLET MES PIECES"),
               SizedBox(height: 15,),
               StreamBuilder<HashNumberModel>(
                 stream: context.watch<HashNumberRepository>().getHashNumber(),
@@ -98,7 +98,7 @@ class _CashOutValidationScreenState extends State<CashOutValidationScreen> {
               SizedBox(height: 20,),
               Padding(
                 padding: padding1.copyWith(top: 0, bottom: 10),
-                child: Text("ID de la transaction :", style: style1,),
+                child: Text("HASH :", style: style1,),
               ),
               TextFormField(
                 controller: _transactionIDController,
