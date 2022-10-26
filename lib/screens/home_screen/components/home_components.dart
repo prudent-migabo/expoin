@@ -26,23 +26,23 @@ class HomeComponents extends StatelessWidget {
     final primary = Theme.of(context).colorScheme.primary;
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: SizedBox(
             height: 30,
           ),
         ),
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: AdvertisingContainer(),
         ),
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: SizedBox(
             height: 25,
           ),
         ),
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: CryptoAvailableListView(),
         ),
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: SizedBox(
             height: 10,
           ),
@@ -54,50 +54,50 @@ class HomeComponents extends StatelessWidget {
           childAspectRatio: 1.5,
           children: [
             HomeMenu(
-              color: Color(0xfffff0b4),
-              icon: Icon(FontAwesomeIcons.rightLeft),
+              color: const Color(0xfffff0b4),
+              icon: const Icon(FontAwesomeIcons.rightLeft),
               text: 'Transactions',
               onPressed: () {
                 Navigator.pushNamed(context, TransactionScreen.routeName);
               },
             ),
             HomeMenu(
-              color: Color(0xffdffdb3),
-              icon: Icon(FontAwesomeIcons.bagShopping),
+              color: const Color(0xffdffdb3),
+              icon: const Icon(FontAwesomeIcons.bagShopping),
               text: 'Services',
               onPressed: () {},
             ),
             HomeMenu(
-              color: Color(0xffb6e2ff),
-              icon: Icon(FontAwesomeIcons.calculator),
+              color: const Color(0xffb6e2ff),
+              icon: const Icon(FontAwesomeIcons.calculator),
               text: 'Calculatrice',
               onPressed: () {
                 Navigator.pushNamed(context, CalculatorScreen.routeName);
               },
             ),
             HomeMenu(
-              color: Color(0xfffdbbbc),
-              icon: Icon(FontAwesomeIcons.clockRotateLeft),
+              color: const Color(0xfffdbbbc),
+              icon: const Icon(FontAwesomeIcons.clockRotateLeft),
               text: 'Historiques',
               onPressed: () {
                 Navigator.pushNamed(context, HistoricScreen.routeName);
               },
             ),
             HomeMenu(
-              color: Color(0xfffec67c),
-              icon: Icon(FontAwesomeIcons.circleInfo),
+              color: const Color(0xfffec67c),
+              icon: const Icon(FontAwesomeIcons.circleInfo),
               text: 'Informations',
               onPressed: () {},
             ),
             HomeMenu(
-              color: Color(0xffc1ffd8),
-              icon: Icon(FontAwesomeIcons.spinner),
+              color: const Color(0xffc1ffd8),
+              icon: const Icon(FontAwesomeIcons.spinner),
               text: 'A venir',
               onPressed: () {},
             ),
           ],
         ),
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: SizedBox(
             height: 25,
           ),
@@ -108,32 +108,32 @@ class HomeComponents extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: ()=>_launchUrl(facebook_url),
-              child: Image(
+              child: const Image(
                   image: AssetImage(Assets.facebookLogo), width: 35, height: 35),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             GestureDetector(
                 onTap: ()=>_launchUrl(telegram_url),
                 child: Image(image: AssetImage(Assets.telegramLogo), width: 35, height: 30)),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             GestureDetector(
                 onTap: ()=>_launchUrl(youtube_url),
                 child: Image(image: AssetImage(Assets.youtubeLogo), width: 35, height: 35)),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             GestureDetector(
               onTap: ()=>_launchUrl(whatsapp_url),
-              child: Image(
+              child: const Image(
                   image: AssetImage(Assets.whatsappLogo), width: 35, height: 35),
             ),
           ],
         )),
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: SizedBox(
             height: 10,
           ),
