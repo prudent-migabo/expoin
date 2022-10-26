@@ -28,20 +28,21 @@ class AdvertisingContainer extends StatelessWidget {
           }
           return CarouselSlider.builder(itemCount: listImages.length,
             options: CarouselOptions(
+              autoPlay: true,
               height: 220.0,
               enlargeCenterPage: true,
               aspectRatio: 16 / 9,
               autoPlayCurve: Curves.fastOutSlowIn,
               enableInfiniteScroll: true,
               autoPlayAnimationDuration: Duration(milliseconds: 800),
-            //  viewportFraction: 0.8,
+              viewportFraction: 0.9,
             ),
               itemBuilder: (BuildContext context, int index, int pageViewIndex){
             var data = listImages[index];
             return  CachedNetworkImage(imageUrl: data.imgUrl,
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
                     ),
                   ),

@@ -13,7 +13,7 @@ const style1 = TextStyle(
 const padding1 = EdgeInsets.only(top: 25.0, bottom: 10);
 
 const headerTitle = TextStyle(
-    fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold
+    fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold
 );
 
 const fontColor1 = TextStyle(

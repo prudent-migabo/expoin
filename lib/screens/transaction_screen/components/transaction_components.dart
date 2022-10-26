@@ -30,7 +30,14 @@ class TransactionComponents extends StatelessWidget {
                   pinned: true,
                   snap: true,
                   backgroundColor: kMainColor,
-                  leading: Container(),
+                  leading: Container(
+                    margin: EdgeInsets.only(top: 20),
+                    child: GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamedAndRemoveUntil(context, HomeScreen.routeName, (route) => false);
+                        },
+                        child: Icon(Icons.arrow_back_rounded)),
+                  ),
                   title: Padding(
                     padding: const EdgeInsets.only(top: 15.0),
                     child: Column(
@@ -43,8 +50,10 @@ class TransactionComponents extends StatelessWidget {
                     ),
                   ),
                   actions: [
-                    IconButton(
-                        onPressed: () {
+                    Container(
+                      margin: EdgeInsets.only(right: 15, top: 20),
+                      child: GestureDetector(
+                        onTap: (){
                           alertDialog(context, title: "Deconnexion", content: "Etes-vous sûr de vouloir vous déconnecter ?",
                               onPressed: (){
                                 context.read<LoginProvider>().initialState();
@@ -52,7 +61,9 @@ class TransactionComponents extends StatelessWidget {
                                 Navigator.pushNamed(context, LoginScreen.routeName);
                               });
                         },
-                        icon: Icon(Icons.login_outlined),),
+                        child: Icon(Icons.logout),
+                      ),
+                    )
                   ],
                   centerTitle: true,
                   expandedHeight: 120,
