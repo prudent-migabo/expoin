@@ -12,4 +12,5 @@ class Assets {
   static const String twitterLogo = 'assets/images/twitter-logo.png';
   static const String youtubeLogo = 'assets/images/youtube logo.png';
   static const String whatsappLogo = 'assets/images/whatsapp logo.png';
+  static const String telegramLogo = 'assets/images/telegram_logo.png';
 }
