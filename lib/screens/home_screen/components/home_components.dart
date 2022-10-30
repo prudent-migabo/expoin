@@ -20,7 +20,6 @@ class HomeComponents extends StatelessWidget {
         Uri.parse("https://www.youtube.com/channel/UCBZdE8LkkGK2kcNpOPlJU9w");
     final Uri facebook_url =
         Uri.parse("https://www.facebook.com/profile.php?id=100083265342696");
-    final Uri whatsapp_url = Uri.parse("https://wa.me/message/X4KA5THVWWRMO1");
     final Uri telegram_url = Uri.parse("https://t.me/mespieces");
     var width = MediaQuery.of(context).size.width;
     final primary = Theme.of(context).colorScheme.primary;
@@ -125,11 +124,6 @@ class HomeComponents extends StatelessWidget {
                 child: Image(image: AssetImage(Assets.youtubeLogo), width: 35, height: 35)),
             const SizedBox(
               width: 10,
-            ),
-            GestureDetector(
-              onTap: ()=>_launchUrl(whatsapp_url),
-              child: const Image(
-                  image: AssetImage(Assets.whatsappLogo), width: 35, height: 35),
             ),
           ],
         )),
