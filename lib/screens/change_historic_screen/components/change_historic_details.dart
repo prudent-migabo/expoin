@@ -7,6 +7,7 @@ class ChangeHistoricDetails extends StatelessWidget {
   String? cryptoTypeToSend;
   String? cryptoTypeToReceive;
   String? cryptoAmountToSend;
+  String? amountToReceive;
   String? hashNumber;
   String? transactionMessage;
 
@@ -15,6 +16,7 @@ class ChangeHistoricDetails extends StatelessWidget {
     this.cryptoTypeToSend,
     this.cryptoTypeToReceive,
     this.cryptoAmountToSend,
+    this.amountToReceive,
     this.hashNumber,
     this.transactionMessage,
   });
@@ -51,9 +53,11 @@ class ChangeHistoricDetails extends StatelessWidget {
             kSizedBox10,
             Text('Type de crypto à recevoir : $cryptoTypeToReceive', style: kFontStyleDetailsTrans,),
             kSizedBox10,
-            Text('Montant à envoyer : $cryptoAmountToSend', style: kFontStyleDetailsTrans,),
+            Text('Montant à envoyer : $cryptoAmountToSend\$', style: kFontStyleDetailsTrans,),
             kSizedBox10,
-            Text('HASH: $hashNumber', style: kFontStyleDetailsTrans,),
+            Text('Montant à recevoir : $amountToReceive\$', style: kFontStyleDetailsTrans,),
+            kSizedBox10,
+            Text('Wallet: $hashNumber', style: kFontStyleDetailsTrans,),
             kSizedBox10,
             Text("Message de confirmation : \n$transactionMessage",
               style: kFontStyleDetailsTrans,),

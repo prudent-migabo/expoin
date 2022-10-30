@@ -6,6 +6,7 @@ class CashOutHistoricDetails extends StatelessWidget {
   String? userName;
   String? cryptoType;
   String? cryptoAmountToSend;
+  String? amountToReceive;
   String? transactionMessage;
   String? phoneNumber;
 
@@ -13,6 +14,7 @@ class CashOutHistoricDetails extends StatelessWidget {
     this.userName,
     this.cryptoType,
     this.cryptoAmountToSend,
+    this.amountToReceive,
     this.transactionMessage,
     this.phoneNumber,
   });
@@ -47,7 +49,9 @@ class CashOutHistoricDetails extends StatelessWidget {
             kSizedBox10,
             Text('Type de crypto : $cryptoType', style: kFontStyleDetailsTrans,),
             kSizedBox10,
-            Text('Crypto envoyé : $cryptoAmountToSend', style: kFontStyleDetailsTrans,),
+            Text('Montant envoyé : $cryptoAmountToSend\$', style: kFontStyleDetailsTrans,),
+            kSizedBox10,
+            Text('Montant à recevoir : $cryptoAmountToSend\$', style: kFontStyleDetailsTrans,),
             kSizedBox10,
             Text('Numero de telephone : $phoneNumber', style: kFontStyleDetailsTrans,),
             kSizedBox10,

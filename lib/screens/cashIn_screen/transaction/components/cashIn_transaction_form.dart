@@ -107,9 +107,9 @@ class _CashInTransactionFormState extends State<CashInTransactionForm> {
             Expanded(
               child: Column(
                 children: [
-                  Text('\$ recevoir :'),
+                  Text('à recevoir :'),
                   SizedBox(height: 10,),
-                  Text(context.watch<CashInCalculationProvider>().result.toString(), style: kTextBold,),
+                  Text("${context.watch<CashInCalculationProvider>().result.toString()} \$", style: kTextBold,),
                 ],
               ),
             ),

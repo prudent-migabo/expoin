@@ -39,13 +39,13 @@ class CalculatorScreen extends StatelessWidget {
               indicatorWeight: 2,
               tabs: [
                 Tab(
-                  text: 'CashIn',
+                  text: 'ACHAT',
                 ),
                 Tab(
-                  text: 'Cashout',
+                  text: 'VENTE',
                 ),
                 Tab(
-                  text: 'Change',
+                  text: 'CHANGE',
                 ),
               ],
             ),

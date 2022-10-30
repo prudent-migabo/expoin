@@ -127,9 +127,9 @@ class _ChangeTransactionFormState extends State<ChangeTransactionForm> {
               Expanded(
                 child: Column(
                   children: [
-                    Text('\$ à recevoir :'),
+                    Text('à recevoir :'),
                     SizedBox(height: 10,),
-                    Text(context.watch<ChangeCalculationProvider>().result.toString(), style: kTextBold,),
+                    Text("${context.watch<ChangeCalculationProvider>().result.toString()} \$", style: kTextBold,),
                   ],
                 ),
               ),

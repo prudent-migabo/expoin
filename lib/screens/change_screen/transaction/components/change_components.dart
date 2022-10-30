@@ -65,6 +65,7 @@ class _ChangeComponentsState extends State<ChangeComponents> {
                                     cryptoTypeToSend: changeModelState.cryptoTypeToSend,
                                     cryptoTypeToReceive: changeModelState.cryptoTypeToReceive,
                                     cryptoAmountToSend: changeModelState.cryptoAmountToSend,
+                                    amountToReceive: context.watch<ChangeCalculationProvider>().result.toString(),
                                     hashNumber: changeModelState.hashNumber,
                                     transactionMessage: changeModelState.transactionMessage,
                                     userName: userName,

@@ -1,16 +1,26 @@
 class ListHelper{
 
   List<String> listCryptoCategory = [
-    "BTC",
-    "ETH",
-    "BNB",
-    "USDT",
-    "SOL",
-    "XRP",
-    "ADA",
-    "USDC",
-    "LUNA",
-    "AVAX",
+    "BAND PROTOL (BAND)",
+    "BITCOIN (BTC)",
+    "CARDANO (ADA)",
+    "COSMOS (ATOM)",
+    "DOGECOIN (DOGE)",
+    "ICON (ETH)",
+    "ETHERIUM CLASSIC",
+    "ICON (ICX)",
+    "KOMODO (KMD)",
+    "SOLANA (SOL)",
+    "SMART CHAIN (BNB)",
+    "TERA (LUNA)",
+    "TEZOS (XRZ)",
+    "TRON (TRX)",
+    "USDT_TRC20 (Tether)",
+    "USDT_ERC20",
+    "USDC_TRX",
+    "USDC_ETH",
+    "ZILLIQA (ZIL)",
+
   ];
 
   List<String> listMobileOperator = [

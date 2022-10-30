@@ -63,6 +63,7 @@ class _CashInComponentsState extends State<CashInComponents> {
                                   CashInModel(
                                       cryptoType: cashInModelState.cryptoType,
                                       amountToSend: cashInModelState.amountToSend,
+                                      amountToReceive: context.watch<CashInCalculationProvider>().result.toString(),
                                       hashNumber: cashInModelState.hashNumber,
                                       mobileType: cashInModelState.mobileType,
                                       transactionID: cashInModelState.transactionID,

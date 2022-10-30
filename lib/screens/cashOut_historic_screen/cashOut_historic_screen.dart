@@ -40,7 +40,7 @@ class CashOutHistoricScreen extends StatelessWidget {
                     color: Colors.blueGrey[50],
                     child: ListTile(
                       title: Text(data.userName!,),
-                      subtitle: Text("${data.amountToSend}" + " \$", style: kTextBold),
+                      subtitle: Text("A envoyé : ${data.amountToSend}\$, Veut recevoir : ${data.amountToReceive}\$", style: kTextBold),
                       trailing: RoundedCardTileTrans(
                         text: data.isPending! ?'En attente' : 'Approuvé',
                         color: data.isPending! ? Colors.red.shade800 : Colors.green,

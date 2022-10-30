@@ -5,6 +5,7 @@ class CashInModel{
   String? userName;
   String cryptoType;
   String amountToSend;
+  String? amountToReceive;
   String hashNumber;
   String mobileType;
   String transactionID;
@@ -18,6 +19,7 @@ class CashInModel{
     this.userName,
     required this.cryptoType,
     required this.amountToSend,
+    this.amountToReceive,
     required this.hashNumber,
     required this.mobileType,
     required this.transactionID,
@@ -35,6 +37,7 @@ class CashInModel{
       'hashNumber': this.hashNumber,
       'mobileType': this.mobileType,
       'transactionID': this.transactionID,
+      'amountToReceive': this.amountToReceive,
       'date': DateTime.now(),
       'isPending' : this.isPending,
     };
@@ -47,6 +50,7 @@ class CashInModel{
         hashNumber: '',
         mobileType: '',
         transactionID: '',
+        amountToReceive: '',
         isPending: true,
       );
     }
@@ -59,6 +63,7 @@ class CashInModel{
         hashNumber: data['hashNumber'] ?? '',
         mobileType: data['mobileType'] ?? '',
         transactionID: data['transactionID'] ?? '',
+        amountToReceive: data['amountToReceive'],
         userName: data['userName']  ?? '',
       isPending: data['isPending'],
       docID: documentSnapshot.id,

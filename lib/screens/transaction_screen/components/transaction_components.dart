@@ -74,14 +74,14 @@ class TransactionComponents extends StatelessWidget {
 
                     tabs: [
                       Tab(
-                        child: Text("CASH IN", style: kTextBold.copyWith(fontSize: 13),
+                        child: Text("ACHAT", style: kTextBold.copyWith(fontSize: 13),
                   ),
                       ),
                       Tab(
-                        child: Text("CASH OUT", style: kTextBold.copyWith(fontSize: 13),),
+                        child: Text("VENTE", style: kTextBold.copyWith(fontSize: 13),),
                       ),
                       Tab(
-                        child: Text("SWAP", style: kTextBold.copyWith(fontSize: 13),),
+                        child: Text("CHANGE", style: kTextBold.copyWith(fontSize: 13),),
                       ),
                     ],
                   ),
@@ -92,8 +92,8 @@ class TransactionComponents extends StatelessWidget {
           body: TabBarView(
               children: [
                 CahInScreen(),
-            CashOutScreen(),
-            ChangeScreen(),
+                CashOutScreen(),
+                ChangeScreen(),
           ]),
         ),
       ),

@@ -38,8 +38,6 @@ class CashInCalculationProvider with ChangeNotifier{
       result = newValue + rate;
       notifyListeners();
     } return;
-
-
   }
 
 

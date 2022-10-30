@@ -44,7 +44,7 @@ class _CashInHistoricScreenState extends State<CashInHistoricScreen> {
                     color: Colors.blueGrey[50],
                     child: ListTile(
                       title: Text(data.userName!,),
-                      subtitle: Text("${data.amountToSend}" + " \$", style: kTextBold),
+                      subtitle: Text("A envoyé : ${data.amountToSend}\$, Veut recevoir : ${data.amountToReceive}\$", style: kTextBold),
                       trailing: RoundedCardTileTrans(
                         text: data.isPending! ? 'En attente' : "Approuvé",
                         color: data.isPending! ? Colors.red.shade800 : Colors.green,
@@ -54,6 +54,7 @@ class _CashInHistoricScreenState extends State<CashInHistoricScreen> {
                           userName: data.userName,
                           cryptoType: data.cryptoType,
                           amountToSend: data.amountToSend,
+                          amountToReceive: data.amountToReceive,
                           hashNumber: data.hashNumber,
                           mobileType: data.mobileType,
                           transactionContent: data.transactionID,

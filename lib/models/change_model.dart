@@ -5,6 +5,7 @@ class ChangeModel{
   String cryptoTypeToSend;
   String cryptoTypeToReceive;
   String cryptoAmountToSend;
+  String? amountToReceive;
   String hashNumber;
   String transactionMessage;
   String? date;
@@ -18,6 +19,7 @@ class ChangeModel{
     required this.cryptoTypeToSend,
     required this.cryptoTypeToReceive,
     required this.cryptoAmountToSend,
+    this.amountToReceive,
     required this.hashNumber,
     required this.transactionMessage,
     this.date,
@@ -32,6 +34,7 @@ class ChangeModel{
       'cryptoTypeToSend': this.cryptoTypeToSend,
       'cryptoTypeToReceive': this.cryptoTypeToReceive,
       'cryptoAmountToSend': this.cryptoAmountToSend,
+      'amountToReceive': this.amountToReceive,
       'hashNumber': this.hashNumber,
       'transactionMessage': this.transactionMessage,
       'date': DateTime.now(),
@@ -44,6 +47,7 @@ class ChangeModel{
         cryptoTypeToSend: '',
         cryptoTypeToReceive: '',
         cryptoAmountToSend: '',
+        amountToReceive: '',
         hashNumber: '',
         transactionMessage: '',
       userName: '',
@@ -58,6 +62,7 @@ class ChangeModel{
       cryptoTypeToSend: data['cryptoTypeToSend'] ?? '',
       cryptoTypeToReceive: data['cryptoTypeToReceive'] ?? '',
       cryptoAmountToSend: data['cryptoAmountToSend'] ?? '',
+      amountToReceive: data['amountToReceive'],
       hashNumber: data['hashNumber'] ?? '',
       transactionMessage: data['transactionMessage'] ?? '',
       docID: documentSnapshot.id,
@@ -65,5 +70,4 @@ class ChangeModel{
     );
   }
 
-//</editor-fold>
 }

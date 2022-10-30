@@ -134,7 +134,6 @@ class _CashInValidationScreenState extends State<CashInValidationScreen> {
         ),
       ],
     );
-
   }
 
   void saveFieldsData(){

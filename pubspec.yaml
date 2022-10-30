@@ -43,7 +43,7 @@ dependencies:
   carousel_slider:
   cached_network_image:
   font_awesome_flutter:
-  url_launcher: ^6.1.6
+  url_launcher:
 
 dev_dependencies:
   flutter_test:

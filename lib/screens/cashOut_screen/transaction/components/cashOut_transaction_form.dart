@@ -107,9 +107,9 @@ class _CashOutTransactionFormState extends State<CashOutTransactionForm> {
               Expanded(
                 child: Column(
                   children: [
-                    Text('\$ à recevoir :'),
+                    Text('à recevoir :'),
                     SizedBox(height: 10,),
-                    Text(context.watch<CashOutCalculationProvider>().result.toString(), style: kTextBold,),
+                    Text("${context.watch<CashOutCalculationProvider>().result.toString()} \$", style: kTextBold,),
                   ],
                 ),
               ),

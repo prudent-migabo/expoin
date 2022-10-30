@@ -38,7 +38,7 @@ class ChangeHistoricScreen extends StatelessWidget {
                     color: Colors.blueGrey[50],
                     child: ListTile(
                       title: Text(data.userName!),
-                      subtitle: Text("${data.cryptoAmountToSend}" + " ${data.cryptoTypeToReceive}"),
+                      subtitle: Text("A envoyé : ${data.cryptoAmountToSend}\$, Veut recevoir : ${data.amountToReceive}\$", style: kTextBold),
                       trailing: RoundedCardTileTrans(
                         text: data.isPending! ? 'En attente' : 'Approuvé',
                         color: data.isPending! ? Colors.red.shade800 : Colors.green,
