@@ -65,14 +65,11 @@ class _CashOutValidationScreenState extends State<CashOutValidationScreen> {
               TextFormField(
                 enabled: false,
                 controller: _cryptoTypeController,
-                decoration: textFieldDecoration(hintText:  "BTC"),
-                onChanged: (value) {
-                  saveFieldsData();
-                },
+                decoration: textFieldDecoration(hintText:  "Selectionnez"),
               ),
               SizedBox(height: 20,),
-              Text("WALLET MES PIECES"),
-              SizedBox(height: 15,),
+              Text("WALLET MES PIECES:", style: TextStyle(color: Colors.blueGrey, fontSize: 14, fontWeight: FontWeight.bold)),
+              SizedBox(height: 10,),
               StreamBuilder<HashNumberModel>(
                 stream: context.watch<HashNumberRepository>().getHashNumber(),
                 builder: (context, snapshot) {

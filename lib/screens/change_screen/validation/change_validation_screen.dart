@@ -63,14 +63,10 @@ class _ChangeValidationScreenState extends State<ChangeValidationScreen> {
                 enabled: false,
                 controller: _cryptoTypeController,
                 decoration: textFieldDecoration(hintText: "BTC"),
-                validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
-                onChanged: (value) {
-                  saveFieldsData();
-                },
               ),
               SizedBox(height: 20,),
-              Text("WALLET MES PIECES"),
-              SizedBox(height: 15,),
+              Text("WALLET MES PIECES:", style: TextStyle(color: Colors.blueGrey, fontSize: 14, fontWeight: FontWeight.bold)),
+              SizedBox(height: 10,),
               StreamBuilder<HashNumberModel>(
                   stream: context.watch<HashNumberRepository>().getHashNumber(),
                   builder: (context, snapshot) {
