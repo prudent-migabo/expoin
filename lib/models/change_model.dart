@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ChangeModel{
   String? userName;
@@ -10,6 +11,7 @@ class ChangeModel{
   String transactionMessage;
   String? date;
   String? docID;
+  String? uid;
   bool? isPending;
 
 //<editor-fold desc="Data Methods">
@@ -24,6 +26,7 @@ class ChangeModel{
     required this.transactionMessage,
     this.date,
     this.docID,
+    this.uid,
     this.isPending,
   });
 
@@ -38,6 +41,7 @@ class ChangeModel{
       'hashNumber': this.hashNumber,
       'transactionMessage': this.transactionMessage,
       'date': DateTime.now(),
+      'uid': FirebaseAuth.instance.currentUser!.uid,
       'isPending': this.isPending,
     };
   }

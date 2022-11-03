@@ -46,9 +46,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<SaveCashInDetailsController>(create: (context) => SaveCashInDetailsController()),
         ChangeNotifierProvider<SaveCashOutDetailsController>(create: (context)=> SaveCashOutDetailsController()),
         ChangeNotifierProvider<SaveChangeDetailsController>(create: (context) => SaveChangeDetailsController()),
-        Provider<CashInHistoricRepository>(create: (context)=>CashInHistoricRepository(),),
-        Provider<CashOutHistoricRepository>(create: (context)=> CashOutHistoricRepository()),
-        Provider<ChangeHistoricRepository>(create: (context)=>ChangeHistoricRepository(),),
         Provider<ImagesRepository>(create: (context)=> ImagesRepository()),
         StreamProvider<CashInRateModel>(create: (context)=> RatesRepository().getCashIn(), initialData: CashInRateModel.initial()),
         StreamProvider<CashOutRateModel>(create: (context)=> RatesRepository().getCashOut(), initialData: CashOutRateModel.initial()),
@@ -58,6 +55,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ChangeProvider>(create: (context)=>ChangeProvider(changeRepository: context.read<ChangeRepository>())),
         Provider<HashNumberRepository>(create: (context)=> HashNumberRepository()),
         Provider<PhoneNumbersRepository>(create: (context)=> PhoneNumbersRepository()),
+        ChangeNotifierProvider<HashNumberProvider>(create: (context)=> HashNumberProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

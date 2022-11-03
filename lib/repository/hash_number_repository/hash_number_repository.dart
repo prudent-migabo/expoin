@@ -3,8 +3,8 @@ import 'package:expoin/utils/utils.dart';
 
 class HashNumberRepository {
 
-  Stream<HashNumberModel> getHashNumber(){
-    return configurationRef.doc('hashNumber').snapshots().map((doc) => HashNumberModel.fromMap(doc));
+  Stream<HashNumberModel> getHashNumber(String docID){
+    return configurationRef.doc('hashNumbers').collection('hashNumbers').doc(docID).snapshots().map((doc) => HashNumberModel.fromMap(doc));
   }
 
 }

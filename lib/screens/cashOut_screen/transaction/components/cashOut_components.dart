@@ -64,7 +64,7 @@ class _CashOutComponentsState extends State<CashOutComponents> {
                                 CashOutModel(
                                     cryptoType: cashOutModelState.cryptoType,
                                     amountToSend: cashOutModelState.amountToSend,
-                                    amountToReceive: context.watch<CashOutCalculationProvider>().result.toString(),
+                                    amountToReceive: context.read<CashOutCalculationProvider>().result.toString(),
                                     phoneMobileNumber: cashOutModelState.phoneMobileNumber,
                                     transactionID: cashOutModelState.transactionID,
                                   userName: userName,

@@ -10,6 +10,7 @@ class CashOutModel{
   String transactionID;
   String? date;
   String? docID;
+  String? uid;
   bool? isPending;
 
 //<editor-fold desc="Data Methods">
@@ -23,6 +24,7 @@ class CashOutModel{
     required this.transactionID,
     this.date,
     this.docID,
+    this.uid,
     this.isPending,
   });
 
@@ -35,7 +37,8 @@ class CashOutModel{
       'amountToReceive': this.amountToReceive,
       'phoneMobileNumber': this.phoneMobileNumber,
       'transactionID': this.transactionID,
-      'date' : DateTime.now(),
+      'date': DateTime.now(),
+      'uid': FirebaseAuth.instance.currentUser!.uid,
       'isPending' : this.isPending,
     };
   }
@@ -48,6 +51,7 @@ class CashOutModel{
       amountToReceive: '',
       phoneMobileNumber: '',
       transactionID: '',
+      uid: '',
       isPending: true,
     );
   }
@@ -61,7 +65,7 @@ class CashOutModel{
         phoneMobileNumber: data['phoneMobileNumber'] ?? '',
         transactionID: data['transactionID'] ?? '',
         userName: data['userName'] ?? '',
-      isPending: data['isPending'],
+      isPending: data['isPending'] ?? true,
       docID: documentSnapshot.id,
     );
   }

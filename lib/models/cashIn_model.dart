@@ -11,6 +11,7 @@ class CashInModel{
   String transactionID;
   String? date;
   String? docID;
+  String? uid;
   bool? isPending;
 
 //<editor-fold desc="Data Methods">
@@ -25,6 +26,7 @@ class CashInModel{
     required this.transactionID,
      this.date,
     this.docID,
+    this.uid,
     this.isPending,
   });
 
@@ -39,6 +41,7 @@ class CashInModel{
       'transactionID': this.transactionID,
       'amountToReceive': this.amountToReceive,
       'date': DateTime.now(),
+      'uid': FirebaseAuth.instance.currentUser!.uid,
       'isPending' : this.isPending,
     };
   }
@@ -51,6 +54,7 @@ class CashInModel{
         mobileType: '',
         transactionID: '',
         amountToReceive: '',
+        uid: '',
         isPending: true,
       );
     }
@@ -65,6 +69,7 @@ class CashInModel{
         transactionID: data['transactionID'] ?? '',
         amountToReceive: data['amountToReceive'],
         userName: data['userName']  ?? '',
+      uid: data['uid'],
       isPending: data['isPending'],
       docID: documentSnapshot.id,
       );

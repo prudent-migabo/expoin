@@ -65,10 +65,11 @@ class _ChangeComponentsState extends State<ChangeComponents> {
                                     cryptoTypeToSend: changeModelState.cryptoTypeToSend,
                                     cryptoTypeToReceive: changeModelState.cryptoTypeToReceive,
                                     cryptoAmountToSend: changeModelState.cryptoAmountToSend,
-                                    amountToReceive: context.watch<ChangeCalculationProvider>().result.toString(),
+                                    amountToReceive: context.read<ChangeCalculationProvider>().result.toString(),
                                     hashNumber: changeModelState.hashNumber,
                                     transactionMessage: changeModelState.transactionMessage,
                                     userName: userName,
+                                    isPending: true,
                                   )
                               );
                             }on CustomError catch(e){

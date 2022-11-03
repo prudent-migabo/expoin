@@ -20,7 +20,7 @@ class ListHelper{
     "USDC_TRX",
     "USDC_ETH",
     "ZILLIQA (ZIL)",
-
+    "SHIBA INU",
   ];
 
   List<String> listMobileOperator = [

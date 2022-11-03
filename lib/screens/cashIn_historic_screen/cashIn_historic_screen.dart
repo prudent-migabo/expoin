@@ -23,7 +23,7 @@ class _CashInHistoricScreenState extends State<CashInHistoricScreen> {
       height: height,
       padding: EdgeInsets.symmetric(horizontal: 15),
       child: StreamBuilder<List<CashInModel>>(
-          stream: context.watch<CashInHistoricRepository>().getListCashIn(),
+          stream: context.watch<CashInRepository>().getListCashIn(),
           builder: (context, snapshot) {
             List<CashInModel>? listCashIn = snapshot.data;
             if(!snapshot.hasData || listCashIn!.isEmpty){
@@ -34,42 +34,48 @@ class _CashInHistoricScreenState extends State<CashInHistoricScreen> {
             else if(snapshot.hasError){
               errorDialog(context, CustomError(code: 'code', message: snapshot.error.toString(), plugin: 'plugin'));
             }
-            return ListView.builder(
-                itemCount: listCashIn.length,
-                itemBuilder: (context, index){
-                  var data = listCashIn[index];
-                  return Card(
-                    elevation: 0,
-                    margin: EdgeInsets.only(bottom: 3),
-                    color: Colors.blueGrey[50],
-                    child: ListTile(
-                      title: Text(data.userName!,),
-                      subtitle: Text("A envoyé : ${data.amountToSend}\$, Veut recevoir : ${data.amountToReceive}\$", style: kTextBold),
-                      trailing: RoundedCardTileTrans(
-                        text: data.isPending! ? 'En attente' : "Approuvé",
-                        color: data.isPending! ? Colors.red.shade800 : Colors.green,
-                      ),
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CashInHistoricDetails(
-                          userName: data.userName,
-                          cryptoType: data.cryptoType,
+            return StreamBuilder<List<CashInModel>>(
+              stream: context.watch<CashInRepository>().getListCashInOrdered(),
+              builder: (context, snapshot) {
+                List<CashInModel>? listCashIn = snapshot.data;
+                if(!snapshot.hasData || listCashIn!.isEmpty){
+                  return Center(child: Text('Pas des données...'),);
+                } else if(snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: Text('Chargement...'),);
+                }
+                else if(snapshot.hasError){
+                  errorDialog(context, CustomError(code: 'code', message: snapshot.error.toString(), plugin: 'plugin'));
+                }
+                return ListView.builder(
+                    itemCount: listCashIn.length,
+                    itemBuilder: (context, index){
+                      var data = listCashIn[index];
+                      return CardTileHistoric(
+                          userName: data.userName!,
                           amountToSend: data.amountToSend,
-                          amountToReceive: data.amountToReceive,
-                          hashNumber: data.hashNumber,
-                          mobileType: data.mobileType,
-                          transactionContent: data.transactionID,
-                        )));
-                      },
-                      onLongPress: () async{
-                        alertDialog(context, content: 'Etes-vous sur de vouloir supprimer?', title: 'Suppression',
-                            onPressed: () async{
-                          await context.read<CashInHistoricRepository>().deleteCashInHistoric(data.docID!);
-                          Navigator.pop(context);
-                            });
-                      },
-                    ),
-                  );
-                });
+                          amountToReceive: data.amountToReceive!,
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => CashInHistoricDetails(
+                              userName: data.userName,
+                              cryptoType: data.cryptoType,
+                              amountToSend: data.amountToSend,
+                              amountToReceive: data.amountToReceive,
+                              hashNumber: data.hashNumber,
+                              mobileType: data.mobileType,
+                              transactionContent: data.transactionID,
+                            )));
+                          },
+                          onLongPressed: () async{
+                            alertDialog(context, content: 'Etes-vous sur de vouloir supprimer?', title: 'Suppression',
+                                onPressed: () async{
+                                  await context.read<CashInRepository>().deleteCashInHistoric(data.docID!);
+                                  Navigator.pop(context);
+                                });
+                          },
+                          isPending: data.isPending!);
+                    });
+              }
+            );
           }
         ),
     );

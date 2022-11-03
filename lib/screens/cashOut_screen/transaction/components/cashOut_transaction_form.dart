@@ -32,7 +32,6 @@ class _CashOutTransactionFormState extends State<CashOutTransactionForm> {
     });
   }
 
-  final GlobalKey<FormFieldState> _key1 = GlobalKey<FormFieldState>();
   final _formKey = GlobalKey<FormState>();
   String? cryptoType;
   TextEditingController _amountToSendController = TextEditingController();
@@ -53,33 +52,33 @@ class _CashOutTransactionFormState extends State<CashOutTransactionForm> {
       });
     }
 
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: padding1.copyWith(top: 0, bottom: 10),
-            child: Text("Type de crypto :", style: style1,),
-          ),
-          DropdownButtonFormField(
-            key: _key1,
-            value: cryptoType,
-            decoration: textFieldDecoration(hintText: ListHelper().listCryptoCategory[0]),
-            items: ListHelper().listCryptoCategory.map(buildMenuItem).toList(),
-            onChanged: (value) {
-              setState(() {
-                cryptoType = value.toString();
-              });
-              saveFieldsData();
-            },
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: padding1.copyWith(top: 0, bottom: 10),
+          child: Text("Type de crypto :", style: style1,),
+        ),
+        DropdownButtonFormField(
+          value: cryptoType,
+          decoration: textFieldDecoration(hintText: 'Selectionnez'),
+          items: ListHelper().listCryptoCategory.map(buildMenuItem).toList(),
+          onChanged: (value) {
+            setState(() {
+              cryptoType = value.toString();
+            });
+            context.read<HashNumberProvider>().saveCryptoType(cryptoType!);
+            saveFieldsData();
+          },
+        ),
 
-          Padding(
-            padding: padding1,
-            child: Text("Montant à envoyer :", style: style1,),
-          ),
-          Row(
+        Padding(
+          padding: padding1,
+          child: Text("Montant à envoyer :", style: style1,),
+        ),
+        Form(
+          key: _formKey,
+          child: Row(
             children: [
               Expanded(
                 child: TextFormField(
@@ -109,30 +108,30 @@ class _CashOutTransactionFormState extends State<CashOutTransactionForm> {
                   children: [
                     Text('à recevoir :'),
                     SizedBox(height: 10,),
-                    Text("${context.watch<CashOutCalculationProvider>().result.toString()} \$", style: kTextBold,),
+                    Text("${context.watch<CashOutCalculationProvider>().result.toString()}\$", style: kTextBold,),
                   ],
                 ),
               ),
             ],
           ),
+        ),
 
-          Padding(
-            padding: padding1,
-            child: Text("Numéro mobile money :", style: style1,),
-          ),
+        Padding(
+          padding: padding1,
+          child: Text("Numéro mobile money :", style: style1,),
+        ),
 
-          TextFormField(
-            keyboardType: TextInputType.phone,
-            controller: _mobileNumberController,
-            decoration: textFieldDecoration(hintText: "Saisissez ici"),
-            validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
-            onChanged: (value) {
-              saveFieldsData();
-            },
-          ),
-          SizedBox(height: 10,),
-        ],
-      ),
+        TextFormField(
+          keyboardType: TextInputType.phone,
+          controller: _mobileNumberController,
+          decoration: textFieldDecoration(hintText: "Saisissez ici"),
+          validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
+          onChanged: (value) {
+            saveFieldsData();
+          },
+        ),
+        SizedBox(height: 10,),
+      ],
     );
   }
 

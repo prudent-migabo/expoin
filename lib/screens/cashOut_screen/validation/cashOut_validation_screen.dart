@@ -33,7 +33,7 @@ class _CashOutValidationScreenState extends State<CashOutValidationScreen> {
         ));
   }
 
-  final GlobalKey<FormFieldState> _key1 = GlobalKey<FormFieldState>();
+  final _formKey = GlobalKey<FormState>();
   TextEditingController _transactionIDController = TextEditingController();
   TextEditingController _cryptoTypeController = TextEditingController();
   String? cryptoType;
@@ -44,73 +44,77 @@ class _CashOutValidationScreenState extends State<CashOutValidationScreen> {
     final state = context.watch<CashOutProvider>().state;
     final cashOutModelState = context.watch<SaveCashOutDetailsController>().cashOutModel;
     _cryptoTypeController.text = cashOutModelState.cryptoType;
+    String cryptoTypeVal = context.watch<HashNumberProvider>().cryptoType;
+
 
     if(state.cashOutStatus == CashOutStatus.isLoaded){
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         _transactionIDController.clear();
-        _key1.currentState!.reset();
       });
     }
 
-    return  Column(
-      children: [
-        Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: padding1.copyWith(top: 0, bottom: 10),
-                child: Text("Type de crypto :", style: style1,),
-              ),
-              TextFormField(
-                enabled: false,
-                controller: _cryptoTypeController,
-                decoration: textFieldDecoration(hintText:  "Selectionnez"),
-              ),
-              SizedBox(height: 20,),
-              Text("WALLET MES PIECES:", style: TextStyle(color: Colors.blueGrey, fontSize: 14, fontWeight: FontWeight.bold)),
-              SizedBox(height: 10,),
-              StreamBuilder<HashNumberModel>(
-                stream: context.watch<HashNumberRepository>().getHashNumber(),
-                builder: (context, snapshot) {
-                  HashNumberModel? hashNumberModel = snapshot.data;
-                  if(!snapshot.hasData){
-                    return Text('Code non disponible');
+    return  Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: padding1.copyWith(top: 0, bottom: 10),
+                  child: Text("Type de crypto :", style: style1,),
+                ),
+                TextFormField(
+                  enabled: false,
+                  controller: _cryptoTypeController,
+                  decoration: textFieldDecoration(hintText: "En attente..."),
+                ),
+                SizedBox(height: 20,),
+                Text("WALLET MES PIECES:", style: TextStyle(color: Colors.blueGrey, fontSize: 14, fontWeight: FontWeight.bold)),
+                SizedBox(height: 10,),
+                StreamBuilder<HashNumberModel>(
+                  stream: context.watch<HashNumberProvider>().getHash(context, cryptoTypeVal),
+                  builder: (context, snapshot) {
+                    HashNumberModel? hashNumberModel = snapshot.data;
+                    if(!snapshot.hasData){
+                      return Text('Wallet non disponible');
+                    }
+                    return Row(
+                      children: [
+                        SelectableText(hashNumberModel!.hashNumber, style: kTextBold,),
+                        GestureDetector(
+                          onTap: (){
+                            Clipboard.setData(ClipboardData(text: hashNumberModel.hashNumber));
+                            Fluttertoast.showToast(msg: 'Code copié dans clipboard');
+                          },
+                            child: Icon(Icons.copy)),
+                      ],
+                    );
                   }
-                  return Row(
-                    children: [
-                      SelectableText(hashNumberModel!.hashNumber, style: kTextBold,),
-                      GestureDetector(
-                        onTap: (){
-                          Clipboard.setData(ClipboardData(text: hashNumberModel.hashNumber));
-                          Fluttertoast.showToast(msg: 'Code copié dans clipboard');
-                        },
-                          child: Icon(Icons.copy)),
-                    ],
-                  );
-                }
-              ),
-              SizedBox(height: 20,),
-              Text("Veuillez copier le message de confirmation ici dessous"),
-              SizedBox(height: 20,),
-              Padding(
-                padding: padding1.copyWith(top: 0, bottom: 10),
-                child: Text("HASH :", style: style1,),
-              ),
-              TextFormField(
-                controller: _transactionIDController,
-                decoration: textFieldDecoration(hintText: "Saisissez ici"),
-                maxLines: 5,
-                validator: (value)=> value!.isEmpty? "Ce champ ne peut être vide": null,
-                onChanged: (value){
-                  saveFieldsData();
-                },
-              ),
-              SizedBox(height: 20,),
-            ],
+                ),
+                SizedBox(height: 20,),
+                Text("Veuillez copier le message de confirmation ici dessous"),
+                SizedBox(height: 20,),
+                Padding(
+                  padding: padding1.copyWith(top: 0, bottom: 10),
+                  child: Text("HASH :", style: style1,),
+                ),
+                TextFormField(
+                  controller: _transactionIDController,
+                  decoration: textFieldDecoration(hintText: "Saisissez ici"),
+                  maxLines: 5,
+                  validator: (value)=> value!.isEmpty? "Ce champ ne peut être vide": null,
+                  onChanged: (value){
+                    saveFieldsData();
+                  },
+                ),
+                SizedBox(height: 20,),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

@@ -38,7 +38,6 @@ class _CashInTransactionFormState extends State<CashInTransactionForm> {
   String? mobileType;
   TextEditingController _amountToSendController = TextEditingController();
   TextEditingController _hashNumberController = TextEditingController();
-  // double displayResult = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -55,82 +54,85 @@ class _CashInTransactionFormState extends State<CashInTransactionForm> {
       });
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: padding1.copyWith(top: 0, bottom: 10),
-          child: Text("Type de crypto :", style: style1,),
-        ),
-        DropdownButtonFormField(
-          key: _key1,
-          value: cryptoType,
-          decoration: textFieldDecoration(hintText: ListHelper().listCryptoCategory[0]),
-          items: ListHelper().listCryptoCategory.map(buildMenuItem).toList(),
-          onChanged: (value) {
-            setState(() {
-              cryptoType = value.toString();
-            });
-            saveFieldsData();
-          },
-        ),
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: padding1.copyWith(top: 0, bottom: 10),
+            child: Text("Type de crypto :", style: style1,),
+          ),
+          DropdownButtonFormField(
+            key: _key1,
+            value: cryptoType,
+            decoration: textFieldDecoration(hintText: 'Selectionnez'),
+            items: ListHelper().listCryptoCategory.map(buildMenuItem).toList(),
+            onChanged: (value) {
+              setState(() {
+                cryptoType = value.toString();
+              });
+              saveFieldsData();
+            },
+          ),
 
-        Padding(
-          padding: padding1,
-          child: Text("\$ à envoyer :", style: style1,),
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                controller: _amountToSendController,
-                decoration: textFieldDecoration(hintText: "Saisissez ici"),
-                validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
-                onChanged: (value)  async{
-                  if(value.isNotEmpty){
-                    await context.read<CashInCalculationProvider>().cashInCalculation(
-                      context : context,
-                      value: _amountToSendController.text,
-                      rate1: rate1,
-                      rate2: rate2,
-                      rate3: rate3,
-                      rate4: rate4,
-                    );
-                  } else{
-                    context.read<CashInCalculationProvider>().initializer();
-                  }
-                  saveFieldsData();
-                },
+          Padding(
+            padding: padding1,
+            child: Text("\$ à envoyer :", style: style1,),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: _amountToSendController,
+                  decoration: textFieldDecoration(hintText: "Saisissez ici"),
+                  validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
+                  onChanged: (value)  async{
+                    if(value.isNotEmpty){
+                      await context.read<CashInCalculationProvider>().cashInCalculation(
+                        context : context,
+                        value: _amountToSendController.text,
+                        rate1: rate1,
+                        rate2: rate2,
+                        rate3: rate3,
+                        rate4: rate4,
+                      );
+                    } else{
+                      context.read<CashInCalculationProvider>().initializer();
+                    }
+                    saveFieldsData();
+                  },
+                ),
               ),
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  Text('à recevoir :'),
-                  SizedBox(height: 10,),
-                  Text("${context.watch<CashInCalculationProvider>().result.toString()} \$", style: kTextBold,),
-                ],
+              Expanded(
+                child: Column(
+                  children: [
+                    Text('à recevoir :'),
+                    SizedBox(height: 10,),
+                    Text("${context.watch<CashInCalculationProvider>().result.toString()}\$", style: kTextBold,),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
 
-        Padding(
-          padding: padding1,
-          child: Text("Wallet :", style: style1,),
-        ),
+          Padding(
+            padding: padding1,
+            child: Text("Wallet :", style: style1,),
+          ),
 
-        TextFormField(
-          controller: _hashNumberController,
-          decoration: textFieldDecoration(hintText: "Saisissez ici"),
-          validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
-          onChanged: (value) {
-            saveFieldsData();
-          },
-        ),
-        SizedBox(height: 10,),
-      ],
+          TextFormField(
+            controller: _hashNumberController,
+            decoration: textFieldDecoration(hintText: "Saisissez ici"),
+            validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
+            onChanged: (value) {
+              saveFieldsData();
+            },
+          ),
+          SizedBox(height: 10,),
+        ],
+      ),
     );
   }
 
@@ -141,7 +143,8 @@ class _CashInTransactionFormState extends State<CashInTransactionForm> {
             amountToSend: _amountToSendController.text,
             hashNumber: _hashNumberController.text,
             mobileType: '',
-            transactionID: ''));
+            transactionID: ''),
+    );
   }
 
 }

@@ -18,5 +18,20 @@ class CashOutRepository{
     }
   }
 
+  List<CashOutModel> listCashOut (QuerySnapshot snapshot){
+    return snapshot.docs.map((docs) => CashOutModel.fromMap(docs)).toList();
+  }
+
+  Stream<List<CashOutModel>> getListCashOut(){
+    return cashOutRef.where('uid', isEqualTo: auth.currentUser!.uid).snapshots().map(listCashOut);
+  }
+
+  Stream<List<CashOutModel>> getListCashOutOrdered(){
+    return cashOutRef.orderBy('date', descending: true).snapshots().map(listCashOut);
+  }
+
+  Future deleteCashOutHistoric(String docID) async{
+    await cashOutRef.doc(docID).delete();
+  }
 
 }

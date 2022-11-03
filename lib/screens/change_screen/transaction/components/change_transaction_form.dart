@@ -32,8 +32,6 @@ class _ChangeTransactionFormState extends State<ChangeTransactionForm> {
     });
   }
 
-  final GlobalKey<FormFieldState> _key1 = GlobalKey<FormFieldState>();
-  final GlobalKey<FormFieldState> _key2 = GlobalKey<FormFieldState>();
   final _formKey = GlobalKey<FormState>();
   String? cryptoTypeToSend;
   String? cryptoTypeToReceive;
@@ -50,8 +48,6 @@ class _ChangeTransactionFormState extends State<ChangeTransactionForm> {
 
     if(state.changeStatus == ChangeStatus.isLoaded){
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        _key1.currentState!.reset();
-        _key2.currentState!.reset();
         _hashNumberController.clear();
         _cryptoToSendController.clear();
       });
@@ -67,14 +63,16 @@ class _ChangeTransactionFormState extends State<ChangeTransactionForm> {
             child: Text("Type de crypto à envoyer :", style: style1,),
           ),
           DropdownButtonFormField(
-            key: _key1,
             value: cryptoTypeToSend,
-            decoration: textFieldDecoration(hintText: ListHelper().listCryptoCategory[0]),
+            decoration: textFieldDecoration(hintText: 'Selectionnez'),
             items: ListHelper().listCryptoCategory.map(buildMenuItem).toList(),
             onChanged: (value) {
               setState(() {
                 cryptoTypeToSend = value.toString();
               });
+              context.read<HashNumberProvider>().saveCryptoType(cryptoTypeToSend!);
+              saveFieldsData();
+
             },
           ),
 
@@ -83,9 +81,8 @@ class _ChangeTransactionFormState extends State<ChangeTransactionForm> {
             child: Text("Type de crypto à recevoir :", style: style1,),
           ),
           DropdownButtonFormField(
-            key: _key2,
             value: cryptoTypeToReceive,
-            decoration: textFieldDecoration(hintText: ListHelper().listCryptoCategory[0]),
+            decoration: textFieldDecoration(hintText: 'Selectionnez'),
             items: ListHelper().listCryptoCategory.map(buildMenuItem).toList(),
             onChanged: (value) {
               setState(() {
@@ -97,7 +94,7 @@ class _ChangeTransactionFormState extends State<ChangeTransactionForm> {
 
           Padding(
             padding: padding1,
-            child: Text("Montant crypto à envoyer :", style: style1,),
+            child: Text("Montant à envoyer :", style: style1,),
           ),
           Row(
             children: [
@@ -129,7 +126,7 @@ class _ChangeTransactionFormState extends State<ChangeTransactionForm> {
                   children: [
                     Text('à recevoir :'),
                     SizedBox(height: 10,),
-                    Text("${context.watch<ChangeCalculationProvider>().result.toString()} \$", style: kTextBold,),
+                    Text("${context.watch<ChangeCalculationProvider>().result.toString()}\$", style: kTextBold,),
                   ],
                 ),
               ),
