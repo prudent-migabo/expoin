@@ -67,7 +67,7 @@ class _CashOutTransactionFormState extends State<CashOutTransactionForm> {
             setState(() {
               cryptoType = value.toString();
             });
-            context.read<HashNumberProvider>().saveCryptoType(cryptoType!);
+            context.read<HashNumberProvider>().saveCashOutCryptoType(cryptoType!);
             saveFieldsData();
           },
         ),

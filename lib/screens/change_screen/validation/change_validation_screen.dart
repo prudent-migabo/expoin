@@ -41,9 +41,9 @@ class _ChangeValidationScreenState extends State<ChangeValidationScreen> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<ChangeProvider>().state;
-    String cryptoTypeVal = context.watch<HashNumberProvider>().cryptoType;
+    String cryptoTypeVal = context.watch<HashNumberProvider>().changeCryptoType;
     final changeModelState = context.watch<SaveChangeDetailsController>().changeModel;
-    _cryptoTypeController.text = changeModelState.cryptoTypeToSend;
+    _cryptoTypeController.text = cryptoTypeVal;
 
 
     if(state.changeStatus == ChangeStatus.isLoaded){

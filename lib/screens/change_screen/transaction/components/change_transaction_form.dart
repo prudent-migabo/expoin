@@ -70,9 +70,8 @@ class _ChangeTransactionFormState extends State<ChangeTransactionForm> {
               setState(() {
                 cryptoTypeToSend = value.toString();
               });
-              context.read<HashNumberProvider>().saveCryptoType(cryptoTypeToSend!);
+               context.read<HashNumberProvider>().saveChangeCryptoType(cryptoTypeToSend!);
               saveFieldsData();
-
             },
           ),
 
@@ -152,8 +151,8 @@ class _ChangeTransactionFormState extends State<ChangeTransactionForm> {
     );
   }
 
-  void saveFieldsData(){
-    context.read<SaveChangeDetailsController>().saveChangeDetails(
+  Future saveFieldsData() async{
+   await context.read<SaveChangeDetailsController>().saveChangeDetails(
       ChangeModel(
           cryptoTypeToSend: cryptoTypeToSend!,
           cryptoTypeToReceive: cryptoTypeToReceive!,

@@ -91,9 +91,15 @@ class HashNumberProvider with ChangeNotifier{
     return null;
   }
 
-  String cryptoType = '';
-  void saveCryptoType (String newCryptoType){
-    cryptoType = newCryptoType;
+  String cashOutCryptoType= '';
+  void saveCashOutCryptoType (String newCryptoType){
+    cashOutCryptoType = newCryptoType;
+    notifyListeners();
+  }
+
+  String changeCryptoType= '';
+   saveChangeCryptoType (String newCryptoType) {
+    changeCryptoType = newCryptoType;
     notifyListeners();
   }
 }

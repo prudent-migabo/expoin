@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class SaveChangeDetailsController with ChangeNotifier{
   ChangeModel changeModel = ChangeModel.initial();
 
-  void saveChangeDetails (ChangeModel newChangeModel){
+  Future saveChangeDetails (ChangeModel newChangeModel) async{
     changeModel = ChangeModel(
         cryptoTypeToSend: newChangeModel.cryptoTypeToSend != '' ? newChangeModel.cryptoTypeToSend : changeModel.cryptoTypeToSend,
         cryptoTypeToReceive: newChangeModel.cryptoTypeToReceive != '' ? newChangeModel.cryptoTypeToReceive : changeModel.cryptoTypeToReceive,

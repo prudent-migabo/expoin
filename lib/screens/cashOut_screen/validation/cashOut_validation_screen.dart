@@ -43,9 +43,9 @@ class _CashOutValidationScreenState extends State<CashOutValidationScreen> {
     final width = MediaQuery.of(context).size.width;
     final state = context.watch<CashOutProvider>().state;
     final cashOutModelState = context.watch<SaveCashOutDetailsController>().cashOutModel;
-    _cryptoTypeController.text = cashOutModelState.cryptoType;
-    String cryptoTypeVal = context.watch<HashNumberProvider>().cryptoType;
+    String cryptoTypeVal = context.watch<HashNumberProvider>().cashOutCryptoType;
 
+    _cryptoTypeController.text = cashOutModelState.cryptoType;
 
     if(state.cashOutStatus == CashOutStatus.isLoaded){
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -82,7 +82,7 @@ class _CashOutValidationScreenState extends State<CashOutValidationScreen> {
                     }
                     return Row(
                       children: [
-                        SelectableText(hashNumberModel!.hashNumber, style: kTextBold,),
+                        Expanded(child: SelectableText(hashNumberModel!.hashNumber, style: kTextBold,)),
                         GestureDetector(
                           onTap: (){
                             Clipboard.setData(ClipboardData(text: hashNumberModel.hashNumber));
