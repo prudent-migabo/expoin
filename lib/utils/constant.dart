@@ -41,5 +41,6 @@ const calculatorStyle = TextStyle(fontSize: 12, color: Colors.blueGrey, fontWeig
 const kTextBold = TextStyle(fontWeight: FontWeight.bold);
 const kSizedBox10 = SizedBox(height: 10,);
 const kFontStyleDetailsTrans = TextStyle(fontWeight: FontWeight.bold, fontSize: 17,);
+Color? kColorCopiableText = Colors.blue[700];
 
 

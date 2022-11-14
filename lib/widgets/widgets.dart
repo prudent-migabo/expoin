@@ -6,4 +6,5 @@ export 'rounded_card_tile_trans.dart';
 export 'images_homePage.dart';
 export 'home_menu/home_menu.dart';
 export 'card_tile_historic/card_tile_historic.dart';
+export 'row_for_details_style/row_for_details_style.dart';
 

@@ -66,7 +66,7 @@ class ChangeModel{
       cryptoTypeToSend: data['cryptoTypeToSend'] ?? '',
       cryptoTypeToReceive: data['cryptoTypeToReceive'] ?? '',
       cryptoAmountToSend: data['cryptoAmountToSend'] ?? '',
-      amountToReceive: data['amountToReceive'],
+      amountToReceive: data['amountToReceive'] ?? '',
       hashNumber: data['hashNumber'] ?? '',
       transactionMessage: data['transactionMessage'] ?? '',
       docID: documentSnapshot.id,

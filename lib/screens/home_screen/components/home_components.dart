@@ -86,7 +86,9 @@ class HomeComponents extends StatelessWidget {
               color: const Color(0xfffec67c),
               icon: const Icon(FontAwesomeIcons.circleInfo),
               text: 'Informations',
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, InformationScreen.routeName);
+              },
             ),
             HomeMenu(
               color: const Color(0xffc1ffd8),

@@ -31,6 +31,8 @@ class AppRouter {
         return HistoricScreen.route();
       case HomeScreen.routeName :
         return HomeScreen.route();
+      case InformationScreen.routeName :
+        return InformationScreen.route();
       default:
         return _errorRoute();
     }

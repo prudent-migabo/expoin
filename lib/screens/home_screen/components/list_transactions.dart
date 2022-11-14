@@ -23,22 +23,5 @@ class ListTransactions extends StatelessWidget {
         ],
       ),
     );
-    //   ListView.builder(
-    //   itemCount: 10,
-    //     itemBuilder: (context, index){
-    //   return ListTile(
-    //     leading: CircleAvatar(
-    //       child: Image.asset(btc),
-    //     ),
-    //     title: Text("BTC"),
-    //     subtitle: Text("Mobile"),
-    //     trailing: Column(
-    //       children: [
-    //         Text("333 450\$"),
-    //         Text("10.7%", style: TextStyle(color: Colors.green),),
-    //       ],
-    //     ),
-    //   );
-    // });
   }
 }

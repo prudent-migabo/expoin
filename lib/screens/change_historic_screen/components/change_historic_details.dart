@@ -1,3 +1,4 @@
+import 'package:expoin/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/utils.dart';
@@ -44,23 +45,33 @@ class ChangeHistoricDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 15,),
-            // Text('Details', style: TextStyle(color: kMainColor, fontWeight: kBold, fontSize: 17),),
-            SizedBox(height: 15,),
-            Text('Nom : $userName', style: kFontStyleDetailsTrans,),
+            SizedBox(height: 30,),
+            RowForDetailsStyle(title: 'Nom', value: userName!,),
             kSizedBox10,
-            Text('Type de crypto envoyé : $cryptoTypeToSend', style: kFontStyleDetailsTrans,),
+            RowForDetailsStyle(title: 'Type de crypto envoyé', value: cryptoTypeToSend!,),
             kSizedBox10,
-            Text('Type de crypto à recevoir : $cryptoTypeToReceive', style: kFontStyleDetailsTrans,),
+            RowForDetailsStyle(title: 'Type de crypto à recevoir', value: cryptoTypeToReceive!,),
             kSizedBox10,
-            Text('Montant à envoyer : $cryptoAmountToSend\$', style: kFontStyleDetailsTrans,),
+            RowForDetailsStyle(title: 'Montant envoyé', value: cryptoAmountToSend!,),
             kSizedBox10,
-            Text('Montant à recevoir : $amountToReceive\$', style: kFontStyleDetailsTrans,),
+            RowForDetailsStyle(title: 'Montant à recevoir', value: amountToReceive!,),
             kSizedBox10,
-            Text('Wallet: $hashNumber', style: kFontStyleDetailsTrans,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Wallet :", style: TextStyle(fontSize: 15)),
+                Expanded(child: SelectableText(' ${hashNumber!}', style: kFontStyleDetailsTrans.copyWith(color: kColorCopiableText),)),
+              ],
+            ),
             kSizedBox10,
-            Text("Message de confirmation : \n$transactionMessage",
-              style: kFontStyleDetailsTrans,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("${'Message de confirmation'} :", style: TextStyle(fontSize: 15)),
+                SizedBox(height: 8,),
+                SelectableText(transactionMessage!, style: kFontStyleDetailsTrans.copyWith(color: kColorCopiableText),),
+              ],
+            ),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:expoin/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/utils.dart';
@@ -42,21 +43,30 @@ class CashOutHistoricDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 15,),
-            // Text('Details', style: TextStyle(color: kMainColor, fontWeight: kBold, fontSize: 17),),
-            SizedBox(height: 15,),
-            Text('Nom : $userName', style: kFontStyleDetailsTrans,),
+            SizedBox(height: 30,),
+            RowForDetailsStyle(title: 'Nom', value: userName!,),
             kSizedBox10,
-            Text('Type de crypto : $cryptoType', style: kFontStyleDetailsTrans,),
+            RowForDetailsStyle(title: 'Type de crypto', value: cryptoType!,),
             kSizedBox10,
-            Text('Montant envoyé : $cryptoAmountToSend\$', style: kFontStyleDetailsTrans,),
+            RowForDetailsStyle(title: 'Montant envoyé', value: cryptoAmountToSend!,),
             kSizedBox10,
-            Text('Montant à recevoir : $cryptoAmountToSend\$', style: kFontStyleDetailsTrans,),
+            RowForDetailsStyle(title: 'Montant à recevoir', value: amountToReceive!,),
             kSizedBox10,
-            Text('Numero de telephone : $phoneNumber', style: kFontStyleDetailsTrans,),
+            Row(
+              children: [
+                Text("Numero de telephone :", style: TextStyle(fontSize: 15)),
+                SelectableText(' ${phoneNumber!}', style: kFontStyleDetailsTrans.copyWith(color: kColorCopiableText),),
+              ],
+            ),
             kSizedBox10,
-            Text("Message de confirmation : \n$transactionMessage",
-              style: kFontStyleDetailsTrans,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("${'Message de confirmation'} :", style: TextStyle(fontSize: 15)),
+                SizedBox(height: 8,),
+                SelectableText(transactionMessage!, style: kFontStyleDetailsTrans.copyWith(color: kColorCopiableText),),
+              ],
+            ),
           ],
         ),
       ),

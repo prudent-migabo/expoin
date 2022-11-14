@@ -18,3 +18,4 @@ export 'package:expoin/screens/historic_screen/historic_screen.dart';
 export 'cashIn_historic_screen/cashIn_historic_screen.dart';
 export 'cashOut_historic_screen/cashOut_historic_screen.dart';
 export 'change_historic_screen/change_historic_screen.dart';
+export 'information_screen/information_screen.dart';
