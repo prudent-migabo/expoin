@@ -40,7 +40,6 @@ class _CashOutValidationScreenState extends State<CashOutValidationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final state = context.watch<CashOutProvider>().state;
     final cashOutModelState = context.watch<SaveCashOutDetailsController>().cashOutModel;
     String cryptoTypeVal = context.watch<HashNumberProvider>().cashOutCryptoType;
@@ -105,9 +104,7 @@ class _CashOutValidationScreenState extends State<CashOutValidationScreen> {
                   decoration: textFieldDecoration(hintText: "Saisissez ici"),
                   maxLines: 5,
                   validator: (value)=> value!.isEmpty? "Ce champ ne peut être vide": null,
-                  onChanged: (value){
-                    saveFieldsData();
-                  },
+                  onChanged: (value) => saveFieldsData(),
                 ),
                 SizedBox(height: 20,),
               ],

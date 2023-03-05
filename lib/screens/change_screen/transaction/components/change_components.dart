@@ -87,8 +87,6 @@ class _ChangeComponentsState extends State<ChangeComponents> {
                         ),
                       ],
                     )
-
-
                   ],
                 );
               },
@@ -116,7 +114,6 @@ class _ChangeComponentsState extends State<ChangeComponents> {
         ],
       ),
     );
-
   }
   tapped(int step){
     setState(() => currentStep = step);
