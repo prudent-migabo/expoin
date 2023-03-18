@@ -61,7 +61,7 @@ class CashOutModel{
     return CashOutModel(
         cryptoType: data['cryptoType'] ?? '',
         amountToSend: data['amountToSend'] ?? '',
-        amountToReceive: data['amountToReceive'],
+        amountToReceive: data['amountToReceive'] ?? '',
         phoneMobileNumber: data['phoneMobileNumber'] ?? '',
         transactionID: data['transactionID'] ?? '',
         userName: data['userName'] ?? '',

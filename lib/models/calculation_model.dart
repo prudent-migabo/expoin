@@ -19,7 +19,7 @@ class CalculationModel{
   factory CalculationModel.fromMap(DocumentSnapshot doc) {
     var data = doc.data() as Map;
     return CalculationModel(
-      rate: data['rate'] ?? "",
+      rate: data['rate'] ?? '',
     );
   }
 }

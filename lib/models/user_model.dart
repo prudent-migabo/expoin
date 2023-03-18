@@ -33,7 +33,7 @@ class UserModel{
       phoneNumber: data['phoneNumber'] ?? "",
       country: data['country'] ?? "",
       confirmPassword: data['confirmPassword'] ?? "",
-      referenceCode: data['referenceCode'],
+      referenceCode: data['referenceCode'] ?? '',
     );
   }
 

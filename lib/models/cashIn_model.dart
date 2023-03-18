@@ -67,7 +67,7 @@ class CashInModel{
         hashNumber: data['hashNumber'] ?? '',
         mobileType: data['mobileType'] ?? '',
         transactionID: data['transactionID'] ?? '',
-        amountToReceive: data['amountToReceive'],
+        amountToReceive: data['amountToReceive'] ?? '',
         userName: data['userName']  ?? '',
       uid: data['uid'],
       isPending: data['isPending'],
