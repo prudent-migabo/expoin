@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,21 +43,41 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBbV7TTFwGM_0rAQW0m9NUiLnyDg2gNX7A',
+    appId: '1:913651321849:web:a4de2393c8ce12dcf84b28',
+    messagingSenderId: '913651321849',
+    projectId: 'mes-pieces-app',
+    authDomain: 'mes-pieces-app.firebaseapp.com',
+    storageBucket: 'mes-pieces-app.appspot.com',
+    measurementId: 'G-2HSRYWD7WP',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBxCDdCYJGGem-ZV5tnPdb7AqAY0y8SXBQ',
-    appId: '1:961229436757:android:4d77ad822097a12fbca1dc',
-    messagingSenderId: '961229436757',
-    projectId: 'expoin-94ae4',
-    storageBucket: 'expoin-94ae4.appspot.com',
+    apiKey: 'AIzaSyAmBZZZGhesgGfyHx4Af--em6ctAlz_X5I',
+    appId: '1:913651321849:android:09bdf9e3b6b7dbfaf84b28',
+    messagingSenderId: '913651321849',
+    projectId: 'mes-pieces-app',
+    storageBucket: 'mes-pieces-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBEgpphlsvxZrD3CDNM-kuoDTQUmrdeng8',
-    appId: '1:961229436757:ios:4e7cdf62eb644986bca1dc',
-    messagingSenderId: '961229436757',
-    projectId: 'expoin-94ae4',
-    storageBucket: 'expoin-94ae4.appspot.com',
-    iosClientId: '961229436757-hlj044mj6kpji8nufu319kq121as1i0d.apps.googleusercontent.com',
-    iosBundleId: 'com.example.expoin',
+    apiKey: 'AIzaSyA57h6bYrDVpEjBg3cPr7qN50Qu-Jcq-u0',
+    appId: '1:913651321849:ios:98676cc808ffa810f84b28',
+    messagingSenderId: '913651321849',
+    projectId: 'mes-pieces-app',
+    storageBucket: 'mes-pieces-app.appspot.com',
+    iosClientId: '913651321849-id84pl43nnv9p6mfog5ks5nr4ji79j5l.apps.googleusercontent.com',
+    iosBundleId: 'com.example.mesPiecesClient',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyA57h6bYrDVpEjBg3cPr7qN50Qu-Jcq-u0',
+    appId: '1:913651321849:ios:98676cc808ffa810f84b28',
+    messagingSenderId: '913651321849',
+    projectId: 'mes-pieces-app',
+    storageBucket: 'mes-pieces-app.appspot.com',
+    iosClientId: '913651321849-id84pl43nnv9p6mfog5ks5nr4ji79j5l.apps.googleusercontent.com',
+    iosBundleId: 'com.example.mesPiecesClient',
   );
 }
