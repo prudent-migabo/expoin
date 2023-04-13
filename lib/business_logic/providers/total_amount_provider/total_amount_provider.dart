@@ -19,14 +19,8 @@ class TotalAmountProvider extends ChangeNotifier {
       for (CashInModel cashInModel in list){
         cashInAmountSent = cashInModel.amountToSend;
         cashInAmountReceived = cashInModel.amountToReceive!;
-       // print ('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! $cashInAmountReceived');
         notifyListeners();
       }
-      // return list.map((e) {
-        print ('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! $cashInAmountReceived');
-
-
-      // });
     }
 
   }
