@@ -78,7 +78,6 @@ class CardProfile extends StatelessWidget {
                   imageUrl: userModel.profileImgUrl!,
                   imageBuilder: (context, imageProvider){
                     userImgUrl = userModel.profileImgUrl;
-                    print(userImgUrl);
                     return  Container(
                       height: 100,
                       width: 100,
