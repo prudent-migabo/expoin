@@ -24,30 +24,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _bloc.add(SignOutEvent());
   }
 
-  _onSuppressAccount(){
+  _onSuppressAccount() {
     _bloc.add(DeleteUserEvent());
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<MesPiecesBloc, MesPiecesState>(
       bloc: _bloc,
       listener: (context, state) {
-
-        if(state is UserDeleted){
+        if (state is UserDeleted) {
           successToast(message: 'Compte supprimé');
           _logout();
-          // Navigator.pushNamedAndRemoveUntil(
-          //     context, LoginScreen.routeName, (route) => false);
-        }
-        else if (state is ErrorState){
+          Navigator.pushNamedAndRemoveUntil(
+              context, LoginScreen.routeName, (route) => false);
+        } else if (state is ErrorState) {
           errorDialog(context, content: state.message);
-        } else if (state is LoadingState){
-           CircularProgressIndicator();
-        } else if (state is NoNetworkState){
+        } else if (state is LoadingState) {
+          CircularProgressIndicator();
+        } else if (state is NoNetworkState) {
           noNetworkToast(context);
         } else if (state is UserLoggedOut) {
           successToast(message: 'Deconnecté avec succès');
-          Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
+          Navigator.pushNamedAndRemoveUntil(
+              context, LoginScreen.routeName, (route) => false);
         }
       },
       child: Scaffold(
@@ -56,42 +56,69 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 15,
+              ),
               CardProfile(),
-              SizedBox(height: 30,),
-              Text('Gestion de compte',
-                style: TextStyle(fontWeight: bold, fontSize: 17),),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                'Gestion de compte',
+                style: TextStyle(fontWeight: bold, fontSize: 17),
+              ),
+              SizedBox(
+                height: 10,
+              ),
               CardAccount(
-                onChangePassword: (){
+                onChangePassword: () {
                   Navigator.pushNamed(context, ChangePasswordScreen.routeName);
                 },
-                onDeleteAccount: (){
-                  suppressDialog(context, content: 'Etes-vous sûr de vouloir supprimer votre compte?', title: 'Suppression de compte',
+                onDeleteAccount: () {
+                  suppressDialog(
+                    context,
+                    content: 'Etes-vous sûr de vouloir supprimer votre compte?',
+                    title: 'Suppression de compte',
+                    titleColor: Colors.red,
+                    actionButtonsColor: Colors.red,
                     onPressed: _onSuppressAccount,
                   );
                 },
-                onUpdatePhone: (){
+                onUpdatePhone: () {
                   Navigator.pushNamed(context, UpdatePhoneScreen.routeName);
                 },
               ),
-              SizedBox(height: 20,),
-              Text('Autres', style: TextStyle(fontWeight: bold, fontSize: 17),),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Autres',
+                style: TextStyle(fontWeight: bold, fontSize: 17),
+              ),
+              SizedBox(
+                height: 10,
+              ),
               CardOthers(
-                onUpdatePinCode: (){
+                onUpdatePinCode: () {
                   Navigator.pushNamed(context, UpdatePinCodeScreen.routeName);
                 },
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
                   ),
-                  onPressed: (){
-                    suppressDialog(context, content: 'Etes-vous sûr de vouloir vous deconnecter?', title: 'Déconnexion',
+                  onPressed: () {
+                    suppressDialog(
+                      context,
+                      content: 'Etes-vous sûr de vouloir vous deconnecter?',
+                      title: 'Déconnexion',
+                      titleColor: Colors.red,
+                      actionButtonsColor: Colors.red,
                       onPressed: _logout,
                     );
                   },
@@ -105,5 +132,3 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
-
-
