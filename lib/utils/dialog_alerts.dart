@@ -6,19 +6,13 @@ import 'package:expoin/constants.dart';
 import 'package:expoin/utils/utils.dart';
 
 /// Method that throws an error dialog box for the entire app
-void errorDialog(BuildContext context, {required String? content}) {
+void errorDialog(BuildContext context, {required String? content, VoidCallback? onOkAction}) {
   final errorColor = Theme.of(context).colorScheme.error;
   Widget okButton() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(backgroundColor: errorColor),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-      child: Text(
-        'OK',
-        style: GoogleFonts.dmSans(fontWeight: bold),
-      ),
-    );
+    return TextButton(onPressed: () => onOkAction ?? Navigator.pop(context), child: Text(
+      'OK',
+      style: GoogleFonts.dmSans(fontWeight: bold, color: errorColor),
+    ),);
   }
 
 
