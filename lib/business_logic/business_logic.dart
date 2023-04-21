@@ -17,3 +17,5 @@ export 'bloc/auth_events/delete_user_event.dart';
 export 'bloc/profile_events/update_phone_event.dart';
 export 'bloc/profile_events/update_pin_code_event.dart';
 export 'bloc/profile_events/update_user_info.dart';
+export 'bloc/profile_events/get_total_amount_event.dart';
+export 'bloc/profile_events/wrapper_event.dart';

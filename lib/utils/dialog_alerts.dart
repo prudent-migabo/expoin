@@ -6,10 +6,10 @@ import 'package:expoin/constants.dart';
 import 'package:expoin/utils/utils.dart';
 
 /// Method that throws an error dialog box for the entire app
-void errorDialog(BuildContext context, {required String? content, VoidCallback? onOkAction}) {
+void errorDialog(BuildContext context, {required String? content, VoidCallback? onOkAction, bool? barrierDismissible, Widget? child }) {
   final errorColor = Theme.of(context).colorScheme.error;
   Widget okButton() {
-    return TextButton(onPressed: () => onOkAction ?? Navigator.pop(context), child: Text(
+    return TextButton(onPressed: () => onOkAction ?? Navigator.pop(context), child: child ?? Text(
       'OK',
       style: GoogleFonts.dmSans(fontWeight: bold, color: errorColor),
     ),);
@@ -31,7 +31,7 @@ void errorDialog(BuildContext context, {required String? content, VoidCallback? 
   );
 
   showDialog(
-      barrierDismissible: false, context: context, builder: (context) => alert);
+      barrierDismissible: barrierDismissible ?? false, context: context, builder: (context) => alert);
 }
 
 //// Method that throws a normal alert dialog for information purpose

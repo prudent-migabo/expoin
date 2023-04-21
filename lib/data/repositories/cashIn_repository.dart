@@ -27,6 +27,10 @@ class CashInRepository {
   //   return transactionRef.
   // }
 
+  List<CashInModel> listCashInMonitor({QuerySnapshot? snapshot}) {
+    return snapshot!.docs.map((docs) => CashInModel.fromMap(docs)).toList();
+  }
+
   List<CashInModel> listCashIn(QuerySnapshot snapshot) {
     return snapshot.docs.map((docs) => CashInModel.fromMap(docs)).toList();
   }
