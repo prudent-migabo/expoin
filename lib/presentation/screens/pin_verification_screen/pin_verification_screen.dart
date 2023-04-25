@@ -73,24 +73,6 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
             );
           } null;
         }
-        // else {
-        //   errorDialog(context, content: "Vous n'avez pas de compte client chez MesPieces, veuillez en creer un");
-        // }
-        // if (state is WrapperState && state.role == 'client'){
-        //   Navigator.pushNamedAndRemoveUntil(context, PinVerificationScreen.routeName, (route) => false);
-        // } else {
-        //   errorDialog(context, content: "Vous n'avez pas de compte client chez MesPieces, veuillez en creer un");
-        // }
-        // if (state is WrapperState && state.isBlocked == false){
-        //   Navigator.pushNamedAndRemoveUntil(context, PinVerificationScreen.routeName, (route) => false);
-        // } else {
-        //   errorDialog(context, content: "Désolé, votre compte est bloqué");
-        // }
-        // if (state is WrapperState && state.isDeleted == false){
-        //   Navigator.pushNamedAndRemoveUntil(context, PinVerificationScreen.routeName, (route) => false);
-        // } else {
-        //   errorDialog(context, content: "Vous n'avez pas de compte client chez MesPieces, veuillez en creer un");
-        // }
         if (state is PinVerified) {
           Navigator.pushNamedAndRemoveUntil(
               context, BottomNavigationScreen.routeName, (route) => false);
