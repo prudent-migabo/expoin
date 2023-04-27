@@ -36,4 +36,9 @@ class ProfileRepository {
     return url;
   }
 
+  Future<UserModel> userInfo () async{
+    var c = await userRef.doc(auth.currentUser!.uid).get();
+    return UserModel.fromMap(c);
+  }
+
 }

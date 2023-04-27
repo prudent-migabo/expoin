@@ -64,3 +64,23 @@ class PinCodeUpdated extends MesPiecesState{}
 class BoutiqueImageUploaded extends MesPiecesState {}
 
 class UserInformationUploaded extends MesPiecesState {}
+
+class GotCashInTotal extends MesPiecesState {
+  double cashInTotal;
+
+  GotCashInTotal({
+    required this.cashInTotal,
+  });
+}
+
+class WrapperState extends MesPiecesState {
+  bool? isBlocked;
+  bool? isDeleted;
+  String? role;
+
+  WrapperState({
+    this.isBlocked,
+    this.isDeleted,
+    this.role,
+  });
+}

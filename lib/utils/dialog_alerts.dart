@@ -6,19 +6,13 @@ import 'package:expoin/constants.dart';
 import 'package:expoin/utils/utils.dart';
 
 /// Method that throws an error dialog box for the entire app
-void errorDialog(BuildContext context, {required String? content}) {
+void errorDialog(BuildContext context, {required String? content, VoidCallback? onOkAction, bool? barrierDismissible, Widget? child }) {
   final errorColor = Theme.of(context).colorScheme.error;
   Widget okButton() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(backgroundColor: errorColor),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-      child: Text(
-        'OK',
-        style: GoogleFonts.dmSans(fontWeight: bold),
-      ),
-    );
+    return TextButton(onPressed: () => onOkAction ?? Navigator.pop(context), child: child ?? Text(
+      'OK',
+      style: GoogleFonts.dmSans(fontWeight: bold, color: errorColor),
+    ),);
   }
 
 
@@ -37,20 +31,20 @@ void errorDialog(BuildContext context, {required String? content}) {
   );
 
   showDialog(
-      barrierDismissible: false, context: context, builder: (context) => alert);
+      barrierDismissible: barrierDismissible ?? false, context: context, builder: (context) => alert);
 }
 
 //// Method that throws a normal alert dialog for information purpose
 void alert(BuildContext context, {required String? content, required String title, VoidCallback? onPressed}) {
+  final primary = Theme.of(context).colorScheme.primary;
   Widget okButton() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.green[600],),
-      onPressed: onPressed,
-      child: Text(
-        'OK',
-        style: GoogleFonts.dmSans(fontWeight: bold),
-      ),
-    );
+    return TextButton(
+        onPressed: onPressed,
+        child: Text(
+          'OK',
+          style: TextStyle(
+              fontWeight: bold, color: primary),
+        ));
   }
 
   AlertDialog alert = AlertDialog(
@@ -72,25 +66,34 @@ void alert(BuildContext context, {required String? content, required String titl
 }
 
 //// Method that throws a normal alert dialog for information purpose but with 2 buttons
-void suppressDialog(BuildContext context, {required String? content, required String title, VoidCallback? onPressed}) {
+//// This is the dialog box that styles every normal warning over the entire app but it also allows the user to interact by allowing or denying
+void suppressDialog(BuildContext context,
+    {required String? content,
+      required String title,
+      VoidCallback? onPressed,
+      Color? titleColor,
+      Color? actionButtonsColor}) {
   final primary = Theme.of(context).colorScheme.primary;
   Widget okButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         TextButton(
-            onPressed: (){
-          Navigator.pop(context);
-        }, child: Text(
-          'Annuler',
-          style: GoogleFonts.dmSans(fontWeight: bold),
-        )),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              'Annuler',
+              style: GoogleFonts.dmSans(
+                  fontWeight: bold, color: actionButtonsColor ?? primary),
+            )),
         TextButton(
             onPressed: onPressed,
             child: Text(
-          'OK',
-          style: GoogleFonts.dmSans(fontWeight: bold),
-        )),
+              'OK',
+              style: GoogleFonts.dmSans(
+                  fontWeight: bold, color: actionButtonsColor ?? primary),
+            )),
       ],
     );
   }
@@ -98,7 +101,7 @@ void suppressDialog(BuildContext context, {required String? content, required St
   AlertDialog alert = AlertDialog(
     title: Text(
       title,
-      style: GoogleFonts.dmSans(color: primary, fontWeight: bold),
+      style: GoogleFonts.dmSans(color: titleColor ?? primary, fontWeight: bold),
     ),
     content: Text(
       content!,

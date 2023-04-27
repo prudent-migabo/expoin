@@ -8,6 +8,9 @@ class UserModel {
   String? email;
   String? referenceCode;
   String? profileImgUrl;
+  String? role;
+  bool? isBlocked;
+  bool? isDeleted;
 
 //<editor-fold desc="Data Methods">
   UserModel({
@@ -18,6 +21,9 @@ class UserModel {
     this.email,
     this.referenceCode,
     this.profileImgUrl,
+    this.role,
+    this.isBlocked,
+    this.isDeleted,
   });
 
 
@@ -30,6 +36,10 @@ class UserModel {
       'email': email,
       'referenceCode': referenceCode,
       'profileImgUrl' : profileImgUrl,
+      'role' : 'client',
+      'isBlocked' : false,
+      'isDeleted' : false,
+      'createdAt' : DateTime.now(),
     };
   }
 
@@ -43,6 +53,9 @@ class UserModel {
       email: data['email'] ?? '',
       referenceCode: data['referenceCode'] ?? '',
       profileImgUrl: data['profileImgUrl'] ?? '',
+      role: data['role'] ?? '',
+      isBlocked: data['isBlocked'] ?? false,
+      isDeleted: data['isDeleted'] ?? false,
     );
   }
 
@@ -55,6 +68,9 @@ class UserModel {
       dateOfBirth: '',
       email: '',
       profileImgUrl: '',
+      role: '',
+      isDeleted: false,
+      isBlocked: false,
     );
   }
 

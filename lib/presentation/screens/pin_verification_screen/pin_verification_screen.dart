@@ -10,6 +10,7 @@ import 'package:pinput/pinput.dart';
 
 class PinVerificationScreen extends StatefulWidget {
   static const String routeName = '/PinVerificationScreen';
+
   const PinVerificationScreen({Key? key}) : super(key: key);
 
   @override
@@ -28,9 +29,18 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
     _bloc.add(PinVerificationEvent(code: _pinput.text));
   }
 
+  _onLogout() {
+    _bloc.add(SignOutEvent());
+  }
+
+  _onWrapperVerification(){
+    _bloc.add(WrapperEvent());
+  }
+
   @override
   void initState() {
     repository.getPinCode();
+    _onWrapperVerification();
     super.initState();
   }
 
@@ -39,8 +49,33 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
     return BlocListener<MesPiecesBloc, MesPiecesState>(
       bloc: _bloc,
       listener: (context, state) {
+        if (state is WrapperState){
+          if (state.role != 'client'){
+            _onLogout();
+            Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
+            errorDialog(context, content: "Vous n'avez pas de compte client chez MesPieces, veuillez en creer un svp.",
+              barrierDismissible: true,
+              child: Container(),
+            );
+          } else if (state.isBlocked != false){
+            _onLogout();
+            Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
+            errorDialog(context, content: "Désolé vous n'avez pas de compte actif chez MesPieces, il a été bloqué. Veuillez contacter l'administration.",
+              barrierDismissible: true,
+              child: Container(),
+            );
+          }  else if (state.isDeleted != false){
+            _onLogout();
+            Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
+            errorDialog(context, content: "Désolé vous n'avez pas de compte actif chez MesPieces, il a été supprimé. Veuillez en creer un autre svp.",
+              barrierDismissible: true,
+              child: Container(),
+            );
+          } null;
+        }
         if (state is PinVerified) {
-          Navigator.pushNamedAndRemoveUntil(context, BottomNavigationScreen.routeName, (route) => false);
+          Navigator.pushNamedAndRemoveUntil(
+              context, BottomNavigationScreen.routeName, (route) => false);
           successToast(message: 'Bienvenue');
           _pinput.clear();
         } else if (state is ErrorState) {
@@ -80,9 +115,8 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  validator: (val) => val!.isEmpty
-                      ? "Ne peut pas etre null"
-                      : null,
+                  validator: (val) =>
+                  val!.isEmpty ? "Ne peut pas etre null" : null,
                 ),
               ),
               SizedBox(
@@ -95,7 +129,8 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
                       text: state is LoadingState
                           ? 'Patientez...'
                           : 'Valider',
-                      onPressed: state is LoadingState ? () {} : _onSubmit);
+                      onPressed:
+                      state is LoadingState ? () {} : _onSubmit);
                 },
               ),
             ],
@@ -105,3 +140,49 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
     );
   }
 }
+
+// if (!snapshot.hasData) {
+//   // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+//   //    Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
+//   // });
+//
+//   // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+//   //   Navigator.pushNamedAndRemoveUntil(
+//   //       context, LoginScreen.routeName, (route) => false);
+//   // });
+//
+// } else if (snapshot.hasError) {
+//   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+//     errorDialog(context, content: snapshot.error.toString());
+//   });
+// } else if (snapshot.connectionState == ConnectionState.waiting){
+//   IsLoading();
+// }
+// else if (userModel!.role != 'client') {
+//   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+//     errorDialog(context,
+//       content:
+//       "Désolé vous n'avez pas de compte client dans MesPieces, veuillez vous inscrire svp",
+//     );
+//   });
+//
+// } else if (userModel.isBlocked! == true) {
+//   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+//     errorDialog(context, content: "Désolé votre compte est actuellement bloqué");
+//   });
+//
+//   // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+//   //   Navigator.pushNamedAndRemoveUntil(
+//   //       context, LoginScreen.routeName, (route) => false);
+//   // });
+//
+// } else if (userModel.isDeleted! == true){
+//   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+//     errorDialog(context, content: "Désolé vous n'avez plus de compte sur MesPièces, veuillez en creer un svp!");
+//   });
+//  // errorDialog(context, content: "Désolé vous n'avez plus de compte sur MesPièces, veuillez en creer un svp!");
+//   // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+//   //   Navigator.pushNamedAndRemoveUntil(
+//   //       context, LoginScreen.routeName, (route) => false);
+//   // });
+// }
