@@ -13,6 +13,7 @@ class WrapperEvent extends MesPiecesEvent {
         isBlocked: userModel.isBlocked,
         isDeleted: userModel.isDeleted,
         role: userModel.role,
+        email: userModel.email,
       );
     }catch(e) {
       yield ErrorState();

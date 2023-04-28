@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,6 +32,11 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
 
   _onLogout() {
     _bloc.add(SignOutEvent());
+  }
+
+  _logout(){
+    AuthRepository().signOut();
+    print('User logged out');
   }
 
   _onWrapperVerification(){
@@ -71,7 +77,16 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
               barrierDismissible: true,
               child: Container(),
             );
-          } null;
+            // print(FirebaseAuth.instance.currentUser!.email);
+          }  else if (state.email != FirebaseAuth.instance.currentUser!.email){
+            _onLogout();
+            Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
+            errorDialog(context, content: "Désolé vous n'avez pas de compte actif chez MesPieces. Veuillez en creer un autre svp.",
+              barrierDismissible: true,
+              child: Container(),
+            );
+          }
+          null;
         }
         if (state is PinVerified) {
           Navigator.pushNamedAndRemoveUntil(
@@ -141,48 +156,3 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
   }
 }
 
-// if (!snapshot.hasData) {
-//   // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-//   //    Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
-//   // });
-//
-//   // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-//   //   Navigator.pushNamedAndRemoveUntil(
-//   //       context, LoginScreen.routeName, (route) => false);
-//   // });
-//
-// } else if (snapshot.hasError) {
-//   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-//     errorDialog(context, content: snapshot.error.toString());
-//   });
-// } else if (snapshot.connectionState == ConnectionState.waiting){
-//   IsLoading();
-// }
-// else if (userModel!.role != 'client') {
-//   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-//     errorDialog(context,
-//       content:
-//       "Désolé vous n'avez pas de compte client dans MesPieces, veuillez vous inscrire svp",
-//     );
-//   });
-//
-// } else if (userModel.isBlocked! == true) {
-//   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-//     errorDialog(context, content: "Désolé votre compte est actuellement bloqué");
-//   });
-//
-//   // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-//   //   Navigator.pushNamedAndRemoveUntil(
-//   //       context, LoginScreen.routeName, (route) => false);
-//   // });
-//
-// } else if (userModel.isDeleted! == true){
-//   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-//     errorDialog(context, content: "Désolé vous n'avez plus de compte sur MesPièces, veuillez en creer un svp!");
-//   });
-//  // errorDialog(context, content: "Désolé vous n'avez plus de compte sur MesPièces, veuillez en creer un svp!");
-//   // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-//   //   Navigator.pushNamedAndRemoveUntil(
-//   //       context, LoginScreen.routeName, (route) => false);
-//   // });
-// }

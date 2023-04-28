@@ -77,10 +77,12 @@ class WrapperState extends MesPiecesState {
   bool? isBlocked;
   bool? isDeleted;
   String? role;
+  String? email;
 
   WrapperState({
     this.isBlocked,
     this.isDeleted,
     this.role,
+    this.email,
   });
 }

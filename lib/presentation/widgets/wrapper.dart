@@ -26,33 +26,9 @@ class _WrapperState extends State<Wrapper> {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context , snapshot){
           if(snapshot.hasData){
-           // return BlocListener<MesPiecesBloc, MesPiecesState>(
-           //   bloc: _bloc,
-           //   listener: (context, state){
-           //     if (state is WrapperState && state.role == 'client'){
-           //       Navigator.pushNamedAndRemoveUntil(context, PinVerificationScreen.routeName, (route) => false);
-           //     } else {
-           //       errorDialog(context, content: "Vous n'avez pas de compte client chez MesPieces, veuillez en creer un");
-           //     }
-           //     if (state is WrapperState && state.isBlocked == false){
-           //       Navigator.pushNamedAndRemoveUntil(context, PinVerificationScreen.routeName, (route) => false);
-           //     } else {
-           //       errorDialog(context, content: "Désolé, votre compte est bloqué");
-           //     }
-           //     if (state is WrapperState && state.isDeleted == false){
-           //       Navigator.pushNamedAndRemoveUntil(context, PinVerificationScreen.routeName, (route) => false);
-           //     } else {
-           //       errorDialog(context, content: "Vous n'avez pas de compte client chez MesPieces, veuillez en creer un");
-           //     }
-           //     if(state is ErrorState){
-           //       errorDialog(context, content: state.message);
-           //     }
-           //   },
-           //   child: LoginScreen(),
-           // );
             return PinVerificationScreen();
           } else if (snapshot.connectionState == ConnectionState.waiting){
-            return CircularProgressIndicator();
+            return IsLoading();
           } else {
             return LoginScreen();
           }
