@@ -135,4 +135,23 @@ void noNetworkToast(BuildContext context) {
   );
 }
 
+checkingToast({String? message, Color? backgroundColor, Color? textColor}) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10.0),
+      color: Colors.red[700],
+    ),
+    child: Text(
+      "$message",
+      style: GoogleFonts.dmSans(
+        textStyle: TextStyle(
+          color: textColor ?? Colors.white,
+          fontSize: 14,
+        ),
+      ),
+    ),
+  );
+}
+
 

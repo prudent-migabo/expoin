@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:expoin/business_logic/business_logic.dart';
 import 'package:expoin/constants.dart';
@@ -22,6 +23,7 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
   final TextEditingController _pinput = TextEditingController();
   final MesPiecesBloc _bloc = MesPiecesBloc();
   InformationRepository repository = InformationRepository();
+  FToast fToast = FToast();
 
   final _key = GlobalKey<FormState>();
 
@@ -47,6 +49,7 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
   void initState() {
     repository.getPinCode();
     _onWrapperVerification();
+    fToast.init(context);
     super.initState();
   }
 
@@ -56,34 +59,43 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
       bloc: _bloc,
       listener: (context, state) {
         if (state is WrapperState){
-          if (state.role != 'client'){
-            _onLogout();
-            Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
-            errorDialog(context, content: "Vous n'avez pas de compte client chez MesPieces, veuillez en creer un svp.",
-              barrierDismissible: true,
-              child: Container(),
+          if (state.role != 'client') {
+            _logout();
+            Navigator.pushNamedAndRemoveUntil(
+                context, LoginScreen.routeName, (route) => false);
+            fToast.showToast(
+              child: checkingToast(
+                message:
+                "Vous n'avez pas de compte client chez MesPieces, veuillez en créer un svp.",
+              ),
+              gravity: ToastGravity.CENTER,
+              toastDuration: const Duration(seconds: 8),
             );
-          } else if (state.isBlocked != false){
-            _onLogout();
+          }
+
+          else if (state.isBlocked != false){
+            _logout();
             Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
-            errorDialog(context, content: "Désolé vous n'avez pas de compte actif chez MesPieces, il a été bloqué. Veuillez contacter l'administration.",
-              barrierDismissible: true,
-              child: Container(),
+            fToast.showToast(
+              child: checkingToast(
+                message:
+                "Désolé vous n'avez pas de compte actif chez MesPieces, il a été bloqué. Veuillez contacter l'administration.",
+              ),
+              gravity: ToastGravity.CENTER,
+              toastDuration: const Duration(seconds: 8),
             );
-          }  else if (state.isDeleted != false){
-            _onLogout();
+          }
+
+          else if (state.isDeleted != false){
+            _logout();
             Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
-            errorDialog(context, content: "Désolé vous n'avez pas de compte actif chez MesPieces, il a été supprimé. Veuillez en creer un autre svp.",
-              barrierDismissible: true,
-              child: Container(),
-            );
-            // print(FirebaseAuth.instance.currentUser!.email);
-          }  else if (state.email != FirebaseAuth.instance.currentUser!.email){
-            _onLogout();
-            Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
-            errorDialog(context, content: "Désolé vous n'avez pas de compte actif chez MesPieces. Veuillez en creer un autre svp.",
-              barrierDismissible: true,
-              child: Container(),
+            fToast.showToast(
+              child: checkingToast(
+                message:
+                "Désolé vous n'avez pas de compte actif chez MesPieces, il a été supprimé. Veuillez en creer un autre svp.",
+              ),
+              gravity: ToastGravity.CENTER,
+              toastDuration: const Duration(seconds: 8),
             );
           }
           null;
