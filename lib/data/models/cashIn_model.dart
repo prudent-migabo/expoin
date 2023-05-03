@@ -14,6 +14,7 @@ class CashInModel{
   String? uid;
   bool? isPending;
   String? boutiqueID;
+  String? boutiqueName;
 
 //<editor-fold desc="Data Methods">
 
@@ -30,6 +31,7 @@ class CashInModel{
     this.uid,
     this.isPending,
     this.boutiqueID,
+    this.boutiqueName,
   });
 
 
@@ -46,6 +48,7 @@ class CashInModel{
       'uid': FirebaseAuth.instance.currentUser!.uid,
       'isPending' : isPending,
       'boutiqueID' : boutiqueID,
+      'boutiqueName' : boutiqueName,
     };
   }
     factory CashInModel.initial() {
@@ -60,6 +63,7 @@ class CashInModel{
         uid: '',
         isPending: true,
         boutiqueID: '',
+        boutiqueName: '',
       );
     }
 
@@ -77,6 +81,7 @@ class CashInModel{
       isPending: data['isPending'],
       docID: documentSnapshot.id,
       boutiqueID: data['boutiqueID'],
+      boutiqueName: data['boutiqueName'] ?? '',
       );
     }
 

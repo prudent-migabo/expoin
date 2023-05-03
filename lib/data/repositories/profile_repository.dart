@@ -25,6 +25,7 @@ class ProfileRepository {
     await userRef.doc(auth.currentUser!.uid).update({'profileImgUrl' : profileImgUrl, 'lastName' : userName});
   }
 
+
   Future<String> getImageUrl (File? pickedImage) async{
     String url;
     if (pickedImage == null){

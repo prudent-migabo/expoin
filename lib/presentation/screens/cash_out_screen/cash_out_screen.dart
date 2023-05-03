@@ -69,6 +69,7 @@ class _CashOutScreenState extends State<CashOutScreen> {
                                   userName: userName,
                                   isPending: true,
                                   boutiqueID: MesPiecesBloc.selectedBoutiqueID,
+                                  boutiqueName: MesPiecesBloc.selectedBoutiqueName,
                                 ),
                               );
                             }on CustomError catch(e){

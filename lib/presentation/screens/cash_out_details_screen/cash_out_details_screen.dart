@@ -11,7 +11,9 @@ class CashOutDetailsScreen extends StatelessWidget {
         this.amountToSend,
         this.amountToReceive,
         this.status,
-        this.transactionID})
+        this.transactionID,
+        this.boutiqueName,
+      })
       : super(key: key);
 
   String? name;
@@ -21,6 +23,7 @@ class CashOutDetailsScreen extends StatelessWidget {
   String? cryptoType;
   bool? status;
   String? transactionID;
+  String? boutiqueName;
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +82,11 @@ class CashOutDetailsScreen extends StatelessWidget {
                     RowInfos(
                       title: 'ID de la transaction',
                       value: transactionID!,
+                    ),
+                    transactionDetailsSpacer,
+                    RowInfos(
+                      title: 'Nom de la boutique',
+                      value: boutiqueName!,
                     ),
                   ],
                 ),

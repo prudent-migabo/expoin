@@ -21,8 +21,12 @@ class Assets {
   static const String airtelLogo = 'assets/images/airtel money.png';
   static const String mpesaLogo = 'assets/images/m-pesa.png';
   static const String orangeLogo = 'assets/images/orange money.png';
-
   static const String mesPiecesLogo = 'assets/images/mes pieces logo.jpg';
   static const String noDataImage = 'assets/images/no data.jpg';
   static const String profileImage = 'assets/images/profile.jpeg';
+  static const String mobilMoney = 'assets/icons/mobil money.png';
+  static const String mooveMoney = 'assets/icons/moove money.png';
+  static const String mtnMoney = 'assets/icons/mtn money.png';
+  static const String samaMoney = 'assets/icons/sama money.png';
+  static const String waveMoney = 'assets/icons/wave money.png';
 }

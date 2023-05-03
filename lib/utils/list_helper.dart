@@ -5,9 +5,9 @@ class ListHelper {
     "CARDANO (ADA)",
     "COSMOS (ATOM)",
     "DOGECOIN (DOGE)",
-    "ICON (ETH)",
     "ETHERIUM CLASSIC",
-    "ICON (ICX)",
+    "ETHERIUM (ETH)",
+    "BUSDT",
     "KOMODO (KMD)",
     "SOLANA (SOL)",
     "SMART CHAIN (BNB)",
@@ -23,9 +23,23 @@ class ListHelper {
   ];
 
   static const List<String> mobileMoneyOperators = [
-    "Airtel money",
-    "Orange money",
-    "M-Pesa",
+    "Airtel money (RDCongo)",
+    "Orange money (RDCongo)",
+    "M-Pesa (RDCongo)",
+    "Orange money (Mali)",
+    "Moov money (Mali)",
+    "Sama Money (Mali)",
+    "Wave (Mali)",
+    "Mobil money (Côte d'Ivoire)",
+    "Moov money (Côte d'Ivoire)",
+    "MTN money(Côte d'Ivoire)",
+    "MTN (Benin)",
+    "MOOVAFRICA (Benin)",
+    "Celtic (Benin)",
+    "Orange money (Cameroun)",
+    "MTN money (Cameroun)"
+
+
   ];
 
   static const List<String> bankOperators = [

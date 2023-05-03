@@ -68,7 +68,8 @@ class _ChangeScreenState extends State<ChangeScreen> {
                                     transactionMessage: changeModelState.transactionMessage,
                                     userName: userName,
                                     isPending: true,
-                                  )
+                                    boutiqueName: MesPiecesBloc.selectedCryptoName,
+                                  ),
                               );
                             }on CustomError catch(e){
                               errorDialog(context, content: e.message);

@@ -9,6 +9,7 @@ class DeleteUserEvent extends MesPiecesEvent{
     AuthRepository repository = AuthRepository();
 
     try {
+      await repository.deleteUserInFirestore(true);
       await repository.deleteUser();
       yield UserDeleted();
     }  on FirebaseException catch(e){

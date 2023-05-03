@@ -28,7 +28,7 @@ class _CashInScreenState extends State<CashInScreen> {
 
     if(state.cashInStatus == CashInStatus.isLoaded){
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        alert(context, title: 'Super', content: "Votre requete est soumise a l'administration avec succes, vous recevrez la suite dans une heure",
+        alert(context, title: 'Super', content: "Votre requête est soumise avec succès",
           onPressed: (){
           Navigator.pop(context);
           }
@@ -72,6 +72,7 @@ class _CashInScreenState extends State<CashInScreen> {
                                     userName: userName,
                                     isPending: true,
                                     boutiqueID: MesPiecesBloc.selectedBoutiqueID,
+                                    boutiqueName: MesPiecesBloc.selectedBoutiqueName,
                                   ));
                             } on CustomError catch(e){
                               errorDialog(context, content: e.message);

@@ -35,7 +35,7 @@ void errorDialog(BuildContext context, {required String? content, VoidCallback? 
 }
 
 //// Method that throws a normal alert dialog for information purpose
-void alert(BuildContext context, {required String? content, required String title, VoidCallback? onPressed}) {
+void alert(BuildContext context, {required String? content, required String title, VoidCallback? onPressed, Color? titleColor, Color? actionBtnColor}) {
   final primary = Theme.of(context).colorScheme.primary;
   Widget okButton() {
     return TextButton(
@@ -43,14 +43,14 @@ void alert(BuildContext context, {required String? content, required String titl
         child: Text(
           'OK',
           style: TextStyle(
-              fontWeight: bold, color: primary),
+              fontWeight: bold, color: actionBtnColor ?? primary),
         ));
   }
 
   AlertDialog alert = AlertDialog(
     title: Text(
       title,
-      style: GoogleFonts.dmSans(color: Colors.green[600], fontWeight: bold),
+      style: GoogleFonts.dmSans(color: titleColor ?? primary, fontWeight: bold),
     ),
     content: Text(
       content!,

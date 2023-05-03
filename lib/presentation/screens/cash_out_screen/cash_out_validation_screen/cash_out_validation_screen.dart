@@ -74,18 +74,18 @@ class _CashOutValidationScreenState extends State<CashOutValidationScreen> {
                       return Text('Wallet non disponible');
                     }
                     if (snapshot.hasError){
-                      print('errorrrrrr ${snapshot.error.toString()}');
+                      errorDialog(context, content: snapshot.error.toString());
                     }
                     return Row(
                       children: [
-                        SelectableText(cryptoModel!.walletAddress!,),
+                        Expanded(child: SelectableText(cryptoModel!.walletAddress!,)),
                         SizedBox(width: 5,),
                         GestureDetector(
-                            onTap: (){
-                              Clipboard.setData(ClipboardData(text: cryptoModel.walletAddress));
-                              successToast(message: 'Code copié dans clipboard');
-                            },
-                            child: Icon(Icons.copy)),
+                          onTap: (){
+                            Clipboard.setData(ClipboardData(text: cryptoModel.walletAddress));
+                            successToast(message: 'Adresse copiée dans clipboard');
+                          },
+                          child: Icon(Icons.copy),),
                       ],
                     );
                   }

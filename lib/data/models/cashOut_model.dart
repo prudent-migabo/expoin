@@ -13,6 +13,7 @@ class CashOutModel{
   String? uid;
   bool? isPending;
   String? boutiqueID;
+  String? boutiqueName;
 
 //<editor-fold desc="Data Methods">
 
@@ -28,6 +29,7 @@ class CashOutModel{
     this.uid,
     this.isPending,
     this.boutiqueID,
+    this.boutiqueName,
   });
 
 
@@ -43,6 +45,7 @@ class CashOutModel{
       'uid': FirebaseAuth.instance.currentUser!.uid,
       'isPending' : isPending,
       'boutiqueID' : boutiqueID,
+      'boutiqueName' : boutiqueName,
     };
   }
 
@@ -57,6 +60,7 @@ class CashOutModel{
       uid: '',
       isPending: true,
       boutiqueID: '',
+      boutiqueName: '',
     );
   }
 
@@ -72,6 +76,7 @@ class CashOutModel{
       isPending: data['isPending'] ?? true,
       docID: documentSnapshot.id,
       boutiqueID: data['boutiqueID'] ?? '',
+      boutiqueName: data['boutiqueName'] ?? '',
     );
   }
 

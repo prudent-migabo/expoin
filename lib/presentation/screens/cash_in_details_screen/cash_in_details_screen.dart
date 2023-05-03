@@ -13,6 +13,7 @@ class CashInDetailsScreen extends StatelessWidget {
       this.amountToReceive,
       this.status,
         this.transactionID,
+        this.boutiqueName,
       })
       : super(key: key);
 
@@ -24,6 +25,7 @@ class CashInDetailsScreen extends StatelessWidget {
   bool? status;
   String? mobileType;
   String? transactionID;
+  String? boutiqueName;
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +84,11 @@ class CashInDetailsScreen extends StatelessWidget {
                     RowInfos(
                       title: 'ID de la transaction',
                       value: transactionID!,
+                    ),
+                    transactionDetailsSpacer,
+                    RowInfos(
+                      title: 'Nom de la boutique',
+                      value: boutiqueName!,
                     ),
                   ],
                 ),

@@ -41,6 +41,7 @@ class CashInHistoric extends StatelessWidget {
                       hashNumber: data.hashNumber,
                       mobileType: data.mobileType,
                       transactionID: data.transactionID,
+                      boutiqueName: data.boutiqueName,
                     )));
                     },
                   child: Card(

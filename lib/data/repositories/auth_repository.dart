@@ -56,8 +56,8 @@ class AuthRepository{
       auth!.currentUser!.delete();
   }
 
-  Future deleteUserInFirestore () async{
-    await userRef.doc(auth!.currentUser!.uid).delete();
+  Future deleteUserInFirestore (bool deletionStatus) async{
+    await userRef.doc(auth!.currentUser!.uid).update({'isDeleted' : deletionStatus});
   }
   
   Future updatePhone(String newPhoneNumber) async {

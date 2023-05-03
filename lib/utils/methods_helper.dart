@@ -36,12 +36,12 @@ String cryptoImageSelector (String value){
       return Assets.cosmosAtomImage;
     case 'DOGECOIN (DOGE)':
       return Assets.dogecoinImage;
-    case 'ICON (ETH)':
-      return Assets.iconIcxImage;
+    case 'BUSDT' :
+      return Assets.usdtImage;
     case 'ETHERIUM CLASSIC':
       return Assets.ethereumClassicImage;
-    case 'ICON (ICX)':
-      return Assets.iconIcxImage;
+    case 'ETHERIUM (ETH)' :
+      return Assets.ethImage;
     case 'KOMODO (KMD)':
       return Assets.komodoImage;
     case 'SOLANA (SOL)':
@@ -73,12 +73,34 @@ String cryptoImageSelector (String value){
 
 String mobileImageSelector (String value){
   switch(value) {
-    case "Airtel money":
+    case "Airtel money (RDCongo)":
       return Assets.airtelLogo;
-    case "Orange money":
+    case "Orange money (RDCongo)":
       return Assets.orangeLogo;
-    case "M-Pesa" :
+    case "M-Pesa (RDCongo)" :
       return Assets.mpesaLogo;
+    case "Orange money (Mali)" :
+      return Assets.orangeLogo;
+    case "Moov money (Mali)" :
+      return Assets.mooveMoney;
+    case "Sama Money (Mali)" :
+      return Assets.samaMoney;
+    case "Wave (Mali)":
+      return Assets.waveMoney;
+    case "Mobil money (Côte d'Ivoire)":
+      return Assets.mobilMoney;
+    case "Moov money (Côte d'Ivoire)":
+      return Assets.mooveMoney;
+    case "MTN money(Côte d'Ivoire)":
+      return Assets.mtnMoney;
+    case "MOOVAFRICA (Benin)":
+      return Assets.mooveMoney;
+    case "Celtic (Benin)":
+      return Assets.waveMoney;
+    case "Orange money (Cameroun)":
+      return Assets.orangeLogo;
+    case "MTN money (Cameroun)":
+      return Assets.orangeLogo;
     default:
       return '';
   }

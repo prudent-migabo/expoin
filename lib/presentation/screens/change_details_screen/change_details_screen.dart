@@ -12,7 +12,9 @@ class ChangeDetailsScreen extends StatelessWidget {
         this.cryptoTypeToReceive,
         this.cryptoTypeToSend,
         this.status,
-        this.transactionID})
+        this.transactionID,
+        this.boutiqueName,
+      })
       : super(key: key);
 
   String? name;
@@ -23,6 +25,7 @@ class ChangeDetailsScreen extends StatelessWidget {
   String? hashNumber;
   bool? status;
   String? transactionID;
+  String? boutiqueName;
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +84,11 @@ class ChangeDetailsScreen extends StatelessWidget {
                     RowInfos(
                       title: 'ID de la transaction',
                       value: transactionID!,
+                    ),
+                    transactionDetailsSpacer,
+                    RowInfos(
+                      title: 'Nom de la boutique',
+                      value: boutiqueName!,
                     ),
                   ],
                 ),
