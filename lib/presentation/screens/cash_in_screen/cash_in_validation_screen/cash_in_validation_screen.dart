@@ -78,7 +78,7 @@ class _CashInValidationScreenState extends State<CashInValidationScreen> {
                         children: [
                           Text("Code d'agent : "),
                           SizedBox(width: 10,),
-                          Text('+243 ********', style: textStyleBold,),
+                          Text('+243 ******', style: textStyleBold,),
                         ],
                       );
                     }
@@ -91,7 +91,7 @@ class _CashInValidationScreenState extends State<CashInValidationScreen> {
                         GestureDetector(
                             onTap: (){
                               Clipboard.setData(ClipboardData(text: mobileMoneyModel.number),);
-                              successToast(message: 'Numero copié dans clipboard');
+                              successToast(message: 'Numéro copié dans clipboard');
                             },
                             child: Icon(Icons.copy)),
                       ],

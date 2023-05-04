@@ -68,6 +68,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _bloc.add(SendEmailVerificationEvent());
   }
 
+
   @override
   Widget build(BuildContext context) {
     final primary = Theme.of(context).colorScheme.primary;
@@ -75,10 +76,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       bloc: _bloc,
       listener: (context, state) {
         if (state is UserCreated) {
-          Navigator.pushNamedAndRemoveUntil(context, EmailVerificationScreen.routeName, (route) => false);
           _sendEmailMethod();
+          Navigator.pushNamedAndRemoveUntil(context, EmailVerificationScreen.routeName, (route) => false);
           successToast(
-              message: 'Vous êtes enregistrée, vérifions votre adresse mail');
+              message: 'Vous êtes enregistrée, verifions votre adresse mail');
           _clearFields();
         } else if (state is ErrorState) {
           errorDialog(context, content: state.message);

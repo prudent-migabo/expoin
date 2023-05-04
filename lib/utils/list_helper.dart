@@ -37,9 +37,7 @@ class ListHelper {
     "MOOVAFRICA (Benin)",
     "Celtic (Benin)",
     "Orange money (Cameroun)",
-    "MTN money (Cameroun)"
-
-
+    "MTN money (Cameroun)",
   ];
 
   static const List<String> bankOperators = [

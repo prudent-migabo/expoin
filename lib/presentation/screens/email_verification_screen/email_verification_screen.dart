@@ -58,10 +58,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       bloc: _bloc,
   listener: (context, state) {
         if (state is IsEmailVerified){
-          Navigator.pushNamedAndRemoveUntil(context, PinScreen.routeName, (route) => false);
+          Navigator.pushNamedAndRemoveUntil(context, AccountConfigurationScreen.routeName, (route) => false);
           timer!.cancel();
         } else if (state is SuccessfulEmailVerification) {
-          successToast(message: 'Requete de verification envoyée');
+          successToast(message: 'Requête de verification envoyée');
 
         } else if (state is UserLoggedOut){
           successToast(message: 'Deconnecté avec success');

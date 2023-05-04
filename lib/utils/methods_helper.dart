@@ -100,7 +100,7 @@ String mobileImageSelector (String value){
     case "Orange money (Cameroun)":
       return Assets.orangeLogo;
     case "MTN money (Cameroun)":
-      return Assets.orangeLogo;
+      return Assets.mtnMoney;
     default:
       return '';
   }

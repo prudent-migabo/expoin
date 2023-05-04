@@ -34,3 +34,4 @@ export 'update_phone_screen/update_phone_screen.dart';
 export 'update_pin_code_screen/update_pin_code_screen.dart';
 export 'update_profile_screen/update_profile_screen.dart';
 export 'wrapper_verification_screen/wrapper_verification_screen.dart';
+export 'email_verification_screen/loader_email_checker.dart';

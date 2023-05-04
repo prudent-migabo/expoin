@@ -26,10 +26,12 @@ class _ChangeScreenState extends State<ChangeScreen> {
 
     if(state.changeStatus == ChangeStatus.isLoaded){
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        alert(context, title: 'Super', content: "Votre requete est soumise a l'administration avec succes, vous recevrez la suite dans une heure",
+        alert(context, title: 'Super', content: "Votre requete est soumise avec succès.",
             onPressed: (){
               Navigator.pop(context);
-            }
+            },
+          titleColor: Colors.green[600],
+          actionBtnColor: Colors.green[600],
         );
         context.read<ChangeProvider>().initialState();
       });

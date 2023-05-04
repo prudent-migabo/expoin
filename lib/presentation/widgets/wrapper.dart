@@ -26,7 +26,7 @@ class _WrapperState extends State<Wrapper> {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context , snapshot){
           if(snapshot.hasData){
-            return PinVerificationScreen();
+            return LoaderEmailChecker();
           } else if (snapshot.connectionState == ConnectionState.waiting){
             return IsLoading();
           } else {

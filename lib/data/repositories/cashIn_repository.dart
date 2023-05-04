@@ -51,4 +51,5 @@ class CashInRepository {
         .collection(userCashIn)
         .doc(docID).delete();
   }
+  
 }

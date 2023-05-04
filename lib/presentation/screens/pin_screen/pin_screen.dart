@@ -27,14 +27,19 @@ class _PinScreenState extends State<PinScreen> {
     _bloc.add(SavePinEvent(pinModel: PinModel(pinCode: _pinput.text.trim())));
   }
 
+  _sendEmailMethod (){
+    _bloc.add(SendEmailVerificationEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<MesPiecesBloc, MesPiecesState>(
       bloc: _bloc,
       listener: (context, state) {
         if (state is PinCodeSet) {
-          Navigator.pushNamedAndRemoveUntil(context, AccountConfigurationScreen.routeName, (route) => false);
-          successToast(message: 'Code pin sauvegardé avec succes');
+          successToast(message: 'Code pin sauvegardé avec succès');
+          _sendEmailMethod();
+          Navigator.pushNamedAndRemoveUntil(context, EmailVerificationScreen.routeName, (route) => false);
           _pinput.clear();
         } else if (state is ErrorState) {
           errorDialog(context, content: state.message);
@@ -74,7 +79,7 @@ class _PinScreenState extends State<PinScreen> {
                     ),
                   ),
                   validator: (val) => val!.isEmpty
-                      ? "Une valeur nulle ne peut etre sauvegardé"
+                      ? "Une valeur nulle ne peut etre sauvegardée"
                       : null,
                 ),
               ),

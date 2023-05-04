@@ -45,4 +45,5 @@ class CashOutRepository{
         .doc(docID).delete();
   }
 
+
 }

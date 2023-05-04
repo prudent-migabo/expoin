@@ -79,7 +79,7 @@ class _ChangeValidationScreenState extends State<ChangeValidationScreen> {
                       }
                       return Row(
                         children: [
-                          SelectableText(cryptoModel!.walletAddress!,),
+                          Expanded(child: SelectableText(cryptoModel!.walletAddress!,)),
                           SizedBox(width: 5,),
                           GestureDetector(
                               onTap: (){
@@ -121,7 +121,7 @@ class _ChangeValidationScreenState extends State<ChangeValidationScreen> {
             cryptoTypeToReceive: '',
             cryptoAmountToSend: '',
             hashNumber: '',
-            transactionMessage: _transactionIDController.text)
+            transactionMessage: _transactionIDController.text),
     );
   }
 

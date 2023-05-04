@@ -112,7 +112,7 @@ class InformationRepository {
   }
 
   Stream<List<BoutiqueModel>> getListBoutique() {
-    return boutiqueRef.snapshots().map(listBoutiques);
+    return boutiqueRef.orderBy('createdAt', descending: true).snapshots().map(listBoutiques);
   }
 
   //////============ METHOD THAT RETRIEVES THE ACTIVES CRYPTOS IN FIRESTORE =========/////////
@@ -139,6 +139,8 @@ class InformationRepository {
         .collection(cryptoWallet)
         .where('name', isEqualTo: cryptoName)
         .where('isActive', isEqualTo: true)
+        .where('isDeleted' , isEqualTo: false)
+        .where('isBlocked', isEqualTo: false)
         .orderBy('createdAt', descending: true)
         .snapshots()
         .map(listBoutiques);
@@ -151,4 +153,5 @@ class InformationRepository {
         .snapshots()
         .map((event) => BoutiqueModel.fromMap(event));
   }
+
 }

@@ -120,7 +120,7 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
               SizedBox(
                 height: 25,
               ),
-              AuthHeaderWithArrow(
+              AuthHeader(
                 text: 'Entrez votre code de sécurité',
               ),
               SizedBox(

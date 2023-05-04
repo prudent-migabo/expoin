@@ -61,8 +61,8 @@ Widget phoneNumberField({
     keyboardType: TextInputType.phone,
     validator: (value) => value!.isEmpty
         ? 'Une value null ne peut être enregistrée'
-        : value.length < 9 ? "Numéro trop court, il doit etre de 9 chiffres"
-        : value.length > 9 ? "Numéro trop long, il doit etre de 9 chiffres"
+        : value.length < 8 ? "Numéro trop court, il doit etre d'au moins 8 chiffres"
+        : value.length > 9 ? "Numéro trop long, il doit etre d'au plus 9 chiffres"
         : null,
     decoration: textFieldAuthDecoration(
       prefixIcon: prefixIcon,

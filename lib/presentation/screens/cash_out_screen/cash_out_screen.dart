@@ -25,10 +25,12 @@ class _CashOutScreenState extends State<CashOutScreen> {
 
     if(state.cashOutStatus == CashOutStatus.isLoaded){
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        alert(context, title: 'Super', content: "Votre requete est soumise a l'administration avec succes, vous recevrez la suite dans une heure",
+        alert(context, title: 'Super', content: "Votre requête est soumise avec succès.",
             onPressed: (){
               Navigator.pop(context);
-            }
+            },
+          titleColor: Colors.green[600],
+          actionBtnColor: Colors.green[600],
         );
         context.read<CashOutProvider>().initialState();
       });

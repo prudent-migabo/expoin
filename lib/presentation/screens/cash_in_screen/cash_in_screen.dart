@@ -28,10 +28,12 @@ class _CashInScreenState extends State<CashInScreen> {
 
     if(state.cashInStatus == CashInStatus.isLoaded){
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        alert(context, title: 'Super', content: "Votre requête est soumise avec succès",
+        alert(context, title: 'Super', content: "Votre requête est soumise avec succès.",
           onPressed: (){
           Navigator.pop(context);
-          }
+          },
+          titleColor: Colors.green[600],
+        actionBtnColor: Colors.green[600],
         );
         context.read<CashInProvider>().initialState();
       });

@@ -19,9 +19,9 @@ class CustomListCrypto extends StatelessWidget {
           var data = ListHelper.cryptosCategories[index];
           return InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => DashBoardCryptoDetailsScreen(
-                cryptoName: data,
-              )));
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => DashBoardCryptoDetailsScreen(
+              //   cryptoName: data,
+              // )));
             },
             child: Card(
               shape: RoundedRectangleBorder(
