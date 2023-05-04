@@ -52,7 +52,10 @@ class CashInHistoric extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 5.0),
                         child: Column(
                           children: [
-                            Expanded(child: CardPendingStatus()),
+                            Expanded(child: CardPendingStatus(
+                              text: data.isPending == true ? 'En attente' : 'Approuvé',
+                              color: data.isPending == true ? Colors.red : Colors.green,
+                            )),
                             //Text(format.format(DateTime.now()), style: TextStyle(fontSize: 12),),
                             Text('12:18', style: TextStyle(fontSize: 12),),
                           ],

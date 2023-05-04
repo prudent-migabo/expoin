@@ -42,10 +42,13 @@ class CashOutHistoric extends StatelessWidget {
                   child: Card(
                     child: ListTile(
                       title: Text(data.userName!, style: TextStyle(fontWeight: bold),),
-                      subtitle: Text('${data.cryptoType}', style: GoogleFonts.dmSans(fontSize: 13),),
+                      subtitle: Text('${data.cryptoType} - ${data.phoneMobileNumber}', style: GoogleFonts.dmSans(fontSize: 13),),
                       trailing: Column(
                         children: [
-                          Expanded(child: CardPendingStatus()),
+                          Expanded(child: CardPendingStatus(
+                            text: data.isPending == true ? 'En attente' : 'Approuvé',
+                            color: data.isPending == true ? Colors.red : Colors.green,
+                          )),
                           Text('12:18', style: TextStyle(fontSize: 12),),
                         ],
                       ),

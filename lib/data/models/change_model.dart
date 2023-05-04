@@ -14,6 +14,7 @@ class ChangeModel{
   String? uid;
   bool? isPending;
   String? boutiqueName;
+  String? boutiqueID;
 
 //<editor-fold desc="Data Methods">
 
@@ -30,6 +31,7 @@ class ChangeModel{
     this.uid,
     this.isPending,
     this.boutiqueName,
+    this.boutiqueID,
   });
 
 
@@ -44,8 +46,9 @@ class ChangeModel{
       'transactionMessage': transactionMessage,
       'date': DateTime.now(),
       'uid': FirebaseAuth.instance.currentUser!.uid,
-      'isPending': isPending,
+      'isPending': true,
       'boutiqueName' : boutiqueName,
+      'boutiqueID' : boutiqueID,
     };
   }
 
@@ -60,6 +63,7 @@ class ChangeModel{
       userName: '',
       isPending: true,
       boutiqueName: '',
+      boutiqueID:  '',
     );
   }
 
@@ -76,6 +80,7 @@ class ChangeModel{
       docID: documentSnapshot.id,
       isPending: data['isPending'] ?? true,
       boutiqueName: data['boutiqueName'] ?? '',
+      boutiqueID: data['boutiqueID'],
     );
   }
 

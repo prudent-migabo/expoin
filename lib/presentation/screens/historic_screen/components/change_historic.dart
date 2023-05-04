@@ -43,7 +43,10 @@ class ChangeHistoric extends StatelessWidget {
                       subtitle: Text('${data.cryptoTypeToSend} - ${data.cryptoTypeToReceive}', style: TextStyle(fontSize: 13),),
                       trailing: Column(
                         children: [
-                          Expanded(child: CardPendingStatus()),
+                          Expanded(child: CardPendingStatus(
+                            text: data.isPending == true ? 'En attente' : 'Approuvé',
+                            color: data.isPending == true ? Colors.red : Colors.green,
+                          )),
                           Text('12:18', style: TextStyle(fontSize: 12),),
                         ],
                       ),
