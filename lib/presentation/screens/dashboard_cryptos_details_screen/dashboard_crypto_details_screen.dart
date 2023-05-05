@@ -67,7 +67,7 @@ class _DashBoardCryptoDetailsScreenState extends State<DashBoardCryptoDetailsScr
                         child: Card(
                           margin: EdgeInsets.only(top: 2),
                           child: ListTile(
-                            title: Text(data.boutiqueName!, style: GoogleFonts.dmSans(fontSize: 14, fontWeight: bold),),
+                            title: Text(data.name!, style: GoogleFonts.dmSans(fontSize: 14, fontWeight: bold),),
                             subtitle: Row(
                               children: [
                                 Icon(Icons.arrow_drop_up, color: primary,),

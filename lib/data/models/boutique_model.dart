@@ -10,7 +10,6 @@ class BoutiqueModel {
   String? promoterName;
   String? referenceCode;
   String? docID;
-  String? boutiqueName;
 //<editor-fold desc="Data Methods">
   BoutiqueModel({
     this.name,
@@ -22,7 +21,6 @@ class BoutiqueModel {
     this.promoterName,
     this.referenceCode,
     this.docID,
-    this.boutiqueName,
   });
 
   Map<String, dynamic> toMap() {
@@ -36,7 +34,6 @@ class BoutiqueModel {
       'promoterName': promoterName,
       'referenceCode': referenceCode,
       'docID': docID,
-      'boutiqueName' : boutiqueName,
     };
   }
 
@@ -51,7 +48,6 @@ class BoutiqueModel {
       phone: map['phone'] ?? '',
       promoterName: map['promoterName'] ?? '',
       referenceCode: map['referenceCode'] ?? '',
-      boutiqueName: map['boutiqueName'] ?? '',
       docID: documentSnapshot.id,
     );
   }

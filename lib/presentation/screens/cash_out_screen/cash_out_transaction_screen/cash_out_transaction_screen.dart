@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:expoin/business_logic/business_logic.dart';
@@ -36,6 +37,7 @@ class _CashOutTransactionScreenState extends State<CashOutTransactionScreen> {
   String? cryptoType;
   final TextEditingController _amountToSendController = TextEditingController();
   final TextEditingController _mobileNumberController = TextEditingController();
+  String? dialCodeDigits = "+243";
 
   @override
   Widget build(BuildContext context) {
@@ -132,11 +134,27 @@ class _CashOutTransactionScreenState extends State<CashOutTransactionScreen> {
         ),
 
         TextFormField(
-          keyboardType: TextInputType.phone,
+          style: const TextStyle(fontSize: 14),
           controller: _mobileNumberController,
-          decoration: transactionFieldDecor(hintText: "Saisissez ici"),
-          validator: (value) => value!.isEmpty? "Ce champ ne peut être vide": null,
-          onChanged: (value) => saveFieldsData(),
+          keyboardType: TextInputType.phone,
+          validator: (value) => value!.isEmpty
+              ? 'Une value null ne peut être enregistrée'
+              : value.length < 8 ? "Numéro trop court, il doit etre d'au moins 8 chiffres"
+              : value.length > 9 ? "Numéro trop long, il doit etre au plus 9 chiffres"
+              : null,
+          decoration: textFieldAuthDecoration(
+            hintText: "Saisissez ici",
+            prefixIcon: CountryCodePicker(
+              onChanged: (country) {
+                setState(() => dialCodeDigits = country.dialCode);
+              },
+              initialSelection: "CD",
+              showCountryOnly: true,
+              showOnlyCountryWhenClosed: false,
+              favorite: ["+256", "UG", "+243", "CD"],
+            ),
+          ),
+            onChanged: (value) => saveFieldsData(),
         ),
         SizedBox(height: 10,),
       ],
@@ -148,7 +166,7 @@ class _CashOutTransactionScreenState extends State<CashOutTransactionScreen> {
       CashOutModel(
           cryptoType: cryptoType,
           amountToSend: _amountToSendController.text,
-          phoneMobileNumber: _mobileNumberController.text.trim(),
+          phoneMobileNumber: dialCodeDigits! + _mobileNumberController.text.trim(),
           transactionID: ''),
     );
   }

@@ -37,6 +37,7 @@ class CashOutHistoric extends StatelessWidget {
                       cryptoType: data.cryptoType,
                       phoneNumber: data.phoneMobileNumber,
                       transactionID: data.transactionID,
+                      boutiqueName: data.boutiqueName,
                     )));
                   },
                   child: Card(
@@ -49,7 +50,7 @@ class CashOutHistoric extends StatelessWidget {
                             text: data.isPending == true ? 'En attente' : 'Approuvé',
                             color: data.isPending == true ? Colors.red : Colors.green,
                           )),
-                          Text('12:18', style: TextStyle(fontSize: 12),),
+                          Text('00:00', style: TextStyle(fontSize: 12),),
                         ],
                       ),
                     ),

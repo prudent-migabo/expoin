@@ -50,12 +50,7 @@ class _DashBoardDetailsScreenState extends State<DashBoardDetailsScreen> {
                       var data = listCryptoModel[index];
                       return InkWell(
                         onTap: (){
-                          setState(() {
                             MesPiecesBloc.selectedCryptoName = data.name!;
-                            MesPiecesBloc.selectedBoutiqueID = widget.boutiqueID!;
-                            MesPiecesBloc.selectedBoutiqueName = widget.boutiqueName!;
-
-                          });
                           Navigator.pushNamed(context, TransactionScreen.routeName);
                         },
                         child: Card(

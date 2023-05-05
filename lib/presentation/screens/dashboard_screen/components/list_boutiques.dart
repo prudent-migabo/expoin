@@ -35,10 +35,10 @@ class _ListBoutiquesState extends State<ListBoutiques> {
             itemCount: listBoutiqueModel.length,
             itemBuilder: (context, index) {
               var data = listBoutiqueModel[index];
-              MesPiecesBloc.boutiqueID = data.docID!;
-              MesPiecesBloc.selectedBoutiqueName = data.boutiqueName!;
               return InkWell(
                 onTap: (){
+                  MesPiecesBloc.selectedBoutiqueID = data.docID!;
+                  MesPiecesBloc.selectedBoutiqueName = data.name!;
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> DashBoardDetailsScreen(
                     boutiqueName: data.name,
                     boutiqueID: data.docID,

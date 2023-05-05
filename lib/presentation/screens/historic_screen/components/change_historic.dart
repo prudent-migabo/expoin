@@ -35,6 +35,7 @@ class ChangeHistoric extends StatelessWidget {
                       transactionID: data.transactionMessage,
                       cryptoTypeToSend: data.cryptoTypeToSend,
                       cryptoTypeToReceive: data.cryptoTypeToReceive,
+                      boutiqueName: data.boutiqueName,
                     )));
                   },
                   child: Card(
@@ -47,7 +48,7 @@ class ChangeHistoric extends StatelessWidget {
                             text: data.isPending == true ? 'En attente' : 'Approuvé',
                             color: data.isPending == true ? Colors.red : Colors.green,
                           )),
-                          Text('12:18', style: TextStyle(fontSize: 12),),
+                          Text('00:00', style: TextStyle(fontSize: 12),),
                         ],
                       ),
                     ),
