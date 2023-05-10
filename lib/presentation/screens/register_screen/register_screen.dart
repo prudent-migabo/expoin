@@ -77,9 +77,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       listener: (context, state) {
         if (state is UserCreated) {
           _sendEmailMethod();
-          Navigator.pushNamedAndRemoveUntil(context, EmailVerificationScreen.routeName, (route) => false);
+          Navigator.pushNamedAndRemoveUntil(context, PinScreen.routeName, (route) => false);
           successToast(
-              message: 'Vous êtes enregistrée, verifions votre adresse mail');
+              message: 'Vous êtes enregistrée');
           _clearFields();
         } else if (state is ErrorState) {
           errorDialog(context, content: state.message);

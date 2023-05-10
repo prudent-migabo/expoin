@@ -9,7 +9,7 @@ class SendEmailVerificationEvent extends MesPiecesEvent{
     AuthRepository repository = AuthRepository();
     try {
       await repository.emailVerification();
-      yield SuccessfulEmailVerification();
+      yield EmailSent();
     } on FirebaseAuthException catch (e){
       yield ErrorState(
         message: AuthExceptionHandler.generateExceptionMessage(e.code),

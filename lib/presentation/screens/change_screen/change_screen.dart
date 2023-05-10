@@ -70,7 +70,7 @@ class _ChangeScreenState extends State<ChangeScreen> {
                                     transactionMessage: changeModelState.transactionMessage,
                                     userName: userName,
                                     isPending: true,
-                                    boutiqueName: MesPiecesBloc.selectedCryptoName,
+                                    boutiqueName: MesPiecesBloc.selectedBoutiqueName,
                                     boutiqueID: MesPiecesBloc.selectedBoutiqueID,
                                   ),
                               );
