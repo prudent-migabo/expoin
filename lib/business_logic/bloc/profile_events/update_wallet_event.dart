@@ -18,7 +18,9 @@ class UpdateWalletEvent extends MesPiecesEvent {
       await repository.updateWalletAddress(cryptoName: cryptoName, newWalletAddress: newWalletAddress);
       yield CryptoUpdated();
     } catch(e){
-      yield ErrorState();
+      yield ErrorState(
+        message: e.toString(),
+      );
     }
 
   }
