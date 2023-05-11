@@ -18,7 +18,9 @@ class CardCryptoModel extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            leading:  CircleAvatar(radius: 20, backgroundImage: AssetImage(image!)),
+            leading:  CircleAvatar(
+                backgroundColor: Colors.transparent,
+                radius: 20, backgroundImage: AssetImage(image!)),
             title: Text(title!, style: GoogleFonts.dmSans(fontWeight: bold, fontSize: 14),),
             // trailing: trailing,
           ),

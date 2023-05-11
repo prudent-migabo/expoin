@@ -41,7 +41,13 @@ class _PinScreenState extends State<PinScreen> {
           _sendEmailMethod();
           Navigator.pushNamedAndRemoveUntil(context, EmailVerificationScreen.routeName, (route) => false);
           _pinput.clear();
-        } else if (state is ErrorState) {
+        }  else if (state is EmailSent) {
+          successToast(message: 'Requête de vérification email envoyée');
+          _sendEmailMethod();
+          Navigator.pushNamedAndRemoveUntil(context, EmailVerificationScreen.routeName, (route) => false);
+          _pinput.clear();
+        }
+        else if (state is ErrorState) {
           errorDialog(context, content: state.message);
         } else if (state is NoNetworkState) {
           noNetworkToast(context);

@@ -8,7 +8,6 @@ class WrapperEvent extends MesPiecesEvent {
 
     try{
       UserModel userModel = await repository.userInfo();
-      print ('rrrrrrrrrrrrrrrrrrrrrrrrrrr ${userModel.lastName}, ${userModel.isBlocked}, ${userModel.isDeleted}');
       yield WrapperState(
         isBlocked: userModel.isBlocked,
         isDeleted: userModel.isDeleted,
@@ -16,7 +15,9 @@ class WrapperEvent extends MesPiecesEvent {
         email: userModel.email,
       );
     }catch(e) {
-      yield ErrorState();
+      yield ErrorState(
+        message: e.toString(),
+      );
     }
 
   }

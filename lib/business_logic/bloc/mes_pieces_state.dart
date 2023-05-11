@@ -40,7 +40,7 @@ class IsEmailVerified extends MesPiecesState{}
 
 class IsNotEmailVerified extends MesPiecesState {}
 
-class SuccessfulEmailVerification extends MesPiecesState {}
+class EmailSent extends MesPiecesState {}
 
 class CryptoCardSelected extends MesPiecesState {
   int ind;

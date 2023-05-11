@@ -46,7 +46,9 @@ class _ListSelectedCryptoState extends State<ListSelectedCrypto> {
                   child: Card(
                     margin: EdgeInsets.symmetric(vertical: 1),
                     child: ListTile(
-                      leading: CircleAvatar(radius: 15, backgroundImage: AssetImage(cryptoImageSelector(data.name!)),),
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        radius: 15, backgroundImage: AssetImage(cryptoImageSelector(data.name!)),),
                       title: Container(
                           padding: EdgeInsets.only(top: 10),
                           child: Text(data.name!, style: GoogleFonts.dmSans(fontWeight: bold, fontSize: 14))),

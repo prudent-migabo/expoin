@@ -60,11 +60,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         if (state is IsEmailVerified){
           Navigator.pushNamedAndRemoveUntil(context, AccountConfigurationScreen.routeName, (route) => false);
           timer!.cancel();
-        } else if (state is SuccessfulEmailVerification) {
-          successToast(message: 'Requête de verification envoyée');
-
+        } else if (state is EmailSent) {
+          successToast(message: 'Requête de vérification email envoyée');
         } else if (state is UserLoggedOut){
-          successToast(message: 'Deconnecté avec success');
+          successToast(message: 'Deconnecté avec succès');
           Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
         }  else if (state is ErrorState) {
           errorDialog(context, content: state.message);
@@ -83,14 +82,14 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
             SizedBox(height: 25,),
             Text('Nous avons envoyé un email à votre adresse ${_auth.currentUser!.email ?? '@gmail.com'}. Veuillez suivre les instructions pour confirmer votre mail', style: TextStyle(fontSize: 15),),
             SizedBox(height: 20,),
-            Text("Si vous n'avez pas recu l'email, veuillez cliquer le botton ci-dessous", style: TextStyle(fontSize: 15),),
+            Text("Si vous n'avez pas reçu l'email, veuillez cliquer le botton ci-dessous", style: TextStyle(fontSize: 15),),
             SizedBox(height: 35,),
             CustomButton(text: "Renvoyer l'email", onPressed: _sendEmailMethod),
             SizedBox(height: 10,),
             BlankButton(
               borderColor: primary,
                 textColor: primary,
-                text: "Se deconnecter", onPressed: _logout),
+                text: "Se déconnecter", onPressed: _logout),
           ],
         ),
       ),
