@@ -27,6 +27,16 @@ class CashInRepository {
   //   return transactionRef.
   // }
 
+  Future listCashInMonit() async{
+    var a = await transactionRef
+        .doc(cashIn)
+        .collection(userCashIn)
+        .where('uid', isEqualTo: auth!.currentUser!.uid)
+        .orderBy('date', descending: true)
+        .get();
+    print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ${a.docs.map((e) => print(e.data()))}');
+  }
+
   List<CashInModel> listCashInMonitor({QuerySnapshot? snapshot}) {
     return snapshot!.docs.map((docs) => CashInModel.fromMap(docs)).toList();
   }

@@ -12,6 +12,7 @@ class GetCashInTotalEvent extends MesPiecesEvent {
       for (var a in list) {
         totalAmount = totalAmount + double.parse(a.amountToSend);
       }
+
       yield GotCashInTotal(
         cashInTotal: totalAmount,
       );

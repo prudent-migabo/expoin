@@ -9,7 +9,7 @@ class ImagesRepository{
   }
 
   Stream<List<ImageModel>> getListImages (){
-    return imageRef.snapshots().map(listImages);
+    return imageRef.orderBy('createdAt', descending: true).snapshots().map(listImages);
   }
 
 

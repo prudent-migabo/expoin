@@ -112,7 +112,7 @@ class InformationRepository {
   }
 
   Stream<List<BoutiqueModel>> getListBoutique() {
-    return boutiqueRef.orderBy('createdAt', descending: true).snapshots().map(listBoutiques);
+    return boutiqueRef.where('isSubscribed', isEqualTo: true).orderBy('createdAt', descending: true).snapshots().map(listBoutiques);
   }
 
   //////============ METHOD THAT RETRIEVES THE ACTIVES CRYPTOS IN FIRESTORE =========/////////
