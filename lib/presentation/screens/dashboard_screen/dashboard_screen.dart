@@ -40,9 +40,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     context.read<TotalAmountProvider>().getCashInInfo();
     context.read<TotalAmountProvider>().getCashOutInfo();
     context.read<TotalAmountProvider>().getChangeInfo();
-    //_totalAmountProvider.getCashInInfo();
-    getInfo();
-   // _bloc.add(GetCashInTotalEvent());
+    CashInRepository().listCashInMonit();
+    //getInfo();
+    // _bloc.add(GetCashInTotalEvent());
     super.initState();
   }
 
